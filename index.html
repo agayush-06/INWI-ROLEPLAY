@@ -251,7 +251,7 @@
                 location.reload();
             } else {
                 localStorage.setItem('exam_lock', Date.now() + 10); // 24h Lock
-                alert(`FAILED. Score: ${score}/10. You need 7 correct. Access locked for 24h.`);
+                alert(`FAILED. Score: ${score}/10. You need 7 correct. Access locked for 10sec.`);
                 location.reload();
             }
         }
