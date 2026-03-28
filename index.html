@@ -3,92 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Personal Dashboard</title>
+    <title>INWI RP | Elite Citizen Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; }
-        .gold-text { color: #d4af37; }
-        .gold-bg { background-color: #d4af37; }
-        .glass { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.1); }
-        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap');
+        
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #0a0a0a;
+        }
+
+        body { 
+            background-color: var(--dark-bg); 
+            color: #ffffff; 
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.9)),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+
+        .font-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+        
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        /* Animated Gold Glow */
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            transition: all 0.5s ease;
+        }
+        .gold-glow:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            border-color: var(--gold);
+        }
+
+        /* Gold Gradient Text */
+        .text-gradient {
+            background: linear-gradient(45deg, #d4af37, #f7e08a, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-elite {
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            color: black;
+            font-weight: 800;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        .btn-elite:hover {
+            transform: skewX(-5deg) scale(1.05);
+            filter: brightness(1.2);
+        }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 glass px-8 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold gold-text italic">INWI <span class="text-white">RP</span></div>
-        <div id="user-pill" class="hidden flex items-center gap-3 bg-black/50 p-1 pr-4 rounded-full border border-white/10">
-            <img id="nav-avatar" src="" class="h-8 w-8 rounded-full border border-gold-bg">
-            <span id="nav-name" class="text-xs font-bold uppercase tracking-widest"></span>
-            <button onclick="logout()" class="text-[10px] text-red-500 font-bold ml-2">LOGOUT</button>
+    <div class="fixed inset-0 pointer-events-none opacity-10" style="background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px); background-size: 20px 20px;"></div>
+
+    <nav class="fixed w-full z-50 py-6 px-10 flex justify-between items-center border-b border-white/5 bg-black/40 backdrop-blur-md">
+        <div class="text-3xl font-sync tracking-tighter text-gradient italic">INWI <span class="text-white">RP</span></div>
+        <div id="user-nav" class="hidden flex items-center gap-4">
+            <div class="text-right hidden md:block">
+                <p id="nav-name" class="text-xs font-bold uppercase tracking-widest"></p>
+                <p class="text-[9px] text-gray-500 uppercase">Authenticated Citizen</p>
+            </div>
+            <img id="nav-avatar" src="" class="h-10 w-10 border border-gold-bg p-0.5 rounded-sm">
         </div>
     </nav>
 
-    <section id="login-screen" class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h1 class="text-6xl font-bold mb-4 tracking-tighter">CITIZEN <span class="gold-text">PORTAL</span></h1>
-        <p class="text-gray-500 mb-10 tracking-[4px] uppercase text-[10px]">Secure Access • Kamal Kumar Agarwal</p>
-        <button onclick="discordLogin()" class="gold-bg text-black px-12 py-4 btn-font font-bold text-lg hover:tracking-[5px] transition-all duration-500">
-            Login with Discord
-        </button>
+    <section id="login-section" class="relative h-screen flex flex-col justify-center items-center text-center px-6">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#d4af37]/5 rounded-full blur-[120px]"></div>
+        
+        <h1 class="text-7xl md:text-9xl font-sync font-bold tracking-tighter mb-2 animate-pulse">INWI</h1>
+        <h2 class="text-2xl md:text-3xl font-sync text-gradient tracking-[15px] mb-12">Roleplay</h2>
+        
+        <div class="glass-panel p-1 rounded-sm">
+            <button onclick="discordLogin()" class="btn-elite px-16 py-6 text-xl">
+                IDENTIFY CITIZEN
+            </button>
+        </div>
+        <p class="mt-20 text-[10px] text-gray-600 uppercase tracking-[10px] font-bold">Encrypted Connection • Kamal Kumar Agarwal</p>
     </section>
 
-    <section id="dashboard-screen" class="hidden pt-32 px-6 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section id="dashboard-section" class="hidden pt-32 pb-20 px-6 max-w-7xl mx-auto relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             
-            <div class="glass p-8 flex flex-col items-center text-center">
-                <img id="dash-avatar" src="" class="h-32 w-32 rounded-full border-2 border-gold-bg mb-4 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
-                <h2 id="dash-name" class="text-3xl font-bold gold-text italic mb-1"></h2>
-                <p id="dash-id" class="text-[10px] text-gray-600 font-mono mb-6"></p>
-                <div class="w-full h-[1px] bg-white/5 mb-6"></div>
-                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Citizenship Status</p>
-                <p id="dash-status" class="text-lg font-bold text-yellow-500">PENDING EXAM</p>
+            <div class="lg:col-span-1 space-y-6">
+                <div class="glass-panel p-8 text-center gold-glow">
+                    <div class="relative inline-block mb-6">
+                        <img id="dash-avatar" src="" class="h-40 w-40 grayscale hover:grayscale-0 transition duration-500 border-2 border-gold-bg p-1 shadow-2xl">
+                        <div class="absolute -bottom-2 -right-2 bg-green-500 h-5 w-5 rounded-full border-4 border-[#0a0a0a]"></div>
+                    </div>
+                    <h2 id="dash-name" class="text-2xl font-sync text-gradient mb-2"></h2>
+                    <div class="inline-block px-4 py-1 border border-white/10 text-[9px] uppercase tracking-widest text-gray-400 mb-8">
+                        Citizen ID: <span id="dash-id"></span>
+                    </div>
+                    
+                    <button onclick="logout()" class="w-full py-3 border border-red-900/30 text-red-500 text-[10px] font-bold uppercase tracking-widest hover:bg-red-900/10 transition">Terminate Session</button>
+                </div>
+
+                <div class="glass-panel p-6 border-l-4 border-gold-bg">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold mb-4 tracking-widest">Visa Progress</p>
+                    <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                        <div id="visa-bar" class="bg-gradient-to-r from-[#d4af37] to-[#b8860b] h-full" style="width: 25%"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="md:col-span-2 space-y-6">
-                <div class="glass p-6 border-l-4 border-gold-bg">
-                    <h3 class="text-sm font-bold tracking-widest text-gray-400 mb-4">CITY LIVE STATUS</h3>
-                    <div class="flex justify-between items-end">
-                        <span class="text-4xl font-bold">ONLINE</span>
-                        <span class="text-gold-text font-mono text-xl">127.0.0.1:30120</span>
+            <div class="lg:col-span-3 space-y-8">
+                <div class="glass-panel p-10 flex flex-col md:flex-row justify-between items-center gold-glow">
+                    <div>
+                        <h3 class="text-xs text-gray-500 font-bold uppercase tracking-[5px] mb-2">Network Status</h3>
+                        <p class="text-5xl font-sync text-white">CITY <span class="text-green-500">LIVE</span></p>
+                    </div>
+                    <div class="text-right mt-6 md:mt-0">
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Global Connection</p>
+                        <p class="text-xl font-mono text-gradient">127.0.0.1:30120</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="glass p-6 text-center">
-                        <p class="text-[10px] text-gray-500 uppercase font-bold mb-2">Total Hours</p>
-                        <p class="text-3xl font-bold gold-text">0.0</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-panel p-8 group hover:bg-gold-bg/5 transition cursor-pointer" onclick="location.href='#exam'">
+                        <div class="h-12 w-12 border border-gold-bg flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                            <span class="gold-text">📝</span>
+                        </div>
+                        <h4 class="text-xl font-sync mb-2">Apply for Visa</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-tighter">Submit your background check and character story to enter the city.</p>
                     </div>
-                    <div class="glass p-6 text-center">
-                        <p class="text-[10px] text-gray-500 uppercase font-bold mb-2">Bank Balance</p>
-                        <p class="text-3xl font-bold gold-text">$0</p>
+
+                    <div class="glass-panel p-8 group hover:bg-gold-bg/5 transition cursor-pointer">
+                        <div class="h-12 w-12 border border-gold-bg flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                            <span class="gold-text">💎</span>
+                        </div>
+                        <h4 class="text-xl font-sync mb-2">Founder Perks</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-tighter">View your Diamond Founder benefits and exclusive server access.</p>
                     </div>
                 </div>
-
-                <button onclick="startVisaProcess()" id="action-btn" class="w-full py-6 gold-bg text-black btn-font font-bold text-2xl hover:bg-white transition">
-                    START VISA APPLICATION
-                </button>
             </div>
+
         </div>
     </section>
 
     <script>
-        const CLIENT_ID = "YOUR_CLIENT_ID"; 
+        const CLIENT_ID = "1481267542780809328"; 
         const REDIRECT = window.location.origin + window.location.pathname;
 
-        // Check if user is already logged in
         window.onload = async () => {
-            const savedUser = localStorage.getItem('inwi_user');
+            const saved = localStorage.getItem('inwi_session');
             const params = new URLSearchParams(window.location.hash.slice(1));
             const token = params.get('access_token');
 
             if (token) {
-                // New Login
-                fetchUserData(token);
-                window.location.hash = ""; 
-            } else if (savedUser) {
-                // Return User
-                showDashboard(JSON.parse(savedUser));
+                const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
+                const u = await res.json();
+                const data = { name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` };
+                localStorage.setItem('inwi_session', JSON.stringify(data));
+                window.location.hash = "";
+                init(data);
+            } else if (saved) {
+                init(JSON.parse(saved));
             }
         };
 
@@ -96,41 +176,21 @@
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
         }
 
-        async function fetchUserData(token) {
-            const res = await fetch('https://discord.com/api/users/@me', { 
-                headers: { authorization: `Bearer ${token}` } 
-            });
-            const user = await res.json();
-            const userData = {
-                name: user.username,
-                id: user.id,
-                avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-            };
-            localStorage.setItem('inwi_user', JSON.stringify(userData));
-            showDashboard(userData);
-        }
-
-        function showDashboard(user) {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('dashboard-screen').classList.remove('hidden');
-            document.getElementById('user-pill').classList.remove('hidden');
+        function init(user) {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('dashboard-section').classList.remove('hidden');
+            document.getElementById('user-nav').classList.remove('hidden');
             
-            // Fill Data
             document.getElementById('nav-name').innerText = user.name;
             document.getElementById('nav-avatar').src = user.avatar;
             document.getElementById('dash-name').innerText = user.name;
             document.getElementById('dash-avatar').src = user.avatar;
-            document.getElementById('dash-id').innerText = `UID: ${user.id}`;
+            document.getElementById('dash-id').innerText = user.id;
         }
 
         function logout() {
-            localStorage.removeItem('inwi_user');
+            localStorage.removeItem('inwi_session');
             location.reload();
-        }
-
-        function startVisaProcess() {
-            // This would link to your Exam/Bio section
-            alert("Redirecting to INWI Examination...");
         }
     </script>
 </body>
