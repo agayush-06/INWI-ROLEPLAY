@@ -3,157 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Elite Citizen Portal</title>
+    <title>INWI RP | Master Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap');
-        
-        :root {
-            --gold: #d4af37;
-            --dark-bg: #0a0a0a;
-        }
-
-        body { 
-            background-color: var(--dark-bg); 
-            color: #ffffff; 
-            font-family: 'Inter', sans-serif;
-            background-image: 
-                linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.9)),
-                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-        }
-
-        .font-sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
-        
-        /* Glassmorphism Effect */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-        }
-
-        /* Animated Gold Glow */
-        .gold-glow {
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-            transition: all 0.5s ease;
-        }
-        .gold-glow:hover {
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
-            border-color: var(--gold);
-        }
-
-        /* Gold Gradient Text */
-        .text-gradient {
-            background: linear-gradient(45deg, #d4af37, #f7e08a, #b8860b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .btn-elite {
-            background: linear-gradient(45deg, #d4af37, #b8860b);
-            color: black;
-            font-weight: 800;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-        }
-        .btn-elite:hover {
-            transform: skewX(-5deg) scale(1.05);
-            filter: brightness(1.2);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;600;800&display=swap');
+        :root { --gold: #d4af37; --dark: #050505; }
+        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .font-sync { font-family: 'Syncopate', sans-serif; }
+        .glass { background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.15); }
+        .gold-gradient { background: linear-gradient(45deg, #d4af37, #f7e08a, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-gold { background: var(--gold); color: black; font-weight: 800; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%); transition: 0.3s; }
+        .btn-gold:disabled { background: #333; color: #666; cursor: not-allowed; transform: none; }
+        .bg-mesh { position: fixed; inset: 0; z-index: -1; background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%); }
     </style>
 </head>
-<body class="min-h-screen overflow-x-hidden">
+<body>
 
-    <div class="fixed inset-0 pointer-events-none opacity-10" style="background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px); background-size: 20px 20px;"></div>
+    <div class="bg-mesh"></div>
 
-    <nav class="fixed w-full z-50 py-6 px-10 flex justify-between items-center border-b border-white/5 bg-black/40 backdrop-blur-md">
-        <div class="text-3xl font-sync tracking-tighter text-gradient italic">INWI <span class="text-white">RP</span></div>
-        <div id="user-nav" class="hidden flex items-center gap-4">
-            <div class="text-right hidden md:block">
-                <p id="nav-name" class="text-xs font-bold uppercase tracking-widest"></p>
-                <p class="text-[9px] text-gray-500 uppercase">Authenticated Citizen</p>
-            </div>
-            <img id="nav-avatar" src="" class="h-10 w-10 border border-gold-bg p-0.5 rounded-sm">
+    <nav class="fixed w-full z-50 p-6 flex justify-between items-center glass border-b border-white/5 bg-black/50">
+        <div class="text-2xl font-sync gold-gradient italic tracking-tighter">INWI <span class="text-white">RP</span></div>
+        <div id="nav-user" class="hidden flex items-center gap-4">
+            <span id="nav-username" class="text-[10px] font-bold uppercase tracking-widest text-gray-400"></span>
+            <img id="nav-avatar" src="" class="h-8 w-8 border border-gold-bg rounded-full">
+            <button onclick="logout()" class="text-[9px] text-red-500 font-bold px-2 py-1">EXIT</button>
         </div>
     </nav>
 
-    <section id="login-section" class="relative h-screen flex flex-col justify-center items-center text-center px-6">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#d4af37]/5 rounded-full blur-[120px]"></div>
-        
-        <h1 class="text-7xl md:text-9xl font-sync font-bold tracking-tighter mb-2 animate-pulse">INWI</h1>
-        <h2 class="text-2xl md:text-3xl font-sync text-gradient tracking-[15px] mb-12">Roleplay</h2>
-        
-        <div class="glass-panel p-1 rounded-sm">
-            <button onclick="discordLogin()" class="btn-elite px-16 py-6 text-xl">
-                IDENTIFY CITIZEN
-            </button>
+    <section id="auth-view" class="h-screen flex flex-col justify-center items-center text-center px-6">
+        <div class="max-w-md w-full glass p-10 space-y-8">
+            <h2 class="text-2xl font-sync gold-gradient italic">Citizen Portal</h2>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest leading-loose">Authenticated access required for Kamal Kumar Agarwal's INWI Roleplay network.</p>
+            <button onclick="discordLogin()" class="btn-gold w-full py-5 text-sm uppercase">Login with Discord</button>
         </div>
-        <p class="mt-20 text-[10px] text-gray-600 uppercase tracking-[10px] font-bold">Encrypted Connection • Ayush Agarwal</p>
     </section>
 
-    <section id="dashboard-section" class="hidden pt-32 pb-20 px-6 max-w-7xl mx-auto relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <div class="lg:col-span-1 space-y-6">
-                <div class="glass-panel p-8 text-center gold-glow">
-                    <div class="relative inline-block mb-6">
-                        <img id="dash-avatar" src="" class="h-40 w-40 grayscale hover:grayscale-0 transition duration-500 border-2 border-gold-bg p-1 shadow-2xl">
-                        <div class="absolute -bottom-2 -right-2 bg-green-500 h-5 w-5 rounded-full border-4 border-[#0a0a0a]"></div>
-                    </div>
-                    <h2 id="dash-name" class="text-2xl font-sync text-gradient mb-2"></h2>
-                    <div class="inline-block px-4 py-1 border border-white/10 text-[9px] uppercase tracking-widest text-gray-400 mb-8">
-                        Citizen ID: <span id="dash-id"></span>
-                    </div>
-                    
-                    <button onclick="logout()" class="w-full py-3 border border-red-900/30 text-red-500 text-[10px] font-bold uppercase tracking-widest hover:bg-red-900/10 transition">Terminate Session</button>
+    <section id="dash-view" class="hidden pt-32 px-6 max-w-6xl mx-auto pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="space-y-6">
+                <div class="glass p-8 text-center border-l-2 border-gold-bg">
+                    <img id="dash-avatar" src="" class="h-32 w-32 mx-auto border-2 border-gold-bg mb-4 grayscale hover:grayscale-0 transition duration-700">
+                    <h2 id="dash-username" class="text-2xl font-sync gold-gradient mb-1"></h2>
+                    <p id="dash-id" class="text-[9px] text-gray-500 font-mono"></p>
                 </div>
-
-                <div class="glass-panel p-6 border-l-4 border-gold-bg">
-                    <p class="text-[9px] text-gray-500 uppercase font-bold mb-4 tracking-widest">Visa Progress</p>
-                    <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                        <div id="visa-bar" class="bg-gradient-to-r from-[#d4af37] to-[#b8860b] h-full" style="width: 25%"></div>
-                    </div>
+                <div id="cooldown-box" class="hidden glass p-6 border-l-4 border-red-600 bg-red-900/10">
+                    <p class="text-red-500 font-bold text-[10px] uppercase mb-1">Exam Cooldown Active</p>
+                    <p id="timer" class="text-xl font-mono text-white">24:00:00</p>
                 </div>
             </div>
 
-            <div class="lg:col-span-3 space-y-8">
-                <div class="glass-panel p-10 flex flex-col md:flex-row justify-between items-center gold-glow">
-                    <div>
-                        <h3 class="text-xs text-gray-500 font-bold uppercase tracking-[5px] mb-2">Network Status</h3>
-                        <p class="text-5xl font-sync text-white">CITY <span class="text-green-500">LIVE</span></p>
-                    </div>
-                    <div class="text-right mt-6 md:mt-0">
-                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Global Connection</p>
-                        <p class="text-xl font-mono text-gradient">127.0.0.1:30120</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-panel p-8 group hover:bg-gold-bg/5 transition cursor-pointer" onclick="location.href='#exam'">
-                        <div class="h-12 w-12 border border-gold-bg flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                            <span class="gold-text">📝</span>
-                        </div>
-                        <h4 class="text-xl font-sync mb-2">Apply for Visa</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-tighter">Submit your background check and character story to enter the city.</p>
-                    </div>
-
-                    <div class="glass-panel p-8 group hover:bg-gold-bg/5 transition cursor-pointer">
-                        <div class="h-12 w-12 border border-gold-bg flex items-center justify-center mb-6 group-hover:scale-110 transition">
-                            <span class="gold-text">💎</span>
-                        </div>
-                        <h4 class="text-xl font-sync mb-2">Founder Perks</h4>
-                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-tighter">View your Diamond Founder benefits and exclusive server access.</p>
-                    </div>
+            <div class="md:col-span-2 space-y-6">
+                <div class="glass p-10">
+                    <h3 class="text-3xl font-sync mb-4 italic">Apply for <span class="gold-gradient">Visa</span></h3>
+                    <p class="text-gray-400 text-sm mb-8 leading-relaxed">To ensure the highest roleplay standards, every citizen must pass the 10-question evaluation. You need <span class="text-white font-bold">7/10</span> to be auto-whitelisted.</p>
+                    <button id="exam-btn" onclick="openExam()" class="btn-gold px-12 py-5 text-sm uppercase">Start Examination</button>
                 </div>
             </div>
-
         </div>
     </section>
+
+    <div id="exam-view" class="hidden fixed inset-0 z-[60] bg-black/95 flex justify-center items-center px-4 py-10 overflow-y-auto">
+        <div class="max-w-2xl w-full glass p-10 relative">
+            <h2 class="text-3xl font-sync gold-gradient mb-8 italic">Examination <span class="text-white text-xs not-italic">(Score 7+ to pass)</span></h2>
+            <div id="exam-questions" class="space-y-8 max-h-[60vh] overflow-y-auto pr-4">
+                </div>
+            <button onclick="submitExam()" class="btn-gold w-full py-5 mt-10">TRANSMIT TO STAFF</button>
+        </div>
+    </div>
 
     <script>
-        const CLIENT_ID = "1481267542780809328"; 
-        const REDIRECT = window.location.origin + window.location.pathname;
+        const CONFIG = {
+            CLIENT_ID: "1481267542780809328",
+            WEBHOOK: "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq",
+            REDIRECT: window.location.origin + window.location.pathname
+        };
+
+        const QUESTIONS = [
+            { q: "What is Meta-gaming?", a: ["Using OOC info in character", "Playing as a superhero", "Running away from police"], c: 0 },
+            { q: "What is Power-gaming?", a: ["Using mods to fly", "Forcing actions on others without chance to react", "Buying expensive cars"], c: 1 },
+            { q: "A gun is pointed at your head. You should:", a: ["Pull out your gun and shoot", "Comply and value your life", "Run away zig-zagging"], c: 1 },
+            { q: "What is RDM (Random Deathmatch)?", a: ["Killing someone for a valid reason", "Killing someone without any RP reason", "Accidentally hitting a pedestrian"], c: 1 },
+            { q: "What is VDM (Vehicle Deathmatch)?", a: ["Using your car as a weapon", "Drifting in the city", "Racing with friends"], c: 0 },
+            { q: "New Life Rule (NLR) means:", a: ["You remember everything after you die", "You forget the events leading to your death", "You get a free car when you respawn"], c: 1 },
+            { q: "You see a rule breaker. You should:", a: ["Break the rules back to teach them", "Continue RP and report later to staff", "Shout OOC in the middle of the street"], c: 1 },
+            { q: "Combat Logging is:", a: ["Quitting during active RP/Chase to avoid loss", "Logging out at your house", "Closing the game after a session"], c: 0 },
+            { q: "What is FailRP?", a: ["Doing something unrealistic for your character", "Failing a mission", "Crashing your car"], c: 0 },
+            { q: "The term 'OOC' stands for:", a: ["Only On Camera", "Out Of Character", "Officer On Call"], c: 1 }
+        ];
 
         window.onload = async () => {
             const saved = localStorage.getItem('inwi_session');
@@ -163,35 +99,105 @@
             if (token) {
                 const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
                 const u = await res.json();
-                const data = { name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` };
-                localStorage.setItem('inwi_session', JSON.stringify(data));
+                const session = { name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` };
+                localStorage.setItem('inwi_session', JSON.stringify(session));
                 window.location.hash = "";
-                init(data);
+                init(session);
             } else if (saved) {
                 init(JSON.parse(saved));
             }
         };
 
         function discordLogin() {
-            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CONFIG.CLIENT_ID}&redirect_uri=${encodeURIComponent(CONFIG.REDIRECT)}&response_type=token&scope=identify`;
         }
 
         function init(user) {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('dashboard-section').classList.remove('hidden');
-            document.getElementById('user-nav').classList.remove('hidden');
-            
-            document.getElementById('nav-name').innerText = user.name;
+            document.getElementById('auth-view').classList.add('hidden');
+            document.getElementById('dash-view').classList.remove('hidden');
+            document.getElementById('nav-user').classList.remove('hidden');
+            document.getElementById('nav-username').innerText = user.name;
             document.getElementById('nav-avatar').src = user.avatar;
-            document.getElementById('dash-name').innerText = user.name;
+            document.getElementById('dash-username').innerText = user.name;
             document.getElementById('dash-avatar').src = user.avatar;
-            document.getElementById('dash-id').innerText = user.id;
+            document.getElementById('dash-id').innerText = `IDENT: ${user.id}`;
+            checkCooldown();
         }
 
-        function logout() {
-            localStorage.removeItem('inwi_session');
-            location.reload();
+        function checkCooldown() {
+            const expiry = localStorage.getItem('exam_lock');
+            if (expiry && Date.now() < expiry) {
+                document.getElementById('exam-btn').disabled = true;
+                document.getElementById('cooldown-box').classList.remove('hidden');
+                startTimer(expiry);
+            }
         }
+
+        function startTimer(expiry) {
+            const timer = document.getElementById('timer');
+            const itv = setInterval(() => {
+                const diff = expiry - Date.now();
+                if (diff <= 0) {
+                    clearInterval(itv);
+                    location.reload();
+                }
+                const h = Math.floor(diff/3600000).toString().padStart(2, '0');
+                const m = Math.floor((diff%3600000)/60000).toString().padStart(2, '0');
+                const s = Math.floor((diff%60000)/1000).toString().padStart(2, '0');
+                timer.innerText = `${h}:${m}:${s}`;
+            }, 1000);
+        }
+
+        function openExam() {
+            document.getElementById('exam-view').classList.remove('hidden');
+            const container = document.getElementById('exam-questions');
+            container.innerHTML = QUESTIONS.map((item, i) => `
+                <div class="space-y-4">
+                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">${i+1}. ${item.q}</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        ${item.a.map((ans, j) => `
+                            <label class="block p-4 border border-white/5 bg-white/5 hover:border-gold-bg/40 cursor-pointer text-[10px] uppercase tracking-tighter transition rounded">
+                                <input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function submitExam() {
+            let score = 0;
+            QUESTIONS.forEach((q, i) => {
+                const sel = document.querySelector(`input[name="q${i}"]:checked`);
+                if (sel && parseInt(sel.value) === q.c) score++;
+            });
+
+            const user = JSON.parse(localStorage.getItem('inwi_session'));
+            
+            if (score >= 7) {
+                await fetch(CONFIG.WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: "✅ **PASSED: AUTO-WHITELIST ISSUED**",
+                        embeds: [{
+                            title: `VISA APPROVED: ${user.name.toUpperCase()}`,
+                            color: 13936439,
+                            description: `Score: ${score}/10\nCitizen ID: ${user.id}`,
+                            footer: { text: "INWI Systems • Kamal Kumar Agarwal" }
+                        }]
+                    })
+                });
+                alert(`CONGRATULATIONS! You scored ${score}/10. Access granted.`);
+                window.location.href = "fivem://connect/localhost:30120";
+            } else {
+                localStorage.setItem('exam_lock', Date.now() + 86400000); // 24 Hours
+                alert(`FAILED. Score: ${score}/10. You need 7 correct answers. Access locked for 24 hours.`);
+                location.reload();
+            }
+        }
+
+        function logout() { localStorage.removeItem('inwi_session'); location.reload(); }
     </script>
 </body>
 </html>
