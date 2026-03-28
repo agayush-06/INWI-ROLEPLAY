@@ -243,14 +243,14 @@
                                 { name: "📊 Result", value: `${score}/10`, inline: true },
                                 { name: "⚡ Action", value: `\`/whitelist ${user.id}\`` }
                             ],
-                            footer: { text: "INWI Hub • Kamal Kumar Agarwal" }
+                            footer: { text: "INWI Hub • Ayush Agarwal" }
                         }]
                     })
                 });
                 alert(`SUCCESS! Score: ${score}/10. Whitelist granted.`);
                 location.reload();
             } else {
-                localStorage.setItem('exam_lock', Date.now() + 86400000); // 24h Lock
+                localStorage.setItem('exam_lock', Date.now() + 10); // 24h Lock
                 alert(`FAILED. Score: ${score}/10. You need 7 correct. Access locked for 24h.`);
                 location.reload();
             }
