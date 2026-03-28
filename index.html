@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Citizen Dashboard</title>
+    <title>INWI RP | Secure Citizen Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
@@ -14,8 +14,8 @@
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="pb-20">
@@ -23,56 +23,66 @@
     <nav class="fixed w-full z-50 glass px-8 py-4 border-b border-white/5 flex justify-between items-center">
         <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
-            Authorized:AYUSH AGARAWALl<br>
-            <span id="header-connection" class="text-red-900">ENCRYPTION ACTIVE</span>
+            Authorized: INWI ROLEPLAY<br>
+            <span id="header-connection" class="text-red-900 italic uppercase">Secure Terminal</span>
         </div>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">CITIZEN <span class="gold-text">IDENTITY</span></h1>
-        <p class="text-gray-500 mb-10 tracking-[5px] uppercase text-xs animate-in" style="animation-delay: 0.2s;">Secure Verification Required</p>
-        
-        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 shadow-[0_0_50px_rgba(212,175,55,0.2)] animate-in" style="animation-delay: 0.4s;">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="h-6 invert grayscale">
-            Initialize via Discord
+        <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">CITIZEN <span class="gold-text">PORTAL</span></h1>
+        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 shadow-[0_0_50px_rgba(212,175,55,0.2)] animate-in">
+            Link Discord Account
         </button>
-
         <div id="login-ready" class="hidden mt-10 animate-in">
-            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Enter Citizen Hub</button>
+            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Access Dashboard</button>
         </div>
+        <p class="mt-10 text-[9px] text-gray-700 uppercase tracking-widest font-bold tracking-[5px]">Portal Secured • INWI ROLEPLAY</p>
     </section>
 
     <section id="dashboard" class="hidden max-w-6xl mx-auto pt-32 px-6 animate-in">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="glass p-8 border-t-2 border-gold-bg text-center">
-                <div class="relative inline-block mb-6">
-                    <img id="user-avatar" src="" class="h-32 w-32 border border-gold-bg shadow-2xl grayscale p-1">
-                    <div class="absolute -bottom-2 -right-2 gold-bg h-6 w-6 flex items-center justify-center rounded-full text-black text-[10px] font-bold">✓</div>
-                </div>
+            <div class="glass p-8 border-t-2 border-gold-bg text-center h-fit">
+                <img id="user-avatar" src="" class="h-32 w-32 mx-auto border border-gold-bg shadow-2xl mb-6 grayscale p-1">
                 <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase mb-1"></h2>
-                <p id="player-ip" class="text-[10px] text-gray-600 font-mono mb-6 uppercase">Checking IP...</p>
+                <p id="player-ip" class="text-[10px] text-gray-600 font-mono mb-6 italic uppercase">Scanning Network...</p>
                 <div id="app-status-badge" class="py-2 px-4 w-full text-[10px] font-bold uppercase border border-gold-bg gold-text italic">
                     Status: Unverified
                 </div>
             </div>
 
             <div class="lg:col-span-2 glass p-10 relative overflow-hidden">
-                <h3 class="text-4xl font-bold mb-6 italic uppercase">Visa <span class="gold-text">Control</span></h3>
-                <div id="dash-content" class="space-y-6">
+                <div id="dash-tabs" class="flex gap-8 border-b border-white/5 mb-8 pb-4">
+                    <button onclick="switchTab('visa')" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Control</button>
+                    <button id="rules-tab-btn" onclick="switchTab('rules')" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Server Rules</button>
+                </div>
+
+                <div id="dash-content-visa" class="space-y-6">
                     </div>
+
+                <div id="dash-content-rules" class="hidden space-y-8 custom-scrollbar max-h-[500px] overflow-y-auto pr-4">
+                    <div class="border-l-2 border-gold-bg pl-6">
+                        <h4 class="gold-text font-bold uppercase text-sm mb-4 italic">Citizen Directives</h4>
+                        <ul class="text-[11px] text-gray-400 space-y-4 uppercase tracking-[2px] leading-relaxed">
+                            <li><span class="text-white">Fear RP:</span> You must value your life above all else.</li>
+                            <li><span class="text-white">New Life Rule (NLR):</span> Forget all events upon respawn.</li>
+                            <li><span class="text-white">No Metagaming:</span> Do not use OOC information in-game.</li>
+                            <li><span class="text-white">No RDM / VDM:</span> No killing or ramming without a valid RP reason.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="exam-section" class="hidden max-w-4xl mx-auto pt-32 px-6">
         <div id="quiz-container" class="space-y-4"></div>
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Submit Examination</button>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Process Evaluation</button>
     </section>
 
     <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6">
         <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
         <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm custom-scrollbar" placeholder="Tell us about your character's arrival and intent..."></textarea>
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm custom-scrollbar" placeholder="Character history, traits, and goals (Min 50 words)..."></textarea>
             <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Transmit Data</button>
         </div>
     </section>
@@ -84,6 +94,18 @@
 
         let player = { name: "", id: "", avatar: "", ip: "Pending", score: 0 };
 
+        function switchTab(tab) {
+            if (tab === 'rules') {
+                document.getElementById('dash-content-visa').classList.add('hidden');
+                document.getElementById('dash-content-rules').classList.remove('hidden');
+                document.getElementById('rules-tab-btn').classList.replace('text-gray-500', 'gold-text');
+            } else {
+                document.getElementById('dash-content-rules').classList.add('hidden');
+                document.getElementById('dash-content-visa').classList.remove('hidden');
+                document.getElementById('rules-tab-btn').classList.replace('gold-text', 'text-gray-500');
+            }
+        }
+
         function discordLogin() {
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
         }
@@ -91,26 +113,18 @@
         window.onload = async () => {
             const params = new URLSearchParams(window.location.hash.slice(1));
             const token = params.get('access_token');
-            
             if (token) {
                 const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
                 const u = await res.json();
-                localStorage.setItem('inwi_discord', JSON.stringify({ 
-                    name: u.username, 
-                    id: u.id, 
-                    avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` 
-                }));
+                localStorage.setItem('inwi_discord', JSON.stringify({ name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` }));
                 window.location.hash = "";
             }
-
-            const hasD = localStorage.getItem('inwi_discord');
-            if(hasD) {
+            if(localStorage.getItem('inwi_discord')) {
                 document.getElementById('btn-discord').classList.add('hidden');
                 document.getElementById('login-ready').classList.remove('hidden');
-                document.getElementById('header-connection').innerText = "LINKED";
+                document.getElementById('header-connection').innerText = "ENCRYPTED";
                 document.getElementById('header-connection').classList.replace('text-red-900', 'text-green-500');
             }
-
             fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => player.ip = d.ip);
         };
 
@@ -127,28 +141,34 @@
 
         function updateDashboardUI() {
             const status = localStorage.getItem('inwi_app_status') || 'new';
-            const content = document.getElementById('dash-content');
+            const content = document.getElementById('dash-content-visa');
             const badge = document.getElementById('app-status-badge');
 
             if (status === 'new') {
                 content.innerHTML = `
-                    <div class="border-l-4 border-gold-bg p-6 bg-white/5">
-                        <h4 class="gold-text font-bold uppercase text-sm mb-2 italic">Citizenship Exam Required</h4>
-                        <p class="text-gray-400 text-xs mb-6 uppercase tracking-widest leading-loose">To gain entrance into INWI Roleplay, you must pass our technical evaluation. This tests your knowledge on Fear RP, NLR, and Metagaming.</p>
-                        <button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full hover:bg-white transition">Start 9/10 Evaluation</button>
-                    </div>
-                `;
+                    <div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in">
+                        <h4 class="gold-text font-bold uppercase text-sm mb-2 italic">Visa Evaluation Required</h4>
+                        <p class="text-gray-400 text-xs mb-6 uppercase tracking-widest italic">Score 7/10 required. Check the Rules tab before starting.</p>
+                        <button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full hover:bg-white transition">Start Exam</button>
+                    </div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: VISA PENDING";
                 badge.classList.replace('gold-text', 'text-blue-500');
-                badge.classList.replace('border-gold-bg', 'border-blue-500');
                 content.innerHTML = `
-                    <div class="border-l-4 border-blue-500 p-6 bg-white/5">
-                        <h4 class="text-blue-500 font-bold uppercase text-sm mb-2 italic">Submission Transmitted</h4>
-                        <p class="text-gray-400 text-xs mb-6 uppercase tracking-widest">Your biography and technical scores are currently being reviewed by Kamal Kumar Agarwal's staff. Keep your Discord DMs open.</p>
-                        <div class="animate-pulse text-[10px] text-blue-300">WAITING FOR STAFF HANDSHAKE...</div>
-                    </div>
-                `;
+                    <div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in">
+                        <h4 class="text-blue-500 font-bold uppercase text-sm mb-2 italic">Awaiting Approval Key</h4>
+                        <p class="text-gray-400 text-[10px] mb-8 uppercase tracking-[3px] italic leading-relaxed">Verification sent to DISCORD CHANNEL. Contact staff in Discord to receive your 6-digit key.</p>
+                        <button onclick="enterStaffKey()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[10px] font-bold uppercase hover:bg-blue-500 hover:text-black transition">Enter Staff Key</button>
+                    </div>`;
+            } else if (status === 'approved') {
+                badge.innerText = "Status: VISA ACTIVE";
+                badge.classList.replace('gold-text', 'text-green-500');
+                content.innerHTML = `
+                    <div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in">
+                        <h4 class="text-green-500 font-bold uppercase text-sm mb-2 italic">Welcome to the City</h4>
+                        <p class="text-gray-400 text-[10px] mb-8 uppercase tracking-[3px] italic">Your identity is verified. You are cleared for entry.</p>
+                        <a href="fivem://connect/g67k6z" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center">Enter INWI RP</a>
+                    </div>`;
             }
         }
 
@@ -159,23 +179,23 @@
         }
 
         const examData = [
-            { q: "A masked player with a recognizable voice robs you. Can you say their name?", a: ["Yes, I know it's them", "No; Mask = Identity Protection", "Only if staff is watching"], c: 1 },
-            { q: "You are a passenger and the driver Alt+F4s during a police chase. You should:", a: ["Run away instantly", "Wait for police/staff at the spot", "Drive the car yourself"], c: 1 },
-            { q: "3 gunmen hold you up. Your friend arrives and starts shooting. You should:", a: ["Help your friend", "Comply & fear for life", "Run for cover"], c: 1 },
-            { q: "You are shot in the leg, bandage it, and start sprinting. This is:", a: ["Proper healing", "Fail RP (Injuries must be RPed)", "Allowed in gang wars"], c: 1 },
-            { q: "As a hostage, you overhear the kidnapper's secret location. Can you tell police?", a: ["Yes, I heard it", "No (Passive Meta)", "Only if I have a camera"], c: 1 },
-            { q: "Ramming a player at 100km/h without saying a word is:", a: ["Strategic hit", "VDM & RDM (Bannable)", "Allowed for mafias"], c: 1 },
-            { q: "You respawn after being executed. What is the New Life Rule?", a: ["Remember everything", "Forget the scene/Stay away for 30m", "Call police on the killer"], c: 1 },
-            { q: "Someone is trolling during a serious scene. You should:", a: ["Argue OOC", "Continue RP & Report later", "Troll them back"], c: 1 },
-            { q: "Forcing a player to go to an ATM to empty their bank account is:", a: ["Good robbery", "Greed RP (Forbidden)", "Only for corrupt cops"], c: 1 },
-            { q: "Your character is a rich doctor but starts a random street fight. This is:", a: ["Allowed", "Poor Character Consistency", "Funny RP"], c: 1 }
+            { q: "Fear RP: 3 armed criminals point guns at you. You should:", a: ["Run away", "Comply & Value Life", "Pull out your gun"], c: 1 },
+            { q: "Metagaming: Using Discord info to find a player in-game is:", a: ["Allowed", "Bannable Offense", "Smart"], c: 1 },
+            { q: "VDM: Ramming a car without any reason is:", a: ["Proper RP", "Bannable", "Allowed for Mafias"], c: 1 },
+            { q: "NLR: You respawn after dying. You should:", a: ["Remember who killed you", "Forget the scene & stay away", "Call police"], c: 1 },
+            { q: "Mask Rule: Someone recognizes your voice while you are masked. They can use your name?", a: ["Yes", "No (Identity Protected)", "Only friends"], c: 1 },
+            { q: "RDM: Shooting someone without any prior conversation is:", a: ["Allowed", "Against Rules (RDM)", "Only for Gangs"], c: 1 },
+            { q: "Fail RP: You jump off a bridge and run without any injury RP:", a: ["Proper Play", "Fail RP", "Allowed"], c: 1 },
+            { q: "Interactions: If a player is trolling, you should:", a: ["Troll them back", "Report to Staff & keep RPing", "Shout OOC"], c: 1 },
+            { q: "Robbery: Can you force a player to empty their bank at an ATM?", a: ["Yes", "No (Greed RP Forbidden)", "Only if they have 10k"], c: 1 },
+            { q: "Character: Your character is a peaceful monk but starts shooting at police:", a: ["Consistent RP", "Poor Character Logic", "Allowed"], c: 1 }
         ];
 
         function loadQuiz() {
             const container = document.getElementById('quiz-container');
-            container.innerHTML = `<h2 class="text-3xl font-bold mb-8 gold-text italic tracking-tighter">TECHNICAL EVALUATION</h2>`;
+            container.innerHTML = `<h2 class="text-3xl font-bold mb-8 gold-text italic tracking-tighter uppercase">Visa Exam (7/10 Required)</h2>`;
             examData.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Scenario ${i+1}: ${d.q}</p>` + 
+                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Question ${i+1}: ${d.q}</p>` + 
                 d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
             });
         }
@@ -186,38 +206,48 @@
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
                 if(sel && parseInt(sel.value) === d.c) player.score++;
             });
-            if(player.score >= 9) { 
+            if(player.score >= 7) { 
                 document.getElementById('exam-section').classList.add('hidden'); 
                 document.getElementById('bio-section').classList.remove('hidden'); 
                 window.scrollTo(0,0); 
-            } else { 
-                alert(`SCORE: ${player.score}/10. YOU MUST PASS 9/10.`); 
-                location.reload(); 
-            }
+            } else { alert(`SCORE: ${player.score}/10. 7/10 REQUIRED.`); location.reload(); }
         }
 
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
-            if(bio.length < 50) return alert("Your backstory must be more detailed.");
+            if(bio.length < 50) return alert("Write a longer character story.");
             
+            // GENERATE RANDOM KEY FOR STAFF
+            const approvalKey = Math.random().toString(36).substring(2, 8).toUpperCase();
+            localStorage.setItem('temp_approval_key', approvalKey);
+
             const data = {
-                content: "🔔 **INWI RP: NEW VISA FILED**",
+                content: "🚨 **INWI RP: STAFF INTERVENTION REQUIRED**",
                 embeds: [{
-                    title: "🚀 CITIZEN: " + player.name.toUpperCase(),
-                    color: 13936439,
+                    title: "🚀 APPLICANT: " + player.name.toUpperCase(), color: 13936439,
                     fields: [
                         { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
                         { name: "📊 Score", value: `**${player.score}/10**`, inline: true },
+                        { name: "🔑 APPROVAL KEY", value: `**${approvalKey}**`, inline: false },
                         { name: "📝 Bio", value: "```" + bio + "```" },
                         { name: "🛠️ Cmd", value: `\`/addwhitelist ${player.id}\`` }
                     ],
-                    footer: { text: "Authorized: AYUSH AGARWAL*INWI ROLEPLAY" }
+                    footer: { text: "Authorized:INWI ROLEPLAY" }
                 }]
             };
             await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
             localStorage.setItem('inwi_app_status', 'pending');
-            alert("VISA REQUEST TRANSMITTED.");
+            alert("VISA REQUEST TRANSMITTED. WAIT FOR STAFF KEY.");
             location.reload();
+        }
+
+        function enterStaffKey() {
+            const input = prompt("ENTER YOUR 6-DIGIT APPROVAL KEY:");
+            const correctKey = localStorage.getItem('temp_approval_key');
+            if (input === correctKey) {
+                localStorage.setItem('inwi_app_status', 'approved');
+                updateDashboardUI();
+            } else { alert("INVALID KEY."); }
         }
     </script>
 </body>
