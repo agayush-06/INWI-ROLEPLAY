@@ -3,112 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Secure Portal</title>
+    <title>INWI RP | Elite Identity Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background-color: #020202; color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background-color: #030303; color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .gold-text { color: #d4af37; }
         .gold-bg { background-color: #d4af37; }
-        .glass { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .glass { background: rgba(8, 8, 8, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.1); }
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .animate-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.8s ease-out forwards; }
     </style>
 </head>
 <body class="pb-20">
 
     <nav class="fixed w-full z-50 glass px-8 py-4 border-b border-white/5 flex justify-between items-center">
         <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
-        <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest italic">Authorized Partner: Kamal Kumar Agarwal</div>
+        <div id="nav-status" class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic">Authorized: Kamal Kumar Agarwal</div>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
         <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">INWI <span class="gold-text">ROLEPLAY</span></h1>
-        <p class="text-gray-500 mb-12 uppercase text-[10px] tracking-[0.3em] animate-in" style="animation-delay: 0.1s;">Dual-Identity Verification Required</p>
         
-        <div class="flex flex-col md:flex-row gap-6 animate-in" style="animation-delay: 0.2s;">
+        <div class="glass p-5 mb-12 border-l-4 border-gold-bg text-left max-w-xs w-full animate-in" style="animation-delay: 0.2s;">
+            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1 tracking-widest">Live Server Population</p>
+            <h3 id="server-stats" class="text-xl font-bold font-mono gold-text italic uppercase">CONNECTING...</h3>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 animate-in" style="animation-delay: 0.4s;">
             <button id="btn-discord" onclick="discordLogin()" class="glass border border-white/10 text-white px-10 py-5 btn-font font-bold text-sm hover:border-gold-bg transition flex items-center gap-4 group">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="h-5 invert opacity-50 group-hover:opacity-100">
                 Link Discord
             </button>
             <button id="btn-cfx" onclick="cfxLogin()" class="gold-bg text-black px-10 py-5 btn-font font-bold text-sm hover:bg-white transition flex items-center gap-4">
-                <img src="https://forum.cfx.re/uploads/default/original/4X/a/a/3/aa36c757ec415e9854746654e9514e824317f032.png" class="h-5">
                 Cfx.re Identity
             </button>
         </div>
 
         <div id="login-ready" class="hidden mt-10 animate-in">
-            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg">Enter Dashboard</button>
+            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Access Exam</button>
         </div>
+        <p class="mt-10 text-[9px] text-gray-700 uppercase tracking-widest font-bold">Portal Secured • AYUSH AGARWAL</p>
     </section>
 
-    <section id="dashboard" class="hidden max-w-6xl mx-auto pt-32 px-6">
-        <div class="glass p-4 mb-8 flex justify-between items-center border-l-4 border-gold-bg">
-            <div class="flex items-center gap-4">
-                <div id="status-dot" class="h-3 w-3 rounded-full bg-gray-600 animate-pulse"></div>
-                <span class="btn-font text-sm tracking-widest text-gray-400">STATUS: <span id="status-text" class="gold-text italic">CHECKING...</span></span>
-            </div>
-            <div class="text-[10px] uppercase font-bold text-gray-500">
-                CITIZENS IN CITY: <span id="player-count" class="text-white">0</span>
+    <section id="step-2" class="hidden max-w-4xl mx-auto pt-32 px-6">
+        <div class="flex items-center gap-5 mb-12 glass p-6 border-l-4 border-gold-bg">
+            <img id="user-avatar" src="" class="h-16 w-16 border border-gold-bg shadow-xl grayscale">
+            <div>
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter italic">Citizen Identity Locked</p>
+                <p id="user-display" class="font-bold gold-text text-3xl uppercase italic tracking-tighter"></p>
             </div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="glass p-8 border-t-2 border-gold-bg text-center">
-                <img id="user-avatar" ondblclick="staffDirectApprove()" src="" class="h-32 w-32 mx-auto border border-gold-bg shadow-2xl mb-6 grayscale p-1 cursor-crosshair">
-                <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase mb-1"></h2>
-                <p id="cfx-display" class="text-[9px] text-gray-500 font-mono tracking-widest uppercase mb-6"></p>
-                <div id="status-badge" class="py-2 px-4 inline-block text-[10px] font-bold uppercase tracking-widest border border-white/10 bg-white/5"></div>
-            </div>
-
-            <div class="lg:col-span-2 glass p-10">
-                <h3 id="dash-title" class="text-4xl font-bold mb-6 italic uppercase">CITIZEN <span class="gold-text">DATA</span></h3>
-                <p id="dash-message" class="text-sm text-gray-400 leading-loose mb-10 max-w-md uppercase tracking-wider"></p>
-                <div id="dash-action" class="space-y-4"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="step-exam" class="hidden max-w-4xl mx-auto pt-32 px-6">
         <div id="quiz-container"></div>
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 hover:bg-white transition">Validate Evaluation</button>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl hover:bg-white transition uppercase shadow-2xl mt-10 tracking-widest">Process Evaluation</button>
     </section>
 
-    <section id="step-bio" class="hidden max-w-3xl mx-auto pt-32 px-6">
+    <section id="step-3" class="hidden max-w-3xl mx-auto pt-32 px-6">
         <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
+        <p class="text-gray-500 text-xs mb-10 tracking-widest uppercase font-bold">Minimum 100 words character origin story required.</p>
         <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm custom-scrollbar" placeholder="Tell us about your character's history..."></textarea>
-            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase">Finalize & Transmit</button>
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm custom-scrollbar" placeholder="I arrived in the city with nothing but a dream..."></textarea>
+            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[10px]">Transmit</button>
         </div>
     </section>
 
     <script>
-        // --- CONFIGURATION ---
-        const CLIENT_ID = "1481267542780809328";
-        const WEBHOOK = "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const SERVER_IP = "g67k6z"; // e.g., 123.45.67.89:30120
-        const REDIRECT = window.location.origin + window.location.pathname;
+        // --- MASTER CONFIGURATION ---
+        const CLIENT_ID = "1481267542780809328"; 
+        const WEBHOOK = "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq"; 
+        const CFX_CLIENT_ID = "g67k6z"; 
+        const REDIRECT = "https://agayush-06.github.io/INWI-ROLEPLAY/";
 
-        let authData = {
-            discord: JSON.parse(localStorage.getItem('inwi_discord')) || null,
-            cfx: JSON.parse(localStorage.getItem('inwi_cfx')) || null
-        };
+        let player = { name: "", id: "", avatar: "", ip: "Detecting...", score: 0 };
+        let authStates = { discord: !!localStorage.getItem('inwi_discord'), cfx: !!localStorage.getItem('inwi_cfx') };
 
-        const examData = [
-            { q: "Scenario: A gunman points a weapon at you. You have a weapon holstered. You must:", a: ["Draw and fight", "Comply and RP fear", "Run away"], c: 1 },
-            { q: "You crash at 150km/h and your car flips. The engine works. You must:", a: ["Drive away", "RP heavy injuries", "Fix with kit"], c: 1 },
-            { q: "Recognizing a voice behind a mask is:", a: ["Allowed", "Fail RP (Identity Protection)", "Only for friends"], c: 1 },
-            { q: "If you die and respawn, do you remember your killer?", a: ["No (NLR)", "Yes", "Only if recorded"], c: 0 },
-            { q: "Talking while 'Downed' (Dead) to give tactical info is:", a: ["Skill", "Powergaming (Prohibited)", "Strategy"], c: 1 },
-            { q: "Using Discord info in-game for your advantage is:", a: ["Allowed", "Metagaming (Bannable)", "Only if streamed"], c: 1 },
-            { q: "Killing a player 'just for fun' without prior RP is:", a: ["Allowed", "RDM (Prohibited)", "Allowed with mask"], c: 1 },
-            { q: "You are kidnapped and a friend starts a shootout. You should:", a: ["Grab gun", "Fear for life/stay down", "Run away"], c: 1 },
-            { q: "Correct use of /me command:", a: ["/me steals car", "/me reaches for ID", "/me is admin"], c: 1 },
-            { q: "Someone breaks a rule during a scene. You should:", a: ["Stop RP to yell", "Finish RP / report later", "Call admin in voice chat"], c: 1 }
-        ];
+        // 1. AUTO-STATS & IP
+        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => player.ip = d.ip);
+        async function getStats() {
+            try {
+                const r = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${CFX_CLIENT_ID}`);
+                const d = await r.json();
+                document.getElementById('server-stats').innerText = `${d.Data.players.length} / ${d.Data.sv_maxclients} ONLINE`;
+            } catch(e) { document.getElementById('server-stats').innerText = "CITY OFFLINE"; }
+        }
+        getStats();
+
+        // 2. AUTH FLOWS
+        function discordLogin() {
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
+        }
+        function cfxLogin() {
+            window.location.href = `https://id.fivem.net/login?client_id=${CFX_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=code&scope=identify`;
+        }
 
         window.onload = async () => {
             const params = new URLSearchParams(window.location.hash.slice(1) || window.location.search);
@@ -116,145 +104,87 @@
             if (params.has('access_token')) {
                 const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${params.get('access_token')}` } });
                 const u = await res.json();
-                authData.discord = { name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` };
-                localStorage.setItem('inwi_discord', JSON.stringify(authData.discord));
-                window.location.hash = "";
+                const dData = { name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` };
+                localStorage.setItem('inwi_discord', JSON.stringify(dData));
+                authStates.discord = true;
+                window.location.hash = ""; 
             }
 
             if (params.has('code')) {
-                authData.cfx = { username: "Cfx_User_" + params.get('code').slice(0,4) };
-                localStorage.setItem('inwi_cfx', JSON.stringify(authData.cfx));
+                localStorage.setItem('inwi_cfx', 'true');
+                authStates.cfx = true;
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
 
-            checkLogins();
+            if(authStates.discord) { document.getElementById('btn-discord').innerText = "✓ Discord Linked"; document.getElementById('btn-discord').classList.add('opacity-40', 'pointer-events-none'); }
+            if(authStates.cfx) { document.getElementById('btn-cfx').innerText = "✓ Cfx.re Linked"; document.getElementById('btn-cfx').classList.add('opacity-40', 'pointer-events-none'); }
+            if(authStates.discord && authStates.cfx) document.getElementById('login-ready').classList.remove('hidden');
         };
 
-        async function updateServerStatus() {
-            try {
-                const res = await fetch(`http://${SERVER_IP}/players.json`);
-                const players = await res.json();
-                document.getElementById('status-dot').className = "h-3 w-3 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e]";
-                document.getElementById('status-text').innerText = "LIVE";
-                document.getElementById('player-count').innerText = players.length;
-            } catch (e) {
-                document.getElementById('status-text').innerText = "OFFLINE";
-            }
-        }
-
-const CFX_CLIENT_ID = "g67k6z"; // Your verified Client ID
-
-function discordLogin() { 
-    // Standard Discord OAuth2 flow
-    window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; 
-}
-
-function cfxLogin() { 
-    // Corrected Cfx.re Identity Provider URL
-    window.location.href = `https://id.fivem.net/login?client_id=${CFX_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=code&scope=identify`; 
-}
-
-        function checkLogins() {
-            if(authData.discord) { document.getElementById('btn-discord').innerHTML = "✓ Discord Linked"; document.getElementById('btn-discord').classList.add('opacity-30', 'pointer-events-none'); }
-            if(authData.cfx) { document.getElementById('btn-cfx').innerHTML = "✓ Cfx.re Linked"; document.getElementById('btn-cfx').classList.add('opacity-30', 'pointer-events-none'); }
-            if(authData.discord && authData.cfx) document.getElementById('login-ready').classList.remove('hidden');
-        }
-
         function proceedToDashboard() {
+            const dData = JSON.parse(localStorage.getItem('inwi_discord'));
+            player.name = dData.name; player.id = dData.id; player.avatar = dData.avatar;
             document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            document.getElementById('user-display').innerText = authData.discord.name;
-            document.getElementById('user-avatar').src = authData.discord.avatar;
-            document.getElementById('cfx-display').innerText = `CFX: ${authData.cfx.username} | ID: ${authData.discord.id}`;
-            updateStatusUI();
-            updateServerStatus();
-            setInterval(updateServerStatus, 30000);
+            document.getElementById('step-2').classList.remove('hidden');
+            document.getElementById('user-display').innerText = player.name;
+            document.getElementById('user-avatar').src = player.avatar;
+            loadRulesAndQuiz();
         }
 
-        function updateStatusUI() {
-            const status = localStorage.getItem('inwi_status');
-            const action = document.getElementById('dash-action');
-            const badge = document.getElementById('status-badge');
-            const title = document.getElementById('dash-title');
-            const msg = document.getElementById('dash-message');
+        // 3. ELITE EXAMINATION DATA
+        const examData = [
+            { q: "A masked player with a recognizable voice robs you. Can you say their name?", a: ["Yes, I know it's them", "No; Mask = Identity Protection", "Only if staff is watching"], c: 1 },
+            { q: "You are a passenger and the driver Alt+F4s during a police chase. You should:", a: ["Run away instantly", "Wait for police/staff at the spot", "Drive the car yourself"], c: 1 },
+            { q: "3 gunmen hold you up. Your friend arrives and starts shooting. You should:", a: ["Help your friend", "Comply & fear for life", "Run for cover"], c: 1 },
+            { q: "You are shot in the leg, bandage it, and start sprinting. This is:", a: ["Proper healing", "Fail RP (Injuries must be RPed)", "Allowed in gang wars"], c: 1 },
+            { q: "As a hostage, you overhear the kidnapper's secret location. Can you tell police?", a: ["Yes, I heard it", "No (Passive Meta)", "Only if I have a camera"], c: 1 },
+            { q: "Ramming a player at 100km/h without saying a word is:", a: ["Strategic hit", "VDM & RDM (Bannable)", "Allowed for mafias"], c: 1 },
+            { q: "You respawn after being executed. What is the New Life Rule?", a: ["Remember everything", "Forget the scene/Stay away for 30m", "Call police on the killer"], c: 1 },
+            { q: "Someone is trolling during a serious scene. You should:", a: ["Argue OOC", "Continue RP & Report later", "Troll them back"], c: 1 },
+            { q: "Forcing a player to go to an ATM to empty their bank account is:", a: ["Good robbery", "Greed RP (Forbidden)", "Only for corrupt cops"], c: 1 },
+            { q: "Your character is a rich doctor but starts a random street fight. This is:", a: ["Allowed", "Poor Character Consistency", "Funny RP"], c: 1 }
+        ];
 
-            if (status === 'approved') {
-                badge.innerText = "Authorized"; badge.className += " border-green-500/20 text-green-500";
-                title.innerHTML = `VISA <span class="gold-text">ACTIVE</span>`;
-                msg.innerText = "Credentials validated. Welcome to INWI RP.";
-                action.innerHTML = `<button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black px-12 py-5 btn-font font-bold w-full hover:bg-white transition">Join the City</button>`;
-            } else if (status === 'applied') {
-                badge.innerText = "Pending"; badge.className += " border-blue-500/20 text-blue-400";
-                title.innerHTML = `STAFF <span class="gold-text">REVIEW</span>`;
-                msg.innerText = "Paste the Approval Key from our Discord staff channel below:";
-                action.innerHTML = `<input type="text" id="whitelist-key" class="w-full bg-black border border-white/10 p-4 text-center gold-text font-bold" placeholder="PASTE KEY HERE"><button onclick="verifyKey()" class="gold-bg text-black py-4 btn-font font-bold w-full">Activate Visa</button>`;
-            } else {
-                badge.innerText = "New User";
-                title.innerHTML = `VISA <span class="gold-text">APPLICATION</span>`;
-                msg.innerText = "Link your accounts and pass the evaluation to gain citizenship.";
-                action.innerHTML = `<button onclick="startExam()" class="gold-bg text-black px-12 py-5 btn-font font-bold w-full">Start Evaluation</button>`;
-            }
-        }
-
-        function startExam() {
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('step-exam').classList.remove('hidden');
+        function loadRulesAndQuiz() {
             const container = document.getElementById('quiz-container');
-            container.innerHTML = `<h2 class="text-4xl font-bold mb-8 gold-text italic">CITIZEN EVALUATION</h2>`;
+            container.innerHTML = `<h2 class="text-2xl font-bold mb-8 gold-text italic">ELITE CITIZENSHIP EXAM (PASS: 9/10)</h2>`;
             examData.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-8 border-l-2 border-gold-bg mb-6"><p class="font-bold mb-4 uppercase text-[10px] gold-text italic">Question #${i+1}: ${d.q}</p>` + 
-                d.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-4 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
+                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Scenario ${i+1}: ${d.q}</p>` + 
+                d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
             });
         }
 
         function checkQuiz() {
-            let score = 0;
+            player.score = 0;
             examData.forEach((d, i) => {
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if(sel && parseInt(sel.value) === d.c) score++;
+                if(sel && parseInt(sel.value) === d.c) player.score++;
             });
-            if(score >= 9) {
-                document.getElementById('step-exam').classList.add('hidden');
-                document.getElementById('step-bio').classList.remove('hidden');
-                window.scrollTo(0,0);
-                window.finalScore = score;
-            } else { alert("Evaluation failed. Minimum 9/10 required."); location.reload(); }
+            if(player.score >= 9) { document.getElementById('step-2').classList.add('hidden'); document.getElementById('step-3').classList.remove('hidden'); window.scrollTo(0,0); }
+            else { alert(`FAILED: ${player.score}/10. Read the rules and retry.`); location.reload(); }
         }
 
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
             if(bio.length < 50) return alert("Biography too short.");
-            const staffKey = "INWI-" + authData.discord.id.toString().slice(-4) + "-APPROVED"; 
-            const cmd = `add_principal identifier.discord:${authData.discord.id} group.whitelist`;
-
-            const payload = {
+            const data = {
+                content: "🔔 **ELITE VISA FILED**",
                 embeds: [{
-                    title: "🚀 NEW APPLICATION: " + authData.discord.name,
+                    title: "🚀 APPLICATION: " + player.name.toUpperCase(),
                     color: 13936439,
                     fields: [
-                        { name: "👤 Discord", value: `<@${authData.discord.id}>`, inline: true },
-                        { name: "🎮 Cfx.re", value: authData.cfx.username, inline: true },
-                        { name: "🔑 APPROVAL KEY", value: `\`${staffKey}\`` },
-                        { name: "💻 CONSOLE COMMAND", value: `\`${cmd}\`` },
-                        { name: "📝 Bio", value: "```" + bio + "```" }
+                        { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
+                        { name: "📊 Score", value: `**${player.score}/10**`, inline: true },
+                        { name: "📝 Bio", value: "```" + bio + "```" },
+                        { name: "🛠️ CMD", value: `\`/addwhitelist ${player.id}\`` }
                     ],
-                    footer: { text: "INWI Admin Panel • Kamal Kumar Agarwal" }
+                    footer: { text: "INWI • AYUSH AGARWAL" }
                 }]
             };
-
-            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            localStorage.setItem('inwi_status', 'applied');
-            location.reload();
+            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            alert("TRANSMITTED. CHECK DISCORD.");
+            location.href = "https://discord.gg/Fa6Mb5W9x5";
         }
-
-        function verifyKey() {
-            const input = document.getElementById('whitelist-key').value;
-            const correctKey = "INWI-" + authData.discord.id.toString().slice(-4) + "-APPROVED";
-            if (input === correctKey) { localStorage.setItem('inwi_status', 'approved'); location.reload(); }
-            else alert("Key Invalid.");
-        }
-
-        function staffDirectApprove() { localStorage.setItem('inwi_status', 'approved'); location.reload(); }
     </script>
 </body>
 </html>
