@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
-            Authorized: Kamal Kumar Agarwal<br>
+            Authorized:INWI ROLEPLAY<br>
             <span id="header-connection" class="text-red-900 italic uppercase">Terminal Secured</span>
         </div>
     </nav>
@@ -185,7 +185,7 @@
                 content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm">Action Required</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full">Start Exam</button></div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: PENDING";
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Kamal's Review</h4><button onclick="requestResync()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Staff Review</h4><button onclick="requestResync()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
             } else if (status === 'approved') {
                 badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e";
                 content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in"><h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic">Visa Approved</h4><a href="fivem://connect/${SERVER_IP}" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase">Join Server</a></div>`;
@@ -205,7 +205,7 @@
                         { name: "🔗 APPROVAL LINK", value: `[COPY THIS LINK](${approvalURL})` },
                         { name: "📝 Bio", value: "```" + bio + "```" }
                     ],
-                    footer: { text: "Authorized: Kamal Kumar Agarwal" }
+                    footer: { text: "Authorized: INWI ROLEPLAY" }
                 }]
             };
             await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
