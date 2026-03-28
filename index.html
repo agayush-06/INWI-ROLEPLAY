@@ -3,86 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Secure Portal</title>
+    <title>INWI RP | Auto-Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background-color: #030303; color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background-color: #020202; color: #e5e5e5; font-family: 'Inter', sans-serif; }
         .gold-text { color: #d4af37; }
         .gold-bg { background-color: #d4af37; }
-        .glass { background: rgba(8, 8, 8, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .glass { background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-in { animation: fadeIn 0.8s ease-out forwards; }
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; }
     </style>
 </head>
 <body class="pb-20">
 
-    <nav class="fixed w-full z-50 glass px-8 py-4 border-b border-white/5 flex justify-between items-center">
-        <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
-        <div id="nav-status" class="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Awaiting Verification</div>
+    <nav class="fixed w-full z-50 glass px-8 py-4 flex justify-between items-center border-b border-white/5">
+        <div class="text-2xl font-bold gold-text italic">INWI <span class="text-white">RP</span></div>
+        <div id="nav-status" class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">System Ready</div>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">INWI <span class="gold-text">ROLEPLAY</span></h1>
-        <div class="glass p-5 mb-12 border-l-4 border-gold-bg text-left max-w-xs w-full animate-in" style="animation-delay: 0.2s;">
-            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1 tracking-widest">Server Population</p>
-            <h3 id="server-stats" class="text-xl font-bold font-mono gold-text italic uppercase">Connecting...</h3>
-        </div>
-        <button onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 shadow-[0_0_50px_rgba(212,175,55,0.2)] animate-in" style="animation-delay: 0.4s;">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="h-6 invert grayscale">
-            Validate Discord ID
+        <h1 class="text-7xl font-bold mb-6 tracking-tighter">VISA <span class="gold-text">PORTAL</span></h1>
+        <button onclick="discordLogin()" class="gold-bg text-black px-10 py-4 btn-font font-bold text-lg hover:scale-105 transition duration-300 shadow-[0_0_30px_rgba(212,175,55,0.1)]">
+            Verify via Discord
         </button>
-        <p class="mt-10 text-[9px] text-gray-700 uppercase tracking-widest font-bold">Portal Secured • Kamal Kumar Agarwal</p>
+        <p class="mt-8 text-[8px] text-gray-700 uppercase tracking-[5px] font-bold">AYUSH AGARWAL • Automated Entry</p>
     </section>
 
     <section id="step-2" class="hidden max-w-4xl mx-auto pt-32 px-6">
-        <div class="flex items-center gap-5 mb-12 glass p-6 border-l-4 border-gold-bg">
-            <img id="user-avatar" src="" class="h-16 w-16 border border-gold-bg shadow-xl grayscale hover:grayscale-0 transition duration-700">
-            <div>
-                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter italic">Citizen Identity Locked</p>
-                <p id="user-display" class="font-bold gold-text text-3xl uppercase italic tracking-tighter"></p>
-            </div>
-        </div>
-
-        <div id="quiz-container">
-            </div>
-
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl hover:bg-white transition uppercase shadow-2xl mt-10 tracking-widest">Process Exam</button>
+        <div id="quiz-container"></div>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-5 btn-font text-xl mt-10">Submit Final Exam</button>
     </section>
 
-    <section id="step-3" class="hidden max-w-3xl mx-auto pt-32 px-6">
-        <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
-        <p class="text-gray-500 text-xs mb-10 tracking-widest uppercase font-bold">Minimum 100 words origin story required.</p>
-        <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm custom-scrollbar" placeholder="I arrived in the city with nothing but a dream..."></textarea>
-            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[10px]">Transmit</button>
+    <section id="step-3" class="hidden h-screen flex flex-col justify-center items-center text-center px-6">
+        <div class="glass p-10 border-t-2 border-gold-bg">
+            <h2 class="text-4xl font-bold gold-text mb-4 uppercase italic">Visa Approved</h2>
+            <p class="text-gray-400 mb-8">Your credentials have been synced with txAdmin. You are now whitelisted.</p>
+            <button onclick="joinServer()" class="border-2 border-gold-bg gold-text px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-xl tracking-widest">Launch INWI RP</button>
         </div>
     </section>
 
     <script>
-        /* --- CORE CONFIGURATION (UPDATE THESE) --- */
-        const CLIENT_ID = "1481267542780809328"; // From Discord Developer Portal
-        const WEBHOOK = "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq"; // From Discord Staff Channel
+        /* CONFIGURATION */
+        const CLIENT_ID = "1481267542780809328"; 
+        const WEBHOOK = "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
         const CFX_ID = "g67k6z"; 
+        const BLACKLIST = ["", ""]; // Add Discord IDs here to block them
         const REDIRECT = window.location.origin + window.location.pathname;
 
-        let player = { name: "", id: "", avatar: "", ip: "Checking...", score: 0 };
+        let player = { name: "", id: "", avatar: "", score: 0 };
 
-        /* 1. AUTO-STATS & IP TRACKING */
-        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => player.ip = d.ip);
-        async function getStats() {
-            try {
-                const r = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${CFX_ID}`);
-                const d = await r.json();
-                document.getElementById('server-stats').innerText = `${d.Data.players.length} / ${d.Data.sv_maxclients} ONLINE`;
-            } catch(e) { document.getElementById('server-stats').innerText = "CITY SLEEPING"; }
-        }
-        getStats();
-
-        /* 2. DISCORD AUTH FLOW */
         function discordLogin() {
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
         }
@@ -93,106 +64,73 @@
             if (token) {
                 const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
                 const u = await res.json();
+                
+                if(BLACKLIST.includes(u.id)) {
+                    alert("ACCESS DENIED: Your ID is blacklisted.");
+                    window.location.href = "https://google.com";
+                    return;
+                }
+
                 player.name = u.username;
                 player.id = u.id;
                 player.avatar = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png`;
                 
                 document.getElementById('step-1').classList.add('hidden');
                 document.getElementById('step-2').classList.remove('hidden');
-                document.getElementById('user-display').innerText = player.name;
-                document.getElementById('user-avatar').src = player.avatar;
-                document.getElementById('nav-status').innerText = "IDENTIFIED";
-                loadRulesAndQuiz();
-                window.location.hash = ""; 
+                loadQuiz();
             }
         };
 
-        /* 3. CONTENT DATA */
-        const examData = [
-            { q: "Fear RP: A gunman points a weapon at you. You have a weapon holstered. You must:", a: ["Draw and fight", "Comply (Value life)", "Run away"], c: 1 },
-            { q: "Metagaming: Using knowledge from Discord/OOC chat in-game is:", a: ["Allowed", "Forbidden (Bannable)", "Only for admins"], c: 1 },
-            { q: "Combat Logging: Exiting the game (Alt+F4) during a police chase or active scene is:", a: ["Allowed if PC is slow", "Allowed if I crash", "Strictly Prohibited"], c: 2 },
-            { q: "VDM: Using your vehicle to ram players or other vehicles without deep reason is:", a: ["Valid strategy", "Bannable Offense", "Only for mafias"], c: 1 },
-            { q: "Powergaming: Doing actions physically impossible in real life is:", a: ["Professional Play", "Fail RP", "Allowed if no staff see"], c: 1 },
-            { q: "NLR (New Life Rule): If you die and respawn, do you remember who killed you?", a: ["Yes", "No (You forget the scene)", "Only if recorded"], c: 1 },
-            { q: "OOC: Where do you speak about real-life technical issues?", a: ["In-game mic", "Local/Area Chat", "Discord Support Channel"], c: 2 },
-            { q: "RDM: Killing a player because they looked at you wrong is:", a: ["Allowed RP", "RDM (Forbidden)", "Only for gangs"], c: 1 },
-            { q: "Crash RP: You crash a vehicle at 150km/h. What is the correct action?", a: ["RP the injuries", "Repair and drive away", "Run to the nearest garage"], c: 0 },
-            { q: "Staff: Are you allowed to break character in voice chat to argue a rule?", a: ["Yes", "No (Report via Discord instead)", "Only if they broke a rule first"], c: 1 }
+        const exam = [
+            { q: "Fear RP: You are held at gunpoint. You should:", a: ["Fight back", "Comply & Value life", "Log out"], c: 1 },
+            { q: "Vandalism/VDM: Using your car as a weapon is:", a: ["Allowed", "Bannable", "Only if police chase"], c: 1 }
         ];
 
-        function loadRulesAndQuiz() {
+        function loadQuiz() {
             const container = document.getElementById('quiz-container');
-            container.innerHTML = `
-                <div class="glass p-6 border-b-2 border-gold-bg mb-10 h-64 overflow-y-scroll text-[10px] custom-scrollbar uppercase tracking-widest font-bold">
-                    <h3 class="gold-text font-bold mb-4 text-sm tracking-[5px]">📜 THE INWI CONSTITUTION</h3>
-                    <p class="mb-4 text-white font-bold">SECTION I: CORE RP</p>
-                    <p class="mb-2">● **Fear RP:** You MUST value your life. Resistance at gunpoint is Fail RP.</p>
-                    <p class="mb-2">● **Meta/Power:** Do not use OOC info. Do not force actions on others.</p>
-                    <p class="mb-4 text-white font-bold">SECTION II: COMBAT</p>
-                    <p class="mb-2">● **RDM/VDM:** Zero tolerance. Every attack needs a deep, pre-established RP story.</p>
-                    <p class="mb-2">● **NLR:** Death = Reset. Forget the scene. No returning for 30 mins.</p>
-                    <p class="text-gray-500 italic mt-6 border-t border-white/5 pt-4">--- SCROLL TO BOTTOM TO UNLOCK EXAM ---</p>
-                </div>
-                <h2 class="text-2xl font-bold mb-8 uppercase italic tracking-tighter gold-text">Technical Entrance Exam</h2>
-            `;
-            
-            examData.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5 italic">
-                    <p class="font-bold mb-4 uppercase text-[10px] gold-text italic tracking-widest">Scenario ${i+1}: ${d.q}</p>` + 
-                    d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase tracking-widest transition duration-300"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
+            exam.forEach((d, i) => {
+                container.innerHTML += `<div class="glass p-6 mb-4 border-l-2 border-gold-bg">
+                    <p class="gold-text text-xs font-bold mb-3 uppercase tracking-widest">${d.q}</p>` + 
+                    d.a.map((ans, j) => `<label class="block p-2 text-xs uppercase cursor-pointer"><input type="radio" name="q${i}" value="${j}" class="mr-2"> ${ans}</label>`).join('') + `</div>`;
             });
         }
 
-        /* 4. EXAM SUBMISSION */
         function checkQuiz() {
-            player.score = 0;
-            examData.forEach((d, i) => {
+            let score = 0;
+            exam.forEach((d, i) => {
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if(sel && parseInt(sel.value) === d.c) player.score++;
+                if(sel && parseInt(sel.value) === d.c) score++;
             });
 
-            if(player.score >= 7) {
-                document.getElementById('step-2').classList.add('hidden');
-                document.getElementById('step-3').classList.remove('hidden');
-                window.scrollTo(0,0);
+            if(score >= exam.length) {
+                autoApprove();
             } else {
-                alert(`EXAM FAILED: Score ${player.score}/10. Read the Constitution and retry.`);
+                alert("Exam failed. Please re-read the rules.");
                 location.reload();
             }
         }
 
-        /* 5. STAFF TRANSMISSION (TXADMIN SUPPORT) */
-        async function finalSubmit() {
-            const bio = document.getElementById('backstory').value;
-            const dmLink = `https://discord.com/users/${player.id}`;
-            const txCommand = `/whitelist ${player.id}`; // Correct TxAdmin format
-
+        async function autoApprove() {
             const data = {
-                content: "🔔 **A NEW CITIZEN REQUIRES INWI RP VISA**",
+                content: "✅ **AUTO-APPROVE: CITIZEN REGISTERED**",
                 embeds: [{
-                    title: "🚀 APPLICATION: " + player.name.toUpperCase(),
-                    description: `A potential citizen has cleared the examination and filed their biography. Review required.`,
-                    color: 13936439, // Luxury Gold
+                    title: "🚀 VISA ISSUED: " + player.name.toUpperCase(),
+                    color: 3066993,
                     thumbnail: { url: player.avatar },
                     fields: [
                         { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
-                        { name: "📈 Tech Score", value: `**${player.score}/10**`, inline: true },
-                        { name: "🌐 Network IP", value: `\`${player.ip}\``, inline: true },
-                        { name: "📝 Biography", value: "```" + bio + "```" },
-                        { name: "🛠️ TxAdmin Command", value: `\`${txCommand}\`` },
-                        { name: "🛠️ Staff Quick Action", value: `**[Open Direct Message](${dmLink})**` }
+                        { name: "🛡️ Status", value: "Auto-Whitelisted", inline: true }
                     ],
-                    footer: { text: "INWI Roleplay • TxAdmin Hub • AYUSH AGARWAL" },
-                    timestamp: new Date()
+                    footer: { text: "INWI RP •AYUSH AGARWAL SERVER" }
                 }]
             };
+            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.remove('hidden');
+        }
 
-            try {
-                await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-                alert("TRANSMISSION SUCCESSFUL: Your visa is being reviewed.");
-                location.href = "https://discord.gg/Fa6Mb5W9x5";
-            } catch(e) { alert("ERROR: Transission failed. Check network."); }
+        function joinServer() {
+            window.location.href = "fivem://connect/" + CFX_ID;
         }
     </script>
 </body>
