@@ -3,134 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Auto-Portal</title>
+    <title>INWI RP | Personal Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background-color: #020202; color: #e5e5e5; font-family: 'Inter', sans-serif; }
+        body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; }
         .gold-text { color: #d4af37; }
         .gold-bg { background-color: #d4af37; }
-        .glass { background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
-        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; }
+        .glass { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
     </style>
 </head>
-<body class="pb-20">
+<body class="min-h-screen">
 
-    <nav class="fixed w-full z-50 glass px-8 py-4 flex justify-between items-center border-b border-white/5">
+    <nav class="fixed w-full z-50 glass px-8 py-4 flex justify-between items-center">
         <div class="text-2xl font-bold gold-text italic">INWI <span class="text-white">RP</span></div>
-        <div id="nav-status" class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">System Ready</div>
+        <div id="user-pill" class="hidden flex items-center gap-3 bg-black/50 p-1 pr-4 rounded-full border border-white/10">
+            <img id="nav-avatar" src="" class="h-8 w-8 rounded-full border border-gold-bg">
+            <span id="nav-name" class="text-xs font-bold uppercase tracking-widest"></span>
+            <button onclick="logout()" class="text-[10px] text-red-500 font-bold ml-2">LOGOUT</button>
+        </div>
     </nav>
 
-    <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h1 class="text-7xl font-bold mb-6 tracking-tighter">VISA <span class="gold-text">PORTAL</span></h1>
-        <button onclick="discordLogin()" class="gold-bg text-black px-10 py-4 btn-font font-bold text-lg hover:scale-105 transition duration-300 shadow-[0_0_30px_rgba(212,175,55,0.1)]">
-            Verify via Discord
+    <section id="login-screen" class="h-screen flex flex-col justify-center items-center text-center px-4">
+        <h1 class="text-6xl font-bold mb-4 tracking-tighter">CITIZEN <span class="gold-text">PORTAL</span></h1>
+        <p class="text-gray-500 mb-10 tracking-[4px] uppercase text-[10px]">Secure Access • Kamal Kumar Agarwal</p>
+        <button onclick="discordLogin()" class="gold-bg text-black px-12 py-4 btn-font font-bold text-lg hover:tracking-[5px] transition-all duration-500">
+            Login with Discord
         </button>
-        <p class="mt-8 text-[8px] text-gray-700 uppercase tracking-[5px] font-bold">AYUSH AGARWAL • Automated Entry</p>
     </section>
 
-    <section id="step-2" class="hidden max-w-4xl mx-auto pt-32 px-6">
-        <div id="quiz-container"></div>
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-5 btn-font text-xl mt-10">Submit Final Exam</button>
-    </section>
+    <section id="dashboard-screen" class="hidden pt-32 px-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="glass p-8 flex flex-col items-center text-center">
+                <img id="dash-avatar" src="" class="h-32 w-32 rounded-full border-2 border-gold-bg mb-4 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                <h2 id="dash-name" class="text-3xl font-bold gold-text italic mb-1"></h2>
+                <p id="dash-id" class="text-[10px] text-gray-600 font-mono mb-6"></p>
+                <div class="w-full h-[1px] bg-white/5 mb-6"></div>
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Citizenship Status</p>
+                <p id="dash-status" class="text-lg font-bold text-yellow-500">PENDING EXAM</p>
+            </div>
 
-    <section id="step-3" class="hidden h-screen flex flex-col justify-center items-center text-center px-6">
-        <div class="glass p-10 border-t-2 border-gold-bg">
-            <h2 class="text-4xl font-bold gold-text mb-4 uppercase italic">Visa Approved</h2>
-            <p class="text-gray-400 mb-8">Your credentials have been synced with txAdmin. You are now whitelisted.</p>
-            <button onclick="joinServer()" class="border-2 border-gold-bg gold-text px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-xl tracking-widest">Launch INWI RP</button>
+            <div class="md:col-span-2 space-y-6">
+                <div class="glass p-6 border-l-4 border-gold-bg">
+                    <h3 class="text-sm font-bold tracking-widest text-gray-400 mb-4">CITY LIVE STATUS</h3>
+                    <div class="flex justify-between items-end">
+                        <span class="text-4xl font-bold">ONLINE</span>
+                        <span class="text-gold-text font-mono text-xl">127.0.0.1:30120</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass p-6 text-center">
+                        <p class="text-[10px] text-gray-500 uppercase font-bold mb-2">Total Hours</p>
+                        <p class="text-3xl font-bold gold-text">0.0</p>
+                    </div>
+                    <div class="glass p-6 text-center">
+                        <p class="text-[10px] text-gray-500 uppercase font-bold mb-2">Bank Balance</p>
+                        <p class="text-3xl font-bold gold-text">$0</p>
+                    </div>
+                </div>
+
+                <button onclick="startVisaProcess()" id="action-btn" class="w-full py-6 gold-bg text-black btn-font font-bold text-2xl hover:bg-white transition">
+                    START VISA APPLICATION
+                </button>
+            </div>
         </div>
     </section>
 
     <script>
-        /* CONFIGURATION */
-        const CLIENT_ID = "1481267542780809328"; 
-        const WEBHOOK = "https://discordapp.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const CFX_ID = "g67k6z"; 
-        const BLACKLIST = ["", ""]; // Add Discord IDs here to block them
+        const CLIENT_ID = "YOUR_CLIENT_ID"; 
         const REDIRECT = window.location.origin + window.location.pathname;
 
-        let player = { name: "", id: "", avatar: "", score: 0 };
+        // Check if user is already logged in
+        window.onload = async () => {
+            const savedUser = localStorage.getItem('inwi_user');
+            const params = new URLSearchParams(window.location.hash.slice(1));
+            const token = params.get('access_token');
+
+            if (token) {
+                // New Login
+                fetchUserData(token);
+                window.location.hash = ""; 
+            } else if (savedUser) {
+                // Return User
+                showDashboard(JSON.parse(savedUser));
+            }
+        };
 
         function discordLogin() {
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`;
         }
 
-        window.onload = async () => {
-            const params = new URLSearchParams(window.location.hash.slice(1));
-            const token = params.get('access_token');
-            if (token) {
-                const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
-                const u = await res.json();
-                
-                if(BLACKLIST.includes(u.id)) {
-                    alert("ACCESS DENIED: Your ID is blacklisted.");
-                    window.location.href = "https://google.com";
-                    return;
-                }
-
-                player.name = u.username;
-                player.id = u.id;
-                player.avatar = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png`;
-                
-                document.getElementById('step-1').classList.add('hidden');
-                document.getElementById('step-2').classList.remove('hidden');
-                loadQuiz();
-            }
-        };
-
-        const exam = [
-            { q: "Fear RP: You are held at gunpoint. You should:", a: ["Fight back", "Comply & Value life", "Log out"], c: 1 },
-            { q: "Vandalism/VDM: Using your car as a weapon is:", a: ["Allowed", "Bannable", "Only if police chase"], c: 1 }
-        ];
-
-        function loadQuiz() {
-            const container = document.getElementById('quiz-container');
-            exam.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-6 mb-4 border-l-2 border-gold-bg">
-                    <p class="gold-text text-xs font-bold mb-3 uppercase tracking-widest">${d.q}</p>` + 
-                    d.a.map((ans, j) => `<label class="block p-2 text-xs uppercase cursor-pointer"><input type="radio" name="q${i}" value="${j}" class="mr-2"> ${ans}</label>`).join('') + `</div>`;
+        async function fetchUserData(token) {
+            const res = await fetch('https://discord.com/api/users/@me', { 
+                headers: { authorization: `Bearer ${token}` } 
             });
-        }
-
-        function checkQuiz() {
-            let score = 0;
-            exam.forEach((d, i) => {
-                const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if(sel && parseInt(sel.value) === d.c) score++;
-            });
-
-            if(score >= exam.length) {
-                autoApprove();
-            } else {
-                alert("Exam failed. Please re-read the rules.");
-                location.reload();
-            }
-        }
-
-        async function autoApprove() {
-            const data = {
-                content: "✅ **AUTO-APPROVE: CITIZEN REGISTERED**",
-                embeds: [{
-                    title: "🚀 VISA ISSUED: " + player.name.toUpperCase(),
-                    color: 3066993,
-                    thumbnail: { url: player.avatar },
-                    fields: [
-                        { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
-                        { name: "🛡️ Status", value: "Auto-Whitelisted", inline: true }
-                    ],
-                    footer: { text: "INWI RP •AYUSH AGARWAL SERVER" }
-                }]
+            const user = await res.json();
+            const userData = {
+                name: user.username,
+                id: user.id,
+                avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
             };
-            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-3').classList.remove('hidden');
+            localStorage.setItem('inwi_user', JSON.stringify(userData));
+            showDashboard(userData);
         }
 
-        function joinServer() {
-            window.location.href = "fivem://connect/" + CFX_ID;
+        function showDashboard(user) {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            document.getElementById('user-pill').classList.remove('hidden');
+            
+            // Fill Data
+            document.getElementById('nav-name').innerText = user.name;
+            document.getElementById('nav-avatar').src = user.avatar;
+            document.getElementById('dash-name').innerText = user.name;
+            document.getElementById('dash-avatar').src = user.avatar;
+            document.getElementById('dash-id').innerText = `UID: ${user.id}`;
+        }
+
+        function logout() {
+            localStorage.removeItem('inwi_user');
+            location.reload();
+        }
+
+        function startVisaProcess() {
+            // This would link to your Exam/Bio section
+            alert("Redirecting to INWI Examination...");
         }
     </script>
 </body>
