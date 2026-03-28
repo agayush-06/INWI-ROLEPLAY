@@ -135,27 +135,42 @@
                 alert("INVALID KEY: Please wait for Staff approval in Discord.");
             }
         }
+async function finalSubmit() {
+    const bio = document.getElementById('backstory').value;
+    
+    // This generates the key the staff needs to give to the user
+    // It uses the last 4 digits of their Discord ID to make it unique
+    const staffKey = "INWI-" + player.id.toString().slice(-4) + "-APPROVED"; 
 
-        async function finalSubmit() {
-            const bio = document.getElementById('backstory').value;
-            const staffKey = generateSecretKey(player.id); // This is what the staff gives the user
+    const data = {
+        content: "🔔 **NEW VISA APPLICATION FILED**",
+        embeds: [{
+            title: "🚀 APPLICATION: " + player.name.toUpperCase(),
+            color: 13936439, // Gold color
+            thumbnail: { url: player.avatar },
+            fields: [
+                { name: "👤 Discord User", value: `<@${player.id}>`, inline: true },
+                { name: "📊 Exam Score", value: `**${player.score}/10**`, inline: true },
+                { name: "📝 Biography", value: "```" + bio + "```" },
+                { name: "🔑 APPROVAL KEY (GIVE TO USER)", value: `\`${staffKey}\`` }
+            ],
+            footer: { text: "INWI Roleplay • Portal System • Kamal Kumar Agarwal" },
+            timestamp: new Date()
+        }]
+    };
 
-            await fetch(WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    content: "🔔 **NEW VISA APPLICATION**",
-                    embeds: [{
-                        title: player.name.toUpperCase(),
-                        fields: [
-                            { name: "👤 User", value: `<@${player.id}>` },
-                            { name: "📊 Score", value: `${player.score}/10` },
-                            { name: "📝 Bio", value: "```" + bio + "```" },
-                            { name: "🔑 APPROVAL KEY (GIVE THIS TO USER)", value: `\`${staffKey}\`` }
-                        ]
-                    }]
-                })
-            });
+    try {
+        await fetch(WEBHOOK, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(data) 
+        });
+        localStorage.setItem('inwi_status', 'applied');
+        location.reload();
+    } catch(e) { 
+        alert("Transmission failed. Check your Webhook URL."); 
+    }
+};
             localStorage.setItem('inwi_status', 'applied');
             location.reload();
         }
