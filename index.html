@@ -216,45 +216,46 @@
             `).join('');
         }
 
-        async function submitExam() {
-            let score = 0;
-            QUESTIONS.forEach((q, i) => {
-                const sel = document.querySelector(`input[name="q${i}"]:checked`);
-                if (sel && parseInt(sel.value) === q.c) score++;
-            });
+       async function submitExam() {
+    let score = 0;
+    QUESTIONS.forEach((q, i) => {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        if (sel && parseInt(sel.value) === q.c) score++;
+    });
 
-            const user = JSON.parse(localStorage.getItem('inwi_session'));
-            
-            if (score >= 7) {
-                localStorage.setItem('inwi_passed', 'true');
-                localStorage.setItem('inwi_join_date', new Date().toLocaleDateString());
-                localStorage.setItem('inwi_tier', 'STANDARD');
+    const user = JSON.parse(localStorage.getItem('inwi_session'));
+    
+    if (score >= 7) {
+        localStorage.setItem('inwi_passed', 'true');
+        localStorage.setItem('inwi_join_date', new Date().toLocaleDateString());
+        localStorage.setItem('inwi_tier', 'STANDARD');
 
-                await fetch(CONFIG.WEBHOOK, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        content: "✅ **PASSED: CITIZEN VERIFIED**",
-                        embeds: [{
-                            title: `NEW VISA: ${user.name.toUpperCase()}`,
-                            color: 13936439,
-                            fields: [
-                                { name: "👤 Discord", value: `<@${user.id}>`, inline: true },
-                                { name: "📊 Result", value: `${score}/10`, inline: true },
-                                { name: "⚡ Action", value: `\`/whitelist ${user.id}\`` }
-                            ],
-                            footer: { text: "INWI Hub • Ayush Agarwal" }
-                        }]
-                    })
-                });
-                alert(`SUCCESS! Score: ${score}/10. Whitelist granted.`);
-                location.reload();
-            } else {
-                localStorage.setItem('exam_lock', Date.now() + 10); // 24h Lock
-                alert(`FAILED. Score: ${score}/10. You need 7 correct. Access locked for 10sec.`);
-                location.reload();
-            }
-        }
+        // Webhook notification
+        await fetch(CONFIG.WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                content: "✅ **PASSED: CITIZEN VERIFIED**",
+                embeds: [{
+                    title: `NEW VISA: ${user.name.toUpperCase()}`,
+                    color: 13936439,
+                    fields: [
+                        { name: "👤 Discord", value: `<@${user.id}>`, inline: true },
+                        { name: "📊 Score", value: `${score}/10`, inline: true }
+                    ],
+                    footer: { text: "INWI Hub • Kamal Kumar Agarwal" }
+                }]
+            })
+        });
+        alert(`SUCCESS! Score: ${score}/10. Whitelist granted.`);
+        location.reload();
+    } else {
+        // SETTING COOLDOWN TO 10 SECONDS (10000ms)
+        localStorage.setItem('exam_lock', Date.now() + 10000); 
+        alert(`FAILED. Score: ${score}/10. You need 7 correct. Access locked for 10 seconds.`);
+        location.reload();
+    }
+}
 
         function logout() { localStorage.removeItem('inwi_session'); location.reload(); }
         function closeExam() { document.getElementById('exam-view').classList.add('hidden'); }
