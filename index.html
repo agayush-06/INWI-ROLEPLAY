@@ -14,37 +14,49 @@
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
         .animate-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+        .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+        .pulse-green { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: pulse-green 2s infinite; }
+        @keyframes pulse-green { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 0.3; } 100% { transform: scale(0.95); opacity: 0.7; } }
     </style>
 </head>
 <body class="pb-20">
 
     <nav class="fixed w-full z-50 glass px-8 py-4 border-b border-white/5 flex justify-between items-center">
-        <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
+        <div class="flex flex-col">
+            <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
+            <div id="status-bar" class="flex items-center text-[9px] uppercase tracking-widest font-bold text-gray-500 mt-1">
+                <span id="status-dot" class="pulse bg-gray-600"></span>
+                <span id="status-text">Checking Server...</span>
+            </div>
+        </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
             Authorized: Kamal Kumar Agarwal<br>
-            <span id="header-connection" class="text-red-900 italic uppercase">Secure Terminal</span>
+            <span id="header-connection" class="text-red-900 italic uppercase">Terminal Secured</span>
         </div>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
         <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">CITIZEN <span class="gold-text">PORTAL</span></h1>
-        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 animate-in shadow-[0_0_50px_rgba(212,175,55,0.2)]">
-            Link Discord Account
-        </button>
+        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 animate-in">Link Discord</button>
         <div id="login-ready" class="hidden mt-10 animate-in">
-            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Access Dashboard</button>
+            <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Enter Hub</button>
         </div>
-        <p class="mt-10 text-[9px] text-gray-700 uppercase tracking-[5px] font-bold">Portal Secured • Kamal Kumar Agarwal</p>
     </section>
 
-    <section id="dashboard" class="hidden max-w-6xl mx-auto pt-32 px-6 animate-in">
+    <section id="dashboard" class="hidden max-w-6xl mx-auto pt-40 px-6 animate-in">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="glass p-8 border-t-2 border-gold-bg text-center h-fit">
                 <img id="user-avatar" src="" class="h-32 w-32 mx-auto border border-gold-bg shadow-2xl mb-6 grayscale p-1">
-                <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase mb-1"></h2>
-                <div id="app-status-badge" class="py-2 px-4 w-full text-[10px] font-bold uppercase border border-gold-bg gold-text italic">Status: Scanning...</div>
+                <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase mb-4"></h2>
+                <div id="app-status-badge" class="py-2 px-4 w-full text-[10px] font-bold uppercase border border-gold-bg gold-text italic mb-6">Scanning...</div>
+                
+                <div class="text-left mt-8 border-t border-white/5 pt-6">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-2">Community Goal: Server Upgrades</p>
+                    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                        <div class="gold-bg h-full w-[65%] shadow-[0_0_15px_#d4af37]"></div>
+                    </div>
+                    <p class="text-[8px] text-right text-gold-text mt-1 font-bold">65% COMPLETED</p>
+                </div>
             </div>
 
             <div class="lg:col-span-2 glass p-10 relative overflow-hidden">
@@ -52,131 +64,49 @@
                     <button onclick="switchTab('visa')" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Control</button>
                     <button id="rules-tab-btn" onclick="switchTab('rules')" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Rules</button>
                 </div>
-
                 <div id="dash-content-visa" class="space-y-6"></div>
-
-                <div id="dash-content-rules" class="hidden space-y-8 custom-scrollbar max-h-[500px] overflow-y-auto pr-4">
+                
+                <div id="dash-content-rules" class="hidden space-y-6 custom-scrollbar max-h-[400px] overflow-y-auto">
                     <div class="border-l-2 border-gold-bg pl-6 uppercase tracking-[2px] text-[11px] text-gray-400 space-y-4">
-                        <p><span class="text-white">Fear RP:</span> Value your life. Comply under threat.</p>
-                        <p><span class="text-white">NLR:</span> Forget death events upon respawn.</p>
-                        <p><span class="text-white">No Meta/Power:</span> Do not force actions or use OOC info.</p>
+                        <p><span class="text-white">Fear RP:</span> Value your life. Comply when threatened.</p>
+                        <p><span class="text-white">NLR:</span> Forget all events upon respawn.</p>
+                        <p><span class="text-white">No Meta:</span> Do not use OOC information in-game.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-32 px-6"></section>
-    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6"></section>
+    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-32 px-6">
+        <div id="quiz-container" class="space-y-4"></div>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Process Evaluation</button>
+    </section>
+
+    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6">
+        <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
+        <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Minimum 50 words about your character..."></textarea>
+            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Transmit Application</button>
+        </div>
+    </section>
 
     <script>
         const CLIENT_ID = "1481267542780809328";
         const WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
+        const SERVER_IP = "g67k6z";
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "", id: "", avatar: "", score: 0 };
 
-        function switchTab(t) {
-            document.getElementById('dash-content-visa').classList.toggle('hidden', t==='rules');
-            document.getElementById('dash-content-rules').classList.toggle('hidden', t==='visa');
+        function checkServer() {
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('status-text');
+            fetch(`https://servers-frontend.fivem.net/api/servers/single/${SERVER_IP}`)
+                .then(res => {
+                    if (res.ok) { dot.className = "pulse pulse-green"; text.innerText = "INWI RP: ONLINE"; text.style.color = "#22c55e"; }
+                    else { throw Error(); }
+                }).catch(() => { dot.className = "pulse bg-red-600"; text.innerText = "INWI RP: OFFLINE"; text.style.color = "#ef4444"; });
         }
-
-        function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
-
-        window.onload = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const approvalKey = urlParams.get('approve');
-
-            if (approvalKey) {
-                localStorage.setItem('inwi_app_status', 'approved');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            const hashParams = new URLSearchParams(window.location.hash.slice(1));
-            const token = hashParams.get('access_token');
-            if (token) {
-                const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
-                const u = await res.json();
-                localStorage.setItem('inwi_discord', JSON.stringify({ name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` }));
-                window.location.hash = "";
-            }
-
-            if(localStorage.getItem('inwi_discord')) {
-                document.getElementById('btn-discord').classList.add('hidden');
-                document.getElementById('login-ready').classList.remove('hidden');
-                document.getElementById('header-connection').innerText = "SYSTEM READY";
-                document.getElementById('header-connection').classList.replace('text-red-900', 'text-green-500');
-            }
-        };
-
-        function proceedToDashboard() {
-            const dData = JSON.parse(localStorage.getItem('inwi_discord'));
-            player.name = dData.name; player.id = dData.id; player.avatar = dData.avatar;
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            document.getElementById('user-display').innerText = player.name;
-            document.getElementById('user-avatar').src = player.avatar;
-            updateDashboardUI();
-        }
-
-        function updateDashboardUI() {
-            const status = localStorage.getItem('inwi_app_status') || 'new';
-            const content = document.getElementById('dash-content-visa');
-            const badge = document.getElementById('app-status-badge');
-
-            if (status === 'new') {
-                badge.innerText = "Status: UNVERIFIED";
-                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in">
-                    <h4 class="gold-text font-bold uppercase text-sm mb-4">Initial Visa Exam</h4>
-                    <button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full">Start 7/10 Evaluation</button>
-                </div>`;
-            } else if (status === 'pending') {
-                badge.innerText = "Status: PENDING HANDSHAKE";
-                badge.classList.replace('gold-text', 'text-blue-500');
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in">
-                    <h4 class="text-blue-500 font-bold uppercase text-sm mb-4 italic">Verification Transmitted</h4>
-                    <p class="text-gray-400 text-[10px] mb-8 uppercase tracking-[3px] italic leading-relaxed">Wait for a DM from Kamal Kumar Agarwal. If you are on a new device, click below to request a Re-Sync.</p>
-                    <button onclick="requestResync()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 hover:text-black transition">Request Re-Sync Link</button>
-                </div>`;
-            } else if (status === 'approved') {
-                badge.innerText = "Status: VISA ACTIVE";
-                badge.classList.replace('gold-text', 'text-green-500');
-                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in">
-                    <h4 class="text-green-500 font-bold uppercase text-sm mb-4 italic">Welcome Home</h4>
-                    <a href="fivem://connect/g67k6z" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase tracking-widest">Enter INWI Roleplay</a>
-                </div>`;
-            }
-        }
-
-        async function requestResync() {
-            const data = { content: `🔄 **RE-SYNC REQUEST: ${player.name.toUpperCase()}**`, embeds: [{ description: `Player <@${player.id}> is requesting their Approval Link for a new device.`, color: 3447003 }] };
-            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            alert("RE-SYNC REQUEST SENT TO STAFF.");
-        }
-
-        async function finalSubmit() {
-            const bio = document.getElementById('backstory').value;
-            const approvalURL = REDIRECT + "?approve=" + Math.random().toString(36).substring(2, 8).toUpperCase();
-
-            const data = {
-                content: "🔔 **INWI RP: CITIZEN REGISTRATION**",
-                embeds: [{
-                    title: "🚀 APPLICANT: " + player.name.toUpperCase(), color: 13936439,
-                    fields: [
-                        { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
-                        { name: "📊 Exam Score", value: `**${player.score}/10**`, inline: true },
-                        { name: "🔗 APPROVAL LINK (GIVE TO PLAYER)", value: approvalURL },
-                        { name: "📝 Bio", value: "```" + bio + "```" }
-                    ],
-                    footer: { text: "Authorized: Kamal Kumar Agarwal" }
-                }]
-            };
-            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            localStorage.setItem('inwi_app_status', 'pending');
-            location.reload();
-        }
-
-        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
 
         const examData = [
             { q: "Fear RP: 3 armed criminals point guns at you. You should:", a: ["Run", "Comply & Value Life", "Fight"], c: 1 },
@@ -210,6 +140,80 @@
                 document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); window.scrollTo(0,0); 
             } else { alert(`SCORE: ${player.score}/10. 7/10 REQUIRED.`); location.reload(); }
         }
+
+        window.onload = async () => {
+            checkServer();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('approve')) { localStorage.setItem('inwi_app_status', 'approved'); window.history.replaceState({}, document.title, window.location.pathname); }
+            
+            const hashParams = new URLSearchParams(window.location.hash.slice(1));
+            const token = hashParams.get('access_token');
+            if (token) {
+                const res = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${token}` } });
+                const u = await res.json();
+                localStorage.setItem('inwi_discord', JSON.stringify({ name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` }));
+                window.location.hash = "";
+            }
+            if(localStorage.getItem('inwi_discord')) {
+                document.getElementById('btn-discord').classList.add('hidden');
+                document.getElementById('login-ready').classList.remove('hidden');
+            }
+        };
+
+        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
+        
+        function switchTab(t) {
+            document.getElementById('dash-content-visa').classList.toggle('hidden', t==='rules');
+            document.getElementById('dash-content-rules').classList.toggle('hidden', t==='visa');
+        }
+
+        function proceedToDashboard() {
+            const dData = JSON.parse(localStorage.getItem('inwi_discord'));
+            player.name = dData.name; player.id = dData.id; player.avatar = dData.avatar;
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('user-display').innerText = player.name;
+            document.getElementById('user-avatar').src = player.avatar;
+            updateDashboardUI();
+        }
+
+        function updateDashboardUI() {
+            const status = localStorage.getItem('inwi_app_status') || 'new';
+            const content = document.getElementById('dash-content-visa');
+            const badge = document.getElementById('app-status-badge');
+            if (status === 'new') {
+                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm">Action Required</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full">Start Exam</button></div>`;
+            } else if (status === 'pending') {
+                badge.innerText = "Status: PENDING";
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Kamal's Review</h4><button onclick="requestResync()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
+            } else if (status === 'approved') {
+                badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e";
+                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in"><h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic">Visa Approved</h4><a href="fivem://connect/${SERVER_IP}" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase">Join Server</a></div>`;
+            }
+        }
+
+        async function finalSubmit() {
+            const bio = document.getElementById('backstory').value;
+            const approvalURL = REDIRECT + "?approve=" + Math.random().toString(36).substring(2, 8).toUpperCase();
+            const data = {
+                content: "🔔 **INWI RP: NEW CITIZEN FILED**",
+                embeds: [{
+                    title: "🚀 APPLICANT: " + player.name.toUpperCase(), color: 13936439,
+                    fields: [
+                        { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
+                        { name: "📊 Score", value: `**${player.score}/10**`, inline: true },
+                        { name: "🔗 APPROVAL LINK", value: `[COPY THIS LINK](${approvalURL})` },
+                        { name: "📝 Bio", value: "```" + bio + "```" }
+                    ],
+                    footer: { text: "Authorized: Kamal Kumar Agarwal" }
+                }]
+            };
+            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            localStorage.setItem('inwi_app_status', 'pending');
+            location.reload();
+        }
+
+        function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
     </script>
 </body>
 </html>
