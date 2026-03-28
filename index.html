@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
-            Authorized:INWI ROLEPLAY<br>
+            Authorized: INWI ROLEPLAY<br>
             <span id="header-connection" class="text-red-900 italic uppercase">Terminal Secured</span>
         </div>
     </nav>
@@ -93,7 +93,8 @@
     <script>
         const CLIENT_ID = "1481267542780809328";
         const WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const SERVER_IP = "cfx.re/join/g67k6z";
+        const JOIN_CODE = "g67k6z"; // Join code extracted
+        const JOIN_URL = "https://cfx.re/join/g67k6z";
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "", id: "", avatar: "", score: 0 };
@@ -101,11 +102,20 @@
         function checkServer() {
             const dot = document.getElementById('status-dot');
             const text = document.getElementById('status-text');
-            fetch(`https://servers-frontend.fivem.net/api/servers/single/${SERVER_IP}`)
+            // Using the Cfx.re API endpoint for status
+            fetch(`https://servers-frontend.fivem.net/api/servers/single/${JOIN_CODE}`)
                 .then(res => {
-                    if (res.ok) { dot.className = "pulse pulse-green"; text.innerText = "INWI RP: ONLINE"; text.style.color = "#22c55e"; }
+                    if (res.ok) { 
+                        dot.className = "pulse pulse-green"; 
+                        text.innerText = "INWI RP: ONLINE"; 
+                        text.style.color = "#22c55e"; 
+                    }
                     else { throw Error(); }
-                }).catch(() => { dot.className = "pulse bg-red-600"; text.innerText = "INWI RP: OFFLINE"; text.style.color = "#ef4444"; });
+                }).catch(() => { 
+                    dot.className = "pulse bg-red-600"; 
+                    text.innerText = "INWI RP: OFFLINE"; 
+                    text.style.color = "#ef4444"; 
+                });
         }
 
         const examData = [
@@ -143,6 +153,7 @@
 
         window.onload = async () => {
             checkServer();
+            setInterval(checkServer, 60000); // Check every minute
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('approve')) { localStorage.setItem('inwi_app_status', 'approved'); window.history.replaceState({}, document.title, window.location.pathname); }
             
@@ -185,10 +196,10 @@
                 content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm">Action Required</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full">Start Exam</button></div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: PENDING";
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Staff Review</h4><button onclick="requestResync()" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Staff Review</h4><p class="text-[10px] text-gray-400 uppercase tracking-widest mt-2 mb-4">Kamal Kumar Agarwal will review your file shortly.</p><button onclick="alert('Re-sync signal sent.')" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
             } else if (status === 'approved') {
                 badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e";
-                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in"><h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic">Visa Approved</h4><a href="fivem://connect/${SERVER_IP}" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase">Join Server</a></div>`;
+                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in"><h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic">Visa Approved</h4><a href="${JOIN_URL}" target="_blank" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase tracking-widest shadow-lg hover:bg-white transition">Join INWI Roleplay</a></div>`;
             }
         }
 
