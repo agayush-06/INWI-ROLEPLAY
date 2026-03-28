@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
-        body { background-color: #030303; color: #e5e5e5; font-family: 'Inter', sans-serif; }
+        body { background-color: #030303; color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .gold-text { color: #d4af37; }
         .gold-bg { background-color: #d4af37; }
         .glass { background: rgba(8, 8, 8, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.1); }
@@ -51,22 +51,22 @@
                 <div id="app-status-badge" class="py-2 px-4 w-full text-[10px] font-bold uppercase border border-gold-bg gold-text italic mb-6">Scanning...</div>
                 
                 <div class="text-left mt-8 border-t border-white/5 pt-6">
-                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-2">Community Goal: Server Upgrades</p>
+                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-2 italic">City Milestone</p>
                     <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
                         <div class="gold-bg h-full w-[65%] shadow-[0_0_15px_#d4af37]"></div>
                     </div>
-                    <p class="text-[8px] text-right text-gold-text mt-1 font-bold">65% COMPLETED</p>
+                    <p class="text-[8px] text-right text-gold-text mt-1 font-bold italic">65% OPTIMIZED</p>
                 </div>
             </div>
 
             <div class="lg:col-span-2 glass p-10 relative overflow-hidden">
                 <div id="dash-tabs" class="flex gap-8 border-b border-white/5 mb-8 pb-4">
-                    <button onclick="switchTab('visa')" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Control</button>
-                    <button id="rules-tab-btn" onclick="switchTab('rules')" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Rules</button>
+                    <button onclick="switchTab('visa')" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Status</button>
+                    <button id="rules-tab-btn" onclick="switchTab('rules')" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">City Laws</button>
                 </div>
                 <div id="dash-content-visa" class="space-y-6"></div>
                 
-                <div id="dash-content-rules" class="hidden space-y-6 custom-scrollbar max-h-[400px] overflow-y-auto">
+                <div id="dash-content-rules" class="hidden space-y-6 max-h-[400px] overflow-y-auto">
                     <div class="border-l-2 border-gold-bg pl-6 uppercase tracking-[2px] text-[11px] text-gray-400 space-y-4">
                         <p><span class="text-white">Fear RP:</span> Value your life. Comply when threatened.</p>
                         <p><span class="text-white">NLR:</span> Forget all events upon respawn.</p>
@@ -82,10 +82,10 @@
         <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Process Evaluation</button>
     </section>
 
-    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6">
+    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6 pb-20">
         <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
         <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Minimum 50 words about your character..."></textarea>
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Minimum 50 words about your character's life..."></textarea>
             <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Transmit Application</button>
         </div>
     </section>
@@ -93,28 +93,30 @@
     <script>
         const CLIENT_ID = "1481267542780809328";
         const WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const JOIN_CODE = "g67k6z"; // Join code extracted
-        const JOIN_URL = "https://cfx.re/join/g67k6z";
+        const JOIN_CODE = "g67k6z";
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "", id: "", avatar: "", score: 0 };
 
+        /* --- FAIL-SAFE JOIN LOGIC --- */
+        function copyIP() {
+            const command = "connect g67k6z";
+            navigator.clipboard.writeText(command);
+            alert("COMMAND COPIED! Open FiveM, press F8, and paste (Ctrl+V).");
+        }
+
         function checkServer() {
             const dot = document.getElementById('status-dot');
             const text = document.getElementById('status-text');
-            // Using the Cfx.re API endpoint for status
             fetch(`https://servers-frontend.fivem.net/api/servers/single/${JOIN_CODE}`)
                 .then(res => {
                     if (res.ok) { 
                         dot.className = "pulse pulse-green"; 
-                        text.innerText = "INWI RP: ONLINE"; 
-                        text.style.color = "#22c55e"; 
-                    }
-                    else { throw Error(); }
+                        text.innerHTML = "INWI RP: <span class='text-green-500'>ONLINE</span>"; 
+                    } else { throw Error(); }
                 }).catch(() => { 
                     dot.className = "pulse bg-red-600"; 
-                    text.innerText = "INWI RP: OFFLINE"; 
-                    text.style.color = "#ef4444"; 
+                    text.innerHTML = "INWI RP: <span class='text-red-500'>OFFLINE</span>"; 
                 });
         }
 
@@ -133,9 +135,9 @@
 
         function loadQuiz() {
             const container = document.getElementById('quiz-container');
-            container.innerHTML = `<h2 class="text-3xl font-bold mb-8 gold-text italic tracking-tighter uppercase">Visa Evaluation</h2>`;
+            container.innerHTML = `<h2 class="text-3xl font-bold mb-8 gold-text italic tracking-tighter uppercase text-center">Visa Evaluation</h2>`;
             examData.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Question ${i+1}: ${d.q}</p>` + 
+                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5 animate-in"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Question ${i+1}: ${d.q}</p>` + 
                 d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
             });
         }
@@ -153,7 +155,7 @@
 
         window.onload = async () => {
             checkServer();
-            setInterval(checkServer, 60000); // Check every minute
+            setInterval(checkServer, 60000);
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('approve')) { localStorage.setItem('inwi_app_status', 'approved'); window.history.replaceState({}, document.title, window.location.pathname); }
             
@@ -192,28 +194,42 @@
             const status = localStorage.getItem('inwi_app_status') || 'new';
             const content = document.getElementById('dash-content-visa');
             const badge = document.getElementById('app-status-badge');
+            
             if (status === 'new') {
-                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm">Action Required</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full">Start Exam</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm italic">New Application</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full shadow-lg">Begin Visa Exam</button></div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: PENDING";
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic">Awaiting Staff Review</h4><p class="text-[10px] text-gray-400 uppercase tracking-widest mt-2 mb-4">Kamal Kumar Agarwal will review your file shortly.</p><button onclick="alert('Re-sync signal sent.')" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 transition">Request Re-Sync Link</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-2 uppercase text-sm italic tracking-widest">Under Review</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-6 italic leading-relaxed">Wait for a handshake from Kamal Kumar Agarwal. Access will be granted shortly.</p><button onclick="alert('Staff Notified.')" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 hover:text-black transition">Request Manual Re-Sync</button></div>`;
             } else if (status === 'approved') {
-                badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e";
-                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in"><h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic">Visa Approved</h4><a href="${JOIN_URL}" target="_blank" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase tracking-widest shadow-lg hover:bg-white transition">Join INWI Roleplay</a></div>`;
+                badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e"; badge.style.borderColor = "#22c55e";
+                content.innerHTML = `
+                    <div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in">
+                        <h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic tracking-[2px]">Visa Cleared</h4>
+                        <a href="https://cfx.re/join/g67k6z" target="_blank" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase tracking-[5px] shadow-[0_0_30px_rgba(212,175,55,0.2)] mb-8">Connect Automatically</a>
+                        
+                        <div class="pt-6 border-t border-white/5">
+                            <p class="text-[9px] text-gray-500 uppercase tracking-[2px] mb-3 italic">Connection Failed? Copy this command for F8 Console:</p>
+                            <div class="flex gap-2">
+                                <input readonly value="connect g67k6z" class="bg-black border border-white/10 text-gold-text text-[10px] px-4 py-3 w-full font-mono outline-none">
+                                <button onclick="copyIP()" class="gold-text border border-gold-bg px-6 py-3 text-[9px] font-bold hover:bg-gold-bg hover:text-black transition">COPY</button>
+                            </div>
+                        </div>
+                    </div>`;
             }
         }
 
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
+            if(bio.length < 30) return alert("Biography too short.");
             const approvalURL = REDIRECT + "?approve=" + Math.random().toString(36).substring(2, 8).toUpperCase();
             const data = {
-                content: "🔔 **INWI RP: NEW CITIZEN FILED**",
+                content: "🚨 **INWI RP: NEW CITIZEN FILED**",
                 embeds: [{
                     title: "🚀 APPLICANT: " + player.name.toUpperCase(), color: 13936439,
                     fields: [
                         { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
                         { name: "📊 Score", value: `**${player.score}/10**`, inline: true },
-                        { name: "🔗 APPROVAL LINK", value: `[COPY THIS LINK](${approvalURL})` },
+                        { name: "🔗 APPROVAL LINK", value: `[COPY THIS LINK AND DM](${approvalURL})` },
                         { name: "📝 Bio", value: "```" + bio + "```" }
                     ],
                     footer: { text: "Authorized: INWI ROLEPLAY" }
