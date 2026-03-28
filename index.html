@@ -142,8 +142,17 @@
             }
         }
 
-        function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
-        function cfxLogin() { window.location.href = `https://id.fivem.net/login?client_id=g67k6z&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=code&scope=identify`; }
+const CFX_CLIENT_ID = "g67k6z"; // Your verified Client ID
+
+function discordLogin() { 
+    // Standard Discord OAuth2 flow
+    window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; 
+}
+
+function cfxLogin() { 
+    // Corrected Cfx.re Identity Provider URL
+    window.location.href = `https://id.fivem.net/login?client_id=${CFX_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=code&scope=identify`; 
+}
 
         function checkLogins() {
             if(authData.discord) { document.getElementById('btn-discord').innerHTML = "✓ Discord Linked"; document.getElementById('btn-discord').classList.add('opacity-30', 'pointer-events-none'); }
