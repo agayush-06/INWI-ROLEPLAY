@@ -16,7 +16,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
         .pulse-green { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: pulse-green 2s infinite; }
-        @keyframes pulse-green { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 0.3; } 100% { transform: scale(0.95); opacity: 0.7; } }
     </style>
 </head>
 <body class="pb-20">
@@ -26,7 +25,7 @@
             <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
             <div id="status-bar" class="flex items-center text-[9px] uppercase tracking-widest font-bold text-gray-500 mt-1">
                 <span id="status-dot" class="pulse bg-gray-600"></span>
-                <span id="status-text">Checking Server...</span>
+                <span id="status-text">Checking Handshake...</span>
             </div>
         </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
@@ -93,31 +92,20 @@
     <script>
         const CLIENT_ID = "1481267542780809328";
         const WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const JOIN_CODE = "g67k6z";
+        const DIRECT_IP = "26.32.72.204"; // Your Radmin IP
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "", id: "", avatar: "", score: 0 };
 
-        /* --- FAIL-SAFE JOIN LOGIC --- */
+        /* --- VPN CONNECTION LOGIC --- */
         function copyIP() {
-            const command = "connect g67k6z";
+            const command = "connect " + DIRECT_IP;
             navigator.clipboard.writeText(command);
             alert("COMMAND COPIED! Open FiveM, press F8, and paste (Ctrl+V).");
         }
 
-        function checkServer() {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('status-text');
-            fetch(`https://servers-frontend.fivem.net/api/servers/single/${JOIN_CODE}`)
-                .then(res => {
-                    if (res.ok) { 
-                        dot.className = "pulse pulse-green"; 
-                        text.innerHTML = "INWI RP: <span class='text-green-500'>ONLINE</span>"; 
-                    } else { throw Error(); }
-                }).catch(() => { 
-                    dot.className = "pulse bg-red-600"; 
-                    text.innerHTML = "INWI RP: <span class='text-red-500'>OFFLINE</span>"; 
-                });
+        function launchCity() {
+            window.location.href = "fivem://connect/" + DIRECT_IP;
         }
 
         const examData = [
@@ -154,8 +142,6 @@
         }
 
         window.onload = async () => {
-            checkServer();
-            setInterval(checkServer, 60000);
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('approve')) { localStorage.setItem('inwi_app_status', 'approved'); window.history.replaceState({}, document.title, window.location.pathname); }
             
@@ -199,21 +185,25 @@
                 content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm italic">New Application</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full shadow-lg">Begin Visa Exam</button></div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: PENDING";
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-2 uppercase text-sm italic tracking-widest">Under Review</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-6 italic leading-relaxed">Wait for a handshake from Kamal Kumar Agarwal. Access will be granted shortly.</p><button onclick="alert('Staff Notified.')" class="border border-blue-500 text-blue-500 px-6 py-3 text-[9px] font-bold uppercase hover:bg-blue-500 hover:text-black transition">Request Manual Re-Sync</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-2 uppercase text-sm italic tracking-widest">Under Review</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-6 italic leading-relaxed">Wait for a handshake from Kamal Kumar Agarwal. Access will be granted shortly.</p></div>`;
             } else if (status === 'approved') {
                 badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e"; badge.style.borderColor = "#22c55e";
                 content.innerHTML = `
                     <div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in">
                         <h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic tracking-[2px]">Visa Cleared</h4>
-                        <a href="https://cfx.re/join/g67k6z" target="_blank" class="gold-bg text-black px-10 py-4 btn-font font-bold block text-center uppercase tracking-[5px] shadow-[0_0_30px_rgba(212,175,55,0.2)] mb-8">Connect Automatically</a>
+                        
+                        <button onclick="launchCity()" class="gold-bg text-black px-10 py-4 btn-font font-bold block w-full text-center uppercase tracking-[5px] shadow-[0_0_30px_rgba(212,175,55,0.2)] mb-8 hover:bg-white transition">
+                            Launch City
+                        </button>
                         
                         <div class="pt-6 border-t border-white/5">
-                            <p class="text-[9px] text-gray-500 uppercase tracking-[2px] mb-3 italic">Connection Failed? Copy this command for F8 Console:</p>
+                            <p class="text-[9px] text-gray-500 uppercase tracking-[2px] mb-3 italic">Alternative Connection (F8):</p>
                             <div class="flex gap-2">
-                                <input readonly value="connect cfx.re/join/g67k6z" class="bg-black border border-white/10 text-gold-text text-[10px] px-4 py-3 w-full font-mono outline-none">
+                                <input readonly value="connect 26.32.72.204" class="bg-black border border-white/10 text-gold-text text-[10px] px-4 py-3 w-full font-mono outline-none">
                                 <button onclick="copyIP()" class="gold-text border border-gold-bg px-6 py-3 text-[9px] font-bold hover:bg-gold-bg hover:text-black transition">COPY</button>
                             </div>
                         </div>
+                        <p class="mt-4 text-[8px] text-gray-600 uppercase italic">Ensure Radmin VPN is active before connecting.</p>
                     </div>`;
             }
         }
