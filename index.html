@@ -7,27 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&family=JetBrains+Mono&display=swap');
-        :root { --gold: #d4af37; --bg: #030303; }
+        :root { --gold: #d4af37; --bg: #030303; --blue: #3b82f6; }
         body { background-color: var(--bg); color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* THEME FX */
         .gold-text { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
         .gold-bg { background: var(--gold); }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .cyber-border { border: 1px solid rgba(212, 175, 55, 0.15); position: relative; }
         .id-card { background: linear-gradient(165deg, #111 0%, #080808 100%); border: 1px solid rgba(212, 175, 55, 0.15); }
-        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 3px; }
-        
-        /* ANIMATIONS */
+        h1, h2, h3, h4, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 3px; }
         .animate-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .scanner::after { 
-            content: ''; position: absolute; width: 100%; height: 2px; 
-            background: var(--gold); box-shadow: 0 0 15px var(--gold); 
-            animation: scan 3s linear infinite; opacity: 0.1; top: 0; left: 0;
-        }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .step-num { font-family: 'JetBrains Mono'; color: var(--gold); font-weight: bold; font-size: 1.5rem; margin-right: 1rem; }
+        code { background: #111; padding: 4px 8px; border-radius: 4px; color: var(--gold); font-family: 'JetBrains Mono'; }
     </style>
 </head>
 <body class="pb-20">
@@ -36,7 +27,7 @@
         <div class="flex flex-col">
             <div class="text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
             <div class="text-[8px] font-bold text-gray-500 uppercase tracking-[0.5em] mt-1 flex items-center">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_#22c55e]"></span> STATUS: ENCRYPTED_LINK_READY
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_#22c55e]"></span> STATUS: RADMIN_LINK_STABLE
             </div>
         </div>
         <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-5 py-2 hover:bg-red-500/10 transition text-[9px] font-bold uppercase tracking-widest">Overseer Terminal</button>
@@ -45,7 +36,7 @@
     <section id="step-1" class="h-screen flex flex-col justify-center items-center relative overflow-hidden">
         <div class="text-center z-10 animate-in">
             <h1 class="text-8xl md:text-[10rem] font-bold mb-2 tracking-tighter italic opacity-80 uppercase">INWI</h1>
-            <p class="text-gray-500 uppercase tracking-[1em] text-[10px] mb-16 italic">Registry Managed by Kamal Kumar Agarwal</p>
+            <p class="text-gray-500 uppercase tracking-[1em] text-[10px] mb-16 italic">Managed by Kamal Kumar Agarwal</p>
             <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-20 py-7 btn-font font-bold text-xl hover:scale-105 transition shadow-[0_0_40px_rgba(212,175,55,0.2)]">Verify Identity</button>
             <div id="login-ready" class="hidden">
                 <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text px-20 py-7 btn-font hover:bg-gold-bg hover:text-black transition text-xl italic">Initiate Clearance</button>
@@ -56,17 +47,67 @@
     <section id="dashboard" class="hidden max-w-7xl mx-auto pt-44 px-8 animate-in">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div class="lg:col-span-4 space-y-8">
-                <div class="id-card p-10 cyber-border scanner overflow-hidden">
-                    <div class="flex flex-col items-center mb-10 text-center">
-                        <img id="user-avatar" src="" class="h-32 w-32 border-2 border-gold-bg/40 p-1 bg-black mb-6 grayscale brightness-125">
-                        <h2 id="user-display" class="text-3xl font-bold gold-text italic uppercase">---</h2>
-                        <div id="id-status-text" class="text-[10px] mt-2 font-bold uppercase tracking-[0.3em] text-red-500">Restricted</div>
-                    </div>
+                <div class="id-card p-10 cyber-border text-center">
+                    <img id="user-avatar" src="" class="h-32 w-32 border-2 border-gold-bg/40 p-1 bg-black mb-6 mx-auto">
+                    <h2 id="user-display" class="text-3xl font-bold gold-text italic uppercase">---</h2>
+                    <div id="id-status-text" class="text-[10px] mt-2 font-bold uppercase tracking-[0.3em] text-red-500">Restricted</div>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-8">
+                <div class="flex gap-10 border-b border-white/5 mb-8">
+                    <button onclick="switchTab('visa')" id="tab-visa" class="pb-6 text-[11px] font-bold gold-text uppercase border-b-2 border-gold-bg">Registry</button>
+                    <button onclick="switchTab('join')" id="tab-join" class="pb-6 text-[11px] font-bold text-gray-500 uppercase hover:text-white">How to Join (Free)</button>
+                </div>
+
                 <div id="dash-content-visa" class="min-h-[500px]"></div>
+
+                <div id="dash-content-join" class="hidden space-y-8 animate-in">
+                    <div class="glass p-10 cyber-border border-l-4 border-l-blue-500">
+                        <h4 class="text-blue-400 font-bold mb-4 italic text-lg uppercase">📢 Bypass ISP Blocks (Jio/Airtel)</h4>
+                        <p class="text-[11px] text-gray-400 leading-relaxed uppercase italic">To ensure a 100% lag-free experience and bypass Indian ISP restrictions, follow these private network steps:</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="glass p-8 cyber-border flex items-start">
+                            <span class="step-num">01</span>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 uppercase">Download Radmin VPN</h4>
+                                <p class="text-[10px] text-gray-500 mb-4 italic">Install the free client. Setup takes 30 seconds.</p>
+                                <a href="https://www.radmin-vpn.com/" target="_blank" class="text-blue-400 text-[10px] underline font-bold uppercase">Click here to Download</a>
+                            </div>
+                        </div>
+
+                        <div class="glass p-8 cyber-border flex items-start">
+                            <span class="step-num">02</span>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 uppercase">Join Private Network</h4>
+                                <p class="text-[10px] text-gray-500 mb-4 italic">Open Radmin, click "Join Network" and enter:</p>
+                                <div class="bg-black/50 p-4 border border-white/5 space-y-2">
+                                    <p class="text-[11px] font-mono text-gold-text">Name: <span class="text-white">INWI_ROLEPLAY_FREE</span></p>
+                                    <p class="text-[11px] font-mono text-gold-text">Pass: <span class="text-white italic">123456</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass p-8 cyber-border flex items-start">
+                            <span class="step-num">03</span>
+                            <div>
+                                <h4 class="text-white font-bold mb-2 uppercase">Connect to Server</h4>
+                                <p class="text-[10px] text-gray-500 mb-4 italic">Once your PC name turns <span class="text-green-500">Green</span> in Radmin:</p>
+                                <ul class="text-[11px] text-gray-400 space-y-3 italic list-disc pl-5">
+                                    <li>Open FiveM.</li>
+                                    <li>Press <code class="text-white">F8</code> on your keyboard.</li>
+                                    <li>Paste the command below (Replace IP with your Radmin IP):</li>
+                                </ul>
+                                <div class="mt-4 flex items-center gap-4">
+                                    <input id="f8-command" readonly value="connect 26.xx.xx.xx" class="bg-black/80 border border-gold-bg/20 p-4 font-mono text-gold-text text-sm flex-1 outline-none">
+                                    <button onclick="copyF8()" class="bg-gold-bg text-black px-6 py-4 font-bold uppercase text-[10px]">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -85,13 +126,11 @@
     </section>
 
     <script>
-        // CONFIGURATION
-        const PASS_THRESHOLD = 7;
-        const STAFF_PASSCODE = "INWI2026";
-        const CLIENT_ID = "1481267542780809328";
+        // CONFIG
         const STAFF_WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
         const RESULT_WEBHOOK = "https://discordapp.com/api/webhooks/1487876312277450893/NRXkmL2__jCntdz5Q690aDNw_EBZAGMK_eFi189ePZXni6SmR7AvZ16f0mrDkaMu2jvu"; 
         const TICKET_CHANNEL_URL = "https://discordapp.com/channels/908254117120593960/1484788825640140830";
+        const CLIENT_ID = "1481267542780809328";
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "Citizen", id: "0000", avatar: "" };
@@ -109,14 +148,9 @@
         ];
 
         window.onload = async () => {
-            // URL KEY AUTO-LOADER
             const urlParams = new URLSearchParams(window.location.search);
             const keyParam = urlParams.get('key');
-            if (keyParam) {
-                localStorage.setItem('inwi_staff_key', keyParam.toUpperCase());
-                localStorage.setItem('inwi_app_status', 'pending');
-            }
-
+            if (keyParam) { localStorage.setItem('inwi_staff_key', keyParam.toUpperCase()); localStorage.setItem('inwi_app_status', 'pending'); }
             const hash = new URLSearchParams(window.location.hash.slice(1));
             const token = hash.get('access_token');
             if (token) {
@@ -125,10 +159,7 @@
                 localStorage.setItem('inwi_discord', JSON.stringify({ name: u.username, id: u.id, avatar: `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png` }));
                 window.location.hash = "";
             }
-            if(localStorage.getItem('inwi_discord')) {
-                document.getElementById('btn-discord').classList.add('hidden');
-                document.getElementById('login-ready').classList.remove('hidden');
-            }
+            if(localStorage.getItem('inwi_discord')) { document.getElementById('btn-discord').classList.add('hidden'); document.getElementById('login-ready').classList.remove('hidden'); }
         };
 
         function proceedToDashboard() {
@@ -140,30 +171,32 @@
             updateDashboardUI();
         }
 
+        function switchTab(t) {
+            document.getElementById('dash-content-visa').classList.toggle('hidden', t !== 'visa');
+            document.getElementById('dash-content-join').classList.toggle('hidden', t !== 'join');
+            document.getElementById('tab-visa').className = (t === 'visa') ? "pb-6 text-[11px] font-bold gold-text uppercase border-b-2 border-gold-bg" : "pb-6 text-[11px] font-bold text-gray-500 uppercase hover:text-white";
+            document.getElementById('tab-join').className = (t === 'join') ? "pb-6 text-[11px] font-bold gold-text uppercase border-b-2 border-gold-bg" : "pb-6 text-[11px] font-bold text-gray-500 uppercase hover:text-white";
+        }
+
+        function copyF8() {
+            const copyText = document.getElementById("f8-command");
+            copyText.select();
+            document.execCommand("copy");
+            alert("F8 Command Copied!");
+        }
+
         function updateDashboardUI() {
             const status = localStorage.getItem('inwi_app_status') || 'new';
             const content = document.getElementById('dash-content-visa');
             const idStatus = document.getElementById('id-status-text');
-            
             idStatus.innerText = status === 'approved' ? "Clearance Verified" : status === 'pending' ? "Manual Review" : "Restricted";
             idStatus.className = status === 'approved' ? "text-green-500 italic" : status === 'pending' ? "text-blue-400 italic" : "text-red-500 italic";
-
             if (status === 'new') {
                 content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-16 btn-font font-bold text-4xl italic shadow-2xl">Begin Evaluation</button>`;
             } else if (status === 'pending') {
-                content.innerHTML = `
-                    <div class="p-12 glass cyber-border animate-in">
-                        <h4 class="gold-text font-bold mb-4 italic uppercase">Verification Required</h4>
-                        <input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full outline-none font-mono text-2xl uppercase italic tracking-[0.5em] mb-6 focus:border-gold-bg">
-                        <button onclick="verifyKey()" class="w-full gold-bg text-black py-5 font-bold italic uppercase tracking-widest hover:bg-white transition mb-10">Sync Clearance</button>
-                        
-                        <div class="pt-8 border-t border-white/5 text-center">
-                            <p class="text-[9px] text-gray-600 uppercase mb-4 italic">Registry issues?</p>
-                            <a href="${TICKET_CHANNEL_URL}" target="_blank" class="inline-block border border-blue-500/20 text-blue-400 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-blue-500/10 transition italic">📩 Open Ticket</a>
-                        </div>
-                    </div>`;
+                content.innerHTML = `<div class="p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase">Verification Required</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full outline-none font-mono text-2xl uppercase italic tracking-[0.5em] mb-6"><button onclick="verifyKey()" class="w-full gold-bg text-black py-5 font-bold italic uppercase tracking-widest mb-10">Sync Clearance</button><div class="pt-8 border-t border-white/5 text-center"><a href="${TICKET_CHANNEL_URL}" target="_blank" class="text-blue-400 text-[10px] font-bold uppercase tracking-widest">📩 Open Support Ticket</a></div></div>`;
             } else if (status === 'approved') {
-                content.innerHTML = `<button onclick="window.location.href='fivem://connect/YOUR_IP'" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-[0_0_80px_rgba(212,175,55,0.3)] uppercase">Enter City</button>`;
+                content.innerHTML = `<button onclick="switchTab('join')" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic uppercase">Connect to City</button>`;
             }
         }
 
@@ -173,60 +206,25 @@
                 const sel = document.querySelector(`input[name="q${i}"]:checked`);
                 if(sel && parseInt(sel.value) === q.c) score++;
             });
-            const passed = score >= PASS_THRESHOLD;
-
-            // LOG EXACTLY LIKE SCREENSHOT
-            const embedData = {
-                content: passed ? `✅ **EXAM PASSED: <@${player.id}>**` : `❌ **EXAM FAILED: <@${player.id}>**`,
-                embeds: [{
-                    title: passed ? "EVALUATION SUCCESS" : "EVALUATION FAILURE",
-                    color: passed ? 3066993 : 15158332,
-                    fields: [
-                        { name: "👤 PLAYER", value: `<@${player.id}>`, inline: true },
-                        { name: "📊 SCORE", value: `**${score}/10**`, inline: true }
-                    ],
-                    footer: { text: passed ? "INWI ROLEPLAY REGISTRY" : "Retry Required" }
-                }]
-            };
-            await sendToDiscord(RESULT_WEBHOOK, embedData);
-
-            if(passed) { 
-                document.getElementById('exam-section').classList.add('hidden'); 
-                document.getElementById('bio-section').classList.remove('hidden'); 
-            } else { 
-                alert("ACCESS DENIED. Check rules and retry."); 
-                location.reload(); 
-            }
+            const passed = score >= 7;
+            const embedData = { content: passed ? `✅ **EXAM PASSED: <@${player.id}>**` : `❌ **EXAM FAILED: <@${player.id}>**`, embeds: [{ title: passed ? "EVALUATION SUCCESS" : "EVALUATION FAILURE", color: passed ? 3066993 : 15158332, fields: [{ name: "👤 PLAYER", value: `<@${player.id}>`, inline: true }, { name: "📊 SCORE", value: `**${score}/10**`, inline: true }], footer: { text: passed ? "INWI ROLEPLAY REGISTRY" : "Retry Required" } }] };
+            await fetch(RESULT_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(embedData) });
+            if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); } else { alert("FAILED. Retry."); location.reload(); }
         }
 
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
             const newKey = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
             const keyURL = window.location.origin + window.location.pathname + "?key=" + newKey;
-
-            await sendToDiscord(STAFF_WEBHOOK, {
-                content: `🎫 **NEW APPLICATION: <@${player.id}>**`,
-                embeds: [{
-                    title: "BIOMETRIC DATA",
-                    color: 13936439,
-                    description: `\`\`\`${bio}\`\`\``,
-                    fields: [
-                        { name: "🔑 MANUAL KEY", value: `\`${newKey}\``, inline: true },
-                        { name: "🔗 AUTO-ACTIVATE", value: `[Link to Approve](${keyURL})`, inline: true }
-                    ]
-                }]
-            });
-            localStorage.setItem('inwi_staff_key', newKey);
-            localStorage.setItem('inwi_app_status', 'pending');
-            location.reload();
+            await fetch(STAFF_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ content: `🎫 **NEW APP: <@${player.id}>**`, embeds: [{ title: "BIO", description: `\`\`\`${bio}\`\`\``, color: 13936439, fields: [{ name: "🔑 KEY", value: `\`${newKey}\``, inline: true }, { name: "🔗 URL", value: `[Approve Account](${keyURL})`, inline: true }] }] }) });
+            localStorage.setItem('inwi_staff_key', newKey); localStorage.setItem('inwi_app_status', 'pending'); location.reload();
         }
 
-        async function sendToDiscord(url, p) { try { await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) }); } catch(e) {} }
-        function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR"); } }
+        function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("INVALID"); } }
         function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-10 cyber-border animate-in"><p class="gold-text uppercase text-[11px] font-bold mb-6 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-5 border border-white/5 mt-4 text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-4 accent-gold-bg"> ${ans}</label>`).join('')}</div>`; }); }
-        function accessStaffTerminal() { if(prompt("ACCESS CODE:") === STAFF_PASSCODE) { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
+        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-10 cyber-border animate-in"><p class="gold-text uppercase text-[11px] font-bold mb-6 italic">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-5 border border-white/5 mt-4 text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-4"> ${ans}</label>`).join('')}</div>`; }); }
+        function accessStaffTerminal() { if(prompt("CODE:") === "INWI2026") { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
     </script>
 </body>
 </html>
