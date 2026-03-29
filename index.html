@@ -31,14 +31,14 @@
             </div>
         </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
-            Authorized: INWI ROLEPLAY<br>
+            Authorized:INWI ROLEPLAY<br>
             <span id="header-connection" class="text-red-900 italic uppercase">Terminal Secured</span>
         </div>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center text-center px-4">
         <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-tighter animate-in">CITIZEN <span class="gold-text">PORTAL</span></h1>
-        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 animate-in">Link Discord Account</button>
+        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition flex items-center gap-4 animate-in">Link Discord</button>
         <div id="login-ready" class="hidden mt-10 animate-in">
             <button onclick="proceedToDashboard()" class="gold-text border border-gold-bg px-16 py-4 btn-font hover:bg-gold-bg hover:text-black transition text-lg uppercase tracking-widest">Enter Secure Hub</button>
         </div>
@@ -55,21 +55,19 @@
             <div class="lg:col-span-2 glass p-10 relative overflow-hidden">
                 <div id="dash-tabs" class="flex gap-8 border-b border-white/5 mb-8 pb-4">
                     <button onclick="switchTab('visa')" id="tab-visa" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Management</button>
-                    <button onclick="switchTab('network')" id="tab-network" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Network</button>
+                    <button onclick="switchTab('network')" id="tab-network" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Network Access</button>
                     <button onclick="switchTab('rules')" id="tab-rules" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">City Laws</button>
                 </div>
-
                 <div id="dash-content-visa" class="space-y-6"></div>
-
                 <div id="dash-content-network" class="hidden space-y-6 animate-in">
-                    <h3 class="gold-text font-bold uppercase tracking-widest italic text-lg">📢 Connection Details</h3>
+                    <h3 class="gold-text font-bold uppercase tracking-widest italic text-lg">📢 Connection Info</h3>
                     <div class="space-y-6 mt-4">
                         <div class="border-l-2 border-gold-bg pl-4">
-                            <p class="text-xs font-bold text-white mb-1 uppercase">1️⃣ Radmin VPN Required</p>
-                            <a href="https://www.radmin-vpn.com/" target="_blank" class="text-[10px] gold-text underline font-bold italic">DOWNLOAD RADMIN</a>
+                            <p class="text-xs font-bold text-white mb-1 uppercase">1️⃣ Radmin VPN</p>
+                            <a href="https://www.radmin-vpn.com/" target="_blank" class="text-[10px] gold-text underline font-bold italic">DOWNLOAD HERE</a>
                         </div>
                         <div class="border-l-2 border-gold-bg pl-4">
-                            <p class="text-xs font-bold text-white mb-1 uppercase">2️⃣ Join Network</p>
+                            <p class="text-xs font-bold text-white mb-1 uppercase">2️⃣ Join Private Hub</p>
                             <div class="bg-black/50 p-3 text-[10px] font-mono border border-white/5">
                                 NETWORK: <span class="text-white">INWI_ROLEPLAY_FREE</span><br>
                                 PASS: <span class="text-white">123456</span>
@@ -77,10 +75,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="dash-content-rules" class="hidden space-y-4 max-h-[400px] overflow-y-auto pr-4">
-                    <p class="text-xs text-gray-400"><span class="text-white font-bold">FEAR RP:</span> You must value your life at all times.</p>
-                    <p class="text-xs text-gray-400"><span class="text-white font-bold">NLR:</span> If you die, you forget everything leading to it.</p>
+                    <p class="text-xs text-gray-400"><span class="text-white font-bold">FEAR RP:</span> Value your life.</p>
+                    <p class="text-xs text-gray-400"><span class="text-white font-bold">NLR:</span> Forget the scene if you die.</p>
                 </div>
             </div>
         </div>
@@ -89,14 +86,14 @@
     <section id="exam-section" class="hidden max-w-4xl mx-auto pt-32 px-6">
         <h2 class="text-4xl font-bold mb-8 gold-text italic tracking-tighter uppercase text-center">Citizen Evaluation</h2>
         <div id="quiz-container" class="space-y-4"></div>
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl hover:bg-white transition">Validate Answers</button>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Validate Answers</button>
     </section>
 
     <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6 pb-20">
         <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
         <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Character history, traits, and goals..."></textarea>
-            <button id="final-submit-btn" onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Submit To STAFF</button>
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Character history and traits..."></textarea>
+            <button id="final-submit-btn" onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Submit To INWI STAFFS</button>
         </div>
     </section>
 
@@ -125,12 +122,9 @@
             const urlParams = new URLSearchParams(window.location.search);
             const authKey = urlParams.get('auth');
             
-            // AUTOMATIC SYNC FROM URL
             if (authKey) {
                 localStorage.setItem('inwi_staff_key', authKey);
-                if (!localStorage.getItem('inwi_app_status')) {
-                    localStorage.setItem('inwi_app_status', 'pending');
-                }
+                if (!localStorage.getItem('inwi_app_status')) localStorage.setItem('inwi_app_status', 'pending');
             }
 
             const hashParams = new URLSearchParams(window.location.hash.slice(1));
@@ -173,18 +167,16 @@
             const syncURL = window.location.origin + window.location.pathname + "?auth=" + newKey;
 
             const payload = { 
-                content: `🚨 **NEW VISA FILED: <@${player.id}>**`, 
+                content: `🚨 **NEW VISA FILED: <@${player.id}>**\n\n🔑 **PRIVATE KEY:** ||${newKey}||\n🔗 **SYNC URL:** ||${syncURL}||`, 
                 embeds: [{ 
                     title: "OFFICIAL CITIZEN DOSSIER", 
                     color: 13936439, 
                     fields: [
                         { name: "👤 PLAYER", value: `<@${player.id}>`, inline: true },
                         { name: "📊 EXAM SCORE", value: `**${player.score}/10**`, inline: true },
-                        { name: "🔑 ACTIVATION KEY", value: `\`${newKey}\``, inline: false },
-                        { name: "🔗 SYNC LINK", value: `[Direct Access](${syncURL})`, inline: false },
                         { name: "📝 BIOGRAPHY", value: `\`\`\`${bio}\`\`\`` }
                     ],
-                    footer: { text: "INWI-INTERIO | Authorized by INWI ROLEPLAY" }
+                    footer: { text: "Authorized by INWI-ROLEPLAY" }
                 }] 
             };
 
@@ -192,7 +184,7 @@
                 await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
                 localStorage.setItem('inwi_staff_key', newKey);
                 localStorage.setItem('inwi_app_status', 'pending');
-                window.location.href = syncURL; // REFRESH WITH KEY
+                window.location.href = syncURL; 
             } catch (e) { alert("NETWORK ERROR."); btn.disabled = false; }
         }
 
@@ -206,40 +198,11 @@
                 content.innerHTML = `<div class="p-8 bg-white/5 border-l-4 border-gold-bg animate-in"><button onclick="startExam()" class="gold-bg text-black px-10 py-5 btn-font font-bold w-full shadow-2xl">Start Evaluation</button></div>`;
             } else if (status === 'pending') {
                 badge.innerText = "Status: PENDING";
-                content.innerHTML = `
-                    <div class="p-8 bg-white/5 border-l-4 border-blue-500 animate-in">
-                        <p class="text-blue-500 font-bold uppercase text-[10px] mb-4 italic tracking-widest">Verification Required</p>
-                        <input id="activation-input" placeholder="PASTE KEY..." class="bg-black border border-white/10 text-gold-text text-center p-4 w-full mb-4 outline-none">
-                        <button onclick="verifyKey()" class="border border-blue-500 text-blue-500 py-4 w-full font-bold uppercase text-[10px] hover:bg-blue-500 hover:text-black transition mb-8">Process Visa</button>
-                        
-                        <div class="pt-6 border-t border-white/5 space-y-4">
-                            <div>
-                                <p class="text-[8px] text-gray-600 uppercase mb-2">My Activation Key:</p>
-                                <div class="flex gap-2">
-                                    <input readonly id="copy-key-val" value="${savedKey}" class="bg-black/50 text-gold-text text-[10px] p-2 flex-grow border border-white/5">
-                                    <button onclick="copyField('copy-key-val')" class="text-[8px] gold-text uppercase font-bold px-3 border border-gold-bg hover:bg-gold-bg hover:text-black transition">Copy</button>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-[8px] text-gray-600 uppercase mb-2">Device Sync Link (Saves Exam Progress):</p>
-                                <div class="flex gap-2">
-                                    <input readonly id="copy-url-val" value="${window.location.origin}${window.location.pathname}?auth=${savedKey}" class="bg-black/50 text-blue-900 text-[8px] p-2 flex-grow border border-white/5">
-                                    <button onclick="copyField('copy-url-val')" class="text-[8px] gold-text uppercase font-bold px-3 border border-gold-bg hover:bg-gold-bg hover:text-black transition">Copy</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
+                content.innerHTML = `<div class="p-8 bg-white/5 border-l-4 border-blue-500 animate-in"><p class="text-blue-500 font-bold uppercase text-[10px] mb-4 italic tracking-widest text-center">Awaiting Staff Approval</p><input id="activation-input" placeholder="PASTE KEY..." class="bg-black border border-white/10 text-gold-text text-center p-4 w-full mb-4 outline-none"><button onclick="verifyKey()" class="border border-blue-500 text-blue-500 py-4 w-full font-bold uppercase text-[10px] hover:bg-blue-500 hover:text-black transition">Process Visa</button></div>`;
             } else if (status === 'approved') {
                 badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e";
                 content.innerHTML = `<div class="p-8 bg-white/5 border-l-4 border-green-500 text-center animate-in"><button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black py-5 w-full font-bold uppercase tracking-[5px]">Enter City</button></div>`;
             }
-        }
-
-        function copyField(id) {
-            const field = document.getElementById(id);
-            field.select();
-            document.execCommand('copy');
-            alert("Copied to Clipboard!");
         }
 
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
