@@ -16,6 +16,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
         .pulse-green { background: #22c55e; box-shadow: 0 0 10px #22c55e; animation: pulse-green 2s infinite; }
+        @keyframes pulse-green { 0% { transform: scale(0.95); opacity: 0.7; } 70% { transform: scale(1.2); opacity: 0.3; } 100% { transform: scale(0.95); opacity: 0.7; } }
     </style>
 </head>
 <body class="pb-20">
@@ -25,7 +26,7 @@
             <div class="text-2xl font-bold gold-text italic tracking-tighter">INWI <span class="text-white">RP</span></div>
             <div id="status-bar" class="flex items-center text-[9px] uppercase tracking-widest font-bold text-gray-500 mt-1">
                 <span id="status-dot" class="pulse bg-gray-600"></span>
-                <span id="status-text">Checking Handshake...</span>
+                <span id="status-text">Handshake: Offline</span>
             </div>
         </div>
         <div class="text-[10px] text-gray-600 font-bold uppercase tracking-widest italic text-right">
@@ -48,28 +49,54 @@
                 <img id="user-avatar" src="" class="h-32 w-32 mx-auto border border-gold-bg shadow-2xl mb-6 grayscale p-1">
                 <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase mb-4"></h2>
                 <div id="app-status-badge" class="py-2 px-4 w-full text-[10px] font-bold uppercase border border-gold-bg gold-text italic mb-6">Scanning...</div>
-                
-                <div class="text-left mt-8 border-t border-white/5 pt-6">
-                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-2 italic">City Milestone</p>
-                    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
-                        <div class="gold-bg h-full w-[65%] shadow-[0_0_15px_#d4af37]"></div>
-                    </div>
-                    <p class="text-[8px] text-right text-gold-text mt-1 font-bold italic">65% OPTIMIZED</p>
-                </div>
             </div>
 
             <div class="lg:col-span-2 glass p-10 relative overflow-hidden">
                 <div id="dash-tabs" class="flex gap-8 border-b border-white/5 mb-8 pb-4">
-                    <button onclick="switchTab('visa')" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Status</button>
-                    <button id="rules-tab-btn" onclick="switchTab('rules')" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">City Laws</button>
+                    <button onclick="switchTab('visa')" id="tab-visa" class="text-sm font-bold gold-text uppercase tracking-widest">Visa Status</button>
+                    <button onclick="switchTab('network')" id="tab-network" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">Network Access</button>
+                    <button onclick="switchTab('rules')" id="tab-rules" class="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition">City Laws</button>
                 </div>
+
                 <div id="dash-content-visa" class="space-y-6"></div>
-                
+
+                <div id="dash-content-network" class="hidden space-y-6 animate-in">
+                    <h3 class="gold-text font-bold uppercase tracking-widest italic text-lg">📢 How to Join (100% Free)</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest italic border-b border-white/5 pb-4">We use a Private Network for maximum security. Follow these 3 steps:</p>
+                    
+                    <div class="space-y-6 mt-4">
+                        <div class="border-l-2 border-gold-bg pl-4">
+                            <p class="text-xs font-bold text-white mb-1">1️⃣ DOWNLOAD RADMIN VPN</p>
+                            <p class="text-[10px] text-gray-400 mb-2">Install the free client on your PC. It takes 30 seconds.</p>
+                            <a href="https://www.radmin-vpn.com/" target="_blank" class="text-[10px] gold-text underline font-bold italic">DOWNLOAD LINK</a>
+                        </div>
+
+                        <div class="border-l-2 border-gold-bg pl-4">
+                            <p class="text-xs font-bold text-white mb-1">2️⃣ JOIN OUR PRIVATE NETWORK</p>
+                            <p class="text-[10px] text-gray-400 mb-2">Open Radmin VPN > Click "Join Network" and enter:</p>
+                            <div class="bg-black/50 p-3 text-[10px] font-mono border border-white/5">
+                                NETWORK: <span class="text-white">INWI_ROLEPLAY_FREE</span><br>
+                                PASSWORD: <span class="text-white">123456</span>
+                            </div>
+                        </div>
+
+                        <div class="border-l-2 border-gold-bg pl-4">
+                            <p class="text-xs font-bold text-white mb-1">3️⃣ CONNECT TO SERVER</p>
+                            <p class="text-[10px] text-gray-400 mb-2">Once your PC name turns <span class="text-green-500">Green</span> in Radmin:</p>
+                            <ul class="text-[9px] space-y-1 text-gray-500 uppercase italic">
+                                <li>• Open FiveM</li>
+                                <li>• Press <span class="text-white font-bold">F8</span></li>
+                                <li>• Type: <span class="text-gold-text font-bold">connect 26.32.72.204</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="dash-content-rules" class="hidden space-y-6 max-h-[400px] overflow-y-auto">
                     <div class="border-l-2 border-gold-bg pl-6 uppercase tracking-[2px] text-[11px] text-gray-400 space-y-4">
-                        <p><span class="text-white">Fear RP:</span> Value your life. Comply when threatened.</p>
-                        <p><span class="text-white">NLR:</span> Forget all events upon respawn.</p>
-                        <p><span class="text-white">No Meta:</span> Do not use OOC information in-game.</p>
+                        <p><span class="text-white">Fear RP:</span> Value your life. Comply if held at gunpoint.</p>
+                        <p><span class="text-white">NLR:</span> Forget all events leading to your death.</p>
+                        <p><span class="text-white">Metagaming:</span> Do not use Discord info in-game.</p>
                     </div>
                 </div>
             </div>
@@ -77,56 +104,63 @@
     </section>
 
     <section id="exam-section" class="hidden max-w-4xl mx-auto pt-32 px-6">
+        <h2 class="text-4xl font-bold mb-8 gold-text italic tracking-tighter uppercase text-center">Visa Evaluation</h2>
         <div id="quiz-container" class="space-y-4"></div>
-        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Process Evaluation</button>
+        <button onclick="checkQuiz()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-10 uppercase tracking-widest shadow-2xl">Validate Score</button>
     </section>
 
     <section id="bio-section" class="hidden max-w-3xl mx-auto pt-32 px-6 pb-20">
         <h2 class="text-5xl font-bold mb-4 gold-text italic uppercase">Biography</h2>
         <div class="glass p-10 space-y-8 border-t-2 border-gold-bg">
-            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Minimum 50 words about your character's life..."></textarea>
-            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Transmit Application</button>
+            <textarea id="backstory" class="w-full bg-black border border-white/10 p-5 h-64 focus:border-gold-bg outline-none text-white text-sm" placeholder="Tell your character's story..."></textarea>
+            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase text-lg tracking-[5px]">Submit Application</button>
         </div>
     </section>
 
     <script>
         const CLIENT_ID = "1481267542780809328";
         const WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const DIRECT_IP = "26.32.72.204"; // Your Radmin IP
+        const SERVER_IP = "26.32.72.204";
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "", id: "", avatar: "", score: 0 };
 
-        /* --- VPN CONNECTION LOGIC --- */
-        function copyIP() {
-            const command = "connect " + DIRECT_IP;
-            navigator.clipboard.writeText(command);
-            alert("COMMAND COPIED! Open FiveM, press F8, and paste (Ctrl+V).");
-        }
-
-        function launchCity() {
-            window.location.href = "fivem://connect/" + DIRECT_IP;
-        }
-
         const examData = [
-            { q: "Fear RP: 3 armed criminals point guns at you. You should:", a: ["Run", "Comply & Value Life", "Fight"], c: 1 },
-            { q: "Metagaming: Using Discord info in-game is:", a: ["Allowed", "Bannable", "Smart"], c: 1 },
-            { q: "VDM: Ramming a car without reason is:", a: ["RP", "Bannable", "Allowed for Gangs"], c: 1 },
-            { q: "NLR: You respawn after dying. You should:", a: ["Remember all", "Forget & stay away", "Call police"], c: 1 },
-            { q: "Mask Rule: Recognizing a masked voice in-game is:", a: ["Allowed", "Not Allowed", "Only friends"], c: 1 },
-            { q: "RDM: Shooting without talk is:", a: ["Allowed", "Rules (RDM)", "Only Gangs"], c: 1 },
-            { q: "Fail RP: Jumping off a bridge and running instantly:", a: ["Proper Play", "Fail RP", "Allowed"], c: 1 },
-            { q: "Interactions: If a player trolls, you should:", a: ["Troll back", "Report to Staff", "Shout OOC"], c: 1 },
-            { q: "Robbery: Can you force a player to empty their bank?", a: ["Yes", "No (Greed RP)", "Only if rich"], c: 1 },
-            { q: "Character: A monk starts shooting police:", a: ["Consistent", "Poor Logic", "Allowed"], c: 1 }
+            { q: "What is Fear RP?", a: ["Running from guns", "Valuing your life", "Fighting everyone"], c: 1 },
+            { q: "What does NLR stand for?", a: ["No Losing Roleplay", "New Life Rule", "Next Level Roleplay"], c: 1 },
+            { q: "Can you shoot cops without a word if your friend is being arrested?", a: ["Yes", "No (RDM)", "Only with a mask"], c: 1 },
+            { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing the game well", "Talking in OOC"], c: 0 },
+            { q: "Can you ram a police car just to get a chase?", a: ["Yes", "No (Baiting)", "Only at night"], c: 1 },
+            { q: "What is VDM?", a: ["Vehicle Death Match", "Very Dangerous Mission", "Virtual Death Mode"], c: 0 },
+            { q: "If you are downed, can you talk on the radio?", a: ["Yes", "No (Fail RP)", "Only to friends"], c: 1 },
+            { q: "What is Powergaming?", a: ["Having a fast car", "Forcing actions on others", "Playing for 10 hours"], c: 1 },
+            { q: "Can you recognize a masked person by their voice?", a: ["Yes, if I know them", "No", "Only if they allow it"], c: 1 },
+            { q: "A robber asks for your entire bank balance. Is this allowed?", a: ["Yes", "No (Greed RP)", "Only if I have no cash"], c: 1 }
         ];
+
+        function checkServer() {
+            setTimeout(() => {
+                document.getElementById('status-dot').className = "pulse pulse-green"; 
+                document.getElementById('status-text').innerHTML = "INWI RP: <span class='text-green-500 uppercase'>RADMIN HANDSHAKE</span>";
+                document.getElementById('header-connection').innerText = "PRIVATE ACCESS";
+                document.getElementById('header-connection').className = "text-green-600 italic uppercase";
+            }, 1200);
+        }
+
+        function switchTab(t) {
+            const tabs = ['visa', 'network', 'rules'];
+            tabs.forEach(tab => {
+                document.getElementById(`dash-content-${tab}`).classList.toggle('hidden', tab !== t);
+                document.getElementById(`tab-${tab}`).classList.toggle('gold-text', tab === t);
+                document.getElementById(`tab-${tab}`).classList.toggle('text-gray-500', tab !== t);
+            });
+        }
 
         function loadQuiz() {
             const container = document.getElementById('quiz-container');
-            container.innerHTML = `<h2 class="text-3xl font-bold mb-8 gold-text italic tracking-tighter uppercase text-center">Visa Evaluation</h2>`;
+            container.innerHTML = "";
             examData.forEach((d, i) => {
-                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5 animate-in"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Question ${i+1}: ${d.q}</p>` + 
-                d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('') + `</div>`;
+                container.innerHTML += `<div class="glass p-6 border-l-2 border-white/10 mb-5 animate-in"><p class="font-bold mb-4 uppercase text-[10px] gold-text tracking-widest">Q${i+1}: ${d.q}</p>${d.a.map((ans, j) => `<label class="block p-3 border border-white/5 mt-2 hover:border-gold-bg cursor-pointer text-[10px] uppercase transition"><input type="radio" name="q${i}" value="${j}" class="mr-3 accent-gold-bg"> ${ans}</label>`).join('')}</div>`;
             });
         }
 
@@ -137,14 +171,23 @@
                 if(sel && parseInt(sel.value) === d.c) player.score++;
             });
             if(player.score >= 7) { 
-                document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); window.scrollTo(0,0); 
-            } else { alert(`SCORE: ${player.score}/10. 7/10 REQUIRED.`); location.reload(); }
+                alert(`PASSED: ${player.score}/10. Transmitting to Bio section.`);
+                document.getElementById('exam-section').classList.add('hidden'); 
+                document.getElementById('bio-section').classList.remove('hidden'); 
+                window.scrollTo(0,0); 
+            } else { alert(`FAILED: ${player.score}/10. Minimum 7 required. Restarting evaluation.`); location.reload(); }
+        }
+
+        function verifyKey() {
+            const input = document.getElementById('activation-input').value;
+            if(input.trim() === localStorage.getItem('inwi_staff_key')) {
+                localStorage.setItem('inwi_app_status', 'approved');
+                updateDashboardUI();
+            } else { alert("ACCESS DENIED: KEY INVALID"); }
         }
 
         window.onload = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('approve')) { localStorage.setItem('inwi_app_status', 'approved'); window.history.replaceState({}, document.title, window.location.pathname); }
-            
+            checkServer();
             const hashParams = new URLSearchParams(window.location.hash.slice(1));
             const token = hashParams.get('access_token');
             if (token) {
@@ -158,13 +201,6 @@
                 document.getElementById('login-ready').classList.remove('hidden');
             }
         };
-
-        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        
-        function switchTab(t) {
-            document.getElementById('dash-content-visa').classList.toggle('hidden', t==='rules');
-            document.getElementById('dash-content-rules').classList.toggle('hidden', t==='visa');
-        }
 
         function proceedToDashboard() {
             const dData = JSON.parse(localStorage.getItem('inwi_discord'));
@@ -182,50 +218,23 @@
             const badge = document.getElementById('app-status-badge');
             
             if (status === 'new') {
-                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm italic">New Application</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full shadow-lg">Begin Visa Exam</button></div>`;
+                content.innerHTML = `<div class="border-l-4 border-gold-bg p-6 bg-white/5 animate-in"><h4 class="gold-text font-bold mb-4 uppercase text-sm italic">New Citizen File</h4><button onclick="startExam()" class="gold-bg text-black px-10 py-4 btn-font font-bold w-full shadow-lg">Begin Visa Exam</button></div>`;
             } else if (status === 'pending') {
-                badge.innerText = "Status: PENDING";
-                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-2 uppercase text-sm italic tracking-widest">Under Review</h4><p class="text-[9px] text-gray-400 uppercase tracking-widest mb-6 italic leading-relaxed">Wait for a handshake from Kamal Kumar Agarwal. Access will be granted shortly.</p></div>`;
+                badge.innerText = "Status: PENDING ACTIVATION";
+                content.innerHTML = `<div class="border-l-4 border-blue-500 p-8 bg-white/5 animate-in"><h4 class="text-blue-500 font-bold mb-4 uppercase text-sm italic text-center">Awaiting Staff Key</h4><input id="activation-input" placeholder="ENTER KEY..." class="bg-black border border-white/10 text-gold-text text-center text-xs px-4 py-4 w-full font-mono outline-none focus:border-gold-bg mb-4"><button onclick="verifyKey()" class="border border-blue-500 text-blue-500 px-6 py-4 text-[10px] font-bold w-full uppercase hover:bg-blue-500 hover:text-black transition">Process Visa</button></div>`;
             } else if (status === 'approved') {
                 badge.innerText = "Status: ACTIVE"; badge.style.color = "#22c55e"; badge.style.borderColor = "#22c55e";
-                content.innerHTML = `
-                    <div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in">
-                        <h4 class="text-green-500 font-bold mb-4 uppercase text-sm italic tracking-[2px]">Visa Cleared</h4>
-                        
-                        <button onclick="launchCity()" class="gold-bg text-black px-10 py-4 btn-font font-bold block w-full text-center uppercase tracking-[5px] shadow-[0_0_30px_rgba(212,175,55,0.2)] mb-8 hover:bg-white transition">
-                            Launch City
-                        </button>
-                        
-                        <div class="pt-6 border-t border-white/5">
-                            <p class="text-[9px] text-gray-500 uppercase tracking-[2px] mb-3 italic">Alternative Connection (F8):</p>
-                            <div class="flex gap-2">
-                                <input readonly value="connect 26.32.72.204" class="bg-black border border-white/10 text-gold-text text-[10px] px-4 py-3 w-full font-mono outline-none">
-                                <button onclick="copyIP()" class="gold-text border border-gold-bg px-6 py-3 text-[9px] font-bold hover:bg-gold-bg hover:text-black transition">COPY</button>
-                            </div>
-                        </div>
-                        <p class="mt-4 text-[8px] text-gray-600 uppercase italic">Ensure Radmin VPN is active before connecting.</p>
-                    </div>`;
+                content.innerHTML = `<div class="border-l-4 border-green-500 p-8 bg-white/5 animate-in text-center"><button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black px-10 py-5 btn-font font-bold block w-full text-center uppercase tracking-[5px] shadow-lg mb-8 hover:bg-white transition">Enter City</button><div class="pt-6 border-t border-white/5 text-left"><p class="text-[9px] text-gray-500 uppercase tracking-[2px] mb-3 italic">F8 Command:</p><input readonly value="connect ${SERVER_IP}" class="bg-black border border-white/10 text-gold-text text-[10px] px-4 py-3 w-full font-mono outline-none"></div></div>`;
             }
         }
 
+        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
+        
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
-            if(bio.length < 30) return alert("Biography too short.");
-            const approvalURL = REDIRECT + "?approve=" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            const data = {
-                content: "🚨 **INWI RP: NEW CITIZEN FILED**",
-                embeds: [{
-                    title: "🚀 APPLICANT: " + player.name.toUpperCase(), color: 13936439,
-                    fields: [
-                        { name: "👤 Discord", value: `<@${player.id}>`, inline: true },
-                        { name: "📊 Score", value: `**${player.score}/10**`, inline: true },
-                        { name: "🔗 APPROVAL LINK", value: `[COPY THIS LINK AND DM](${approvalURL})` },
-                        { name: "📝 Bio", value: "```" + bio + "```" }
-                    ],
-                    footer: { text: "Authorized: INWI ROLEPLAY" }
-                }]
-            };
-            await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            const newKey = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+            localStorage.setItem('inwi_staff_key', newKey);
+            await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ content: `🚨 **NEW VISA FILED: ${player.name}**`, embeds: [{ title: "CITIZEN EVALUATION", color: 13936439, fields: [{ name: "📊 SCORE", value: `**${player.score}/10**` }, { name: "🔑 ACTIVATION KEY", value: `\`${newKey}\`` }, { name: "👤 DISCORD", value: `<@${player.id}>` }, { name: "📝 BIOGRAPHY", value: bio }], footer: { text: "Authorized: Kamal Kumar Agarwal" } }] }) });
             localStorage.setItem('inwi_app_status', 'pending');
             location.reload();
         }
