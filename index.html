@@ -34,13 +34,12 @@
         <div class="flex flex-col">
             <div class="text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
             <div class="text-[8px] font-bold text-gray-500 uppercase tracking-[0.5em] mt-1 flex items-center">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_#22c55e]"></span> STATUS: OS_v63_READY
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_#22c55e]"></span> STATUS: DIRECT_LINK_ACTIVE
             </div>
         </div>
         <div class="flex gap-8 items-center">
             <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1 transition-all">Registry</button>
             <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1 transition-all">Store</button>
-            <button onclick="switchTab('join')" id="tab-join" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1 transition-all">How to Join</button>
             <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-4 py-1 hover:bg-red-500/10 transition text-[8px] font-bold uppercase tracking-widest">Overseer</button>
         </div>
     </nav>
@@ -69,7 +68,6 @@
             </div>
 
             <div class="lg:col-span-8 space-y-8">
-                
                 <div id="dash-content-visa" class="min-h-[500px]"></div>
 
                 <div id="dash-content-tebex" class="hidden animate-in">
@@ -89,30 +87,6 @@
                         <a href="https://inwi.tebex.io/" target="_blank" class="inline-block gold-bg text-black px-12 py-4 btn-font font-bold text-lg hover:bg-white transition italic uppercase">Visit Storefront</a>
                     </div>
                 </div>
-
-                <div id="dash-content-join" class="hidden space-y-8 animate-in">
-                    <div class="glass p-10 cyber-border">
-                        <h3 class="gold-text text-2xl font-bold italic mb-6 uppercase">📢 How to Join INWI Roleplay</h3>
-                        <div class="space-y-10">
-                            <div>
-                                <h4 class="text-white font-bold text-xs uppercase mb-3 font-mono">1. Download Radmin VPN</h4>
-                                <a href="https://www.radmin-vpn.com/" class="text-[10px] gold-text underline uppercase font-bold tracking-widest italic">Download Client Here</a>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold text-xs uppercase mb-3 font-mono">2. Network Credentials</h4>
-                                <div class="bg-black/80 p-5 border border-white/5 font-mono text-[11px] space-y-2 italic">
-                                    <p class="text-gray-400">Network: <span class="text-white">INWI_ROLEPLAY_FREE</span></p>
-                                    <p class="text-gray-400">Password: <span class="text-white">OPEN TICKET For PASS</span></p>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold text-xs uppercase mb-3 font-mono">3. FiveM Connection</h4>
-                                <p class="text-[10px] text-gray-500 uppercase italic">Press <span class="text-white">F8</span> and type: <br><span class="text-gold-text mt-2 block">connect [Your Radmin IP]</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -132,6 +106,7 @@
 
     <script>
         // MASTER CONFIG
+        const SERVER_IP = "26.32.72.204"; // Replace with your actual IP
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
         const CLIENT_ID = "1481267542780809328";
@@ -183,7 +158,7 @@
         }
 
         function switchTab(t) {
-            ['visa', 'tebex', 'join'].forEach(tab => {
+            ['visa', 'tebex'].forEach(tab => {
                 const el = document.getElementById(`dash-content-${tab}`);
                 const btn = document.getElementById(`tab-${tab}`);
                 if(el) el.classList.toggle('hidden', tab !== t);
@@ -205,7 +180,7 @@
             } else if (status === 'pending') {
                 content.innerHTML = `<div class="p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full outline-none font-mono text-2xl uppercase mb-6"><button onclick="verifyKey()" class="w-full gold-bg text-black py-5 font-bold italic uppercase tracking-widest mb-10">Verify Identity</button><div class="pt-8 border-t border-white/5 text-center"><a href="${TICKET_CHANNEL_URL}" target="_blank" class="text-blue-400 text-[9px] font-bold uppercase hover:underline italic">📩 Support Ticket FOR KEY AND URL</a></div></div>`;
             } else if (status === 'approved') {
-                content.innerHTML = `<button onclick="switchTab('join')" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-[0_0_80px_rgba(212,175,55,0.3)] uppercase">Clearance Active</button>`;
+                content.innerHTML = `<button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-[0_0_80px_rgba(212,175,55,0.3)] uppercase">Clearance Active</button>`;
             }
         }
 
@@ -222,7 +197,7 @@
                     title: passed ? "EVALUATION SUCCESS" : "EVALUATION FAILURE",
                     color: passed ? 3066993 : 15158332,
                     fields: [ { name: "👤 PLAYER", value: `<@${player.id}>`, inline: true }, { name: "📊 SCORE", value: `**${score}/10**`, inline: true } ],
-                    footer: { text: passed ? "INWI ROLEPLAY REGISTRY" : "Retry Required" }
+                    footer: { text: "INWI ROLEPLAY REGISTRY" }
                 }]
             };
             await sendToDiscord(RESULT_WEBHOOK, embedData);
