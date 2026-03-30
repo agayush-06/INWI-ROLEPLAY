@@ -20,7 +20,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.5s ease-out forwards; }
         
-        .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 4px; }
 
         @media (max-width: 768px) {
             .text-huge { font-size: 4rem !important; }
@@ -69,32 +69,43 @@
                 </div>
 
                 <div class="glass p-6 border-l-4 border-gold-bg">
-                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic">Communication Hub</h4>
+                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic">Connection Hub</h4>
                     <div class="mobile-grid space-y-3 md:space-y-3">
-                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">Join Discord</a>
-                        <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 border border-[#5865F2] text-[#5865F2] py-3 text-[9px] font-bold uppercase hover:bg-[#5865F2] hover:text-white transition rounded-sm">Open Ticket</a>
-                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Get Radmin VPN</a>
+                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">Discord</a>
+                        <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 border border-[#5865F2] text-[#5865F2] py-3 text-[9px] font-bold uppercase hover:bg-[#5865F2] hover:text-white transition rounded-sm">Ticket</a>
+                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Radmin VPN</a>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-6">
+                
                 <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
 
                 <div id="dash-content-media" class="hidden animate-in">
                     <div class="glass p-6 md:p-10 cyber-border">
-                        <h3 class="gold-text text-xl md:text-2xl font-bold italic mb-6 uppercase">Live Citations</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="stream-card bg-black/40 p-2 border border-white/5">
-                                <iframe src="https://www.youtube.com/embed/LIVE_ID_1" frameborder="0" allowfullscreen></iframe>
-                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 1</p>
-                            </div>
-                            <div class="stream-card bg-black/40 p-2 border border-white/5">
-                                <iframe src="https://www.youtube.com/embed/LIVE_ID_2" frameborder="0" allowfullscreen></iframe>
-                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 2</p>
-                            </div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="gold-text text-xl md:text-2xl font-bold italic uppercase">Live Citations</h3>
+                            <button onclick="document.getElementById('streamer-form').classList.toggle('hidden')" class="text-[8px] border border-gold-bg/30 px-3 py-1 gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold italic">Register Channel</button>
                         </div>
-                        <p class="text-gray-500 text-[8px] mt-6 text-center uppercase tracking-widest italic">Submit your YouTube URL via ticket to be featured.</p>
+
+                        <div id="streamer-form" class="hidden mb-8 p-6 bg-black/40 border border-gold-bg/20 animate-in">
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <input id="streamer-name" placeholder="Citizen Name" class="bg-black/50 border border-white/10 text-white p-3 flex-1 outline-none text-xs focus:border-gold-bg italic">
+                                <input id="streamer-url" placeholder="Channel Link (UC...)" class="bg-black/50 border border-white/10 text-white p-3 flex-1 outline-none text-xs focus:border-gold-bg italic">
+                                <button onclick="submitStreamer()" class="gold-bg text-black px-6 py-3 btn-font font-bold text-xs hover:bg-white transition uppercase italic">Submit</button>
+                            </div>
+                            <p id="stream-msg" class="text-[8px] text-green-500 mt-2 hidden uppercase italic">Application sent to Overseers.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="live-stream-grid">
+                            
+                            <div class="stream-card bg-black/40 p-2 border border-white/5">
+                                <iframe src="https://www.youtube.com/embed/live_stream?channel=CHANNEL_ID_HERE" frameborder="0" allowfullscreen></iframe>
+                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 LIVE FEED: Overseer Prime</p>
+                            </div>
+
+                            </div>
                     </div>
                 </div>
 
@@ -114,15 +125,14 @@
     </section>
 
     <section id="bio-section" class="hidden max-w-3xl mx-auto pt-24 md:pt-44 px-4 md:px-8 pb-20">
-        <div class="glass p-6 md:p-12 cyber-border">
-            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-6 italic uppercase text-center">Biometric Entry</h2>
-            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Character history required..."></textarea>
+        <div class="glass p-6 md:p-12 cyber-border text-center">
+            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-6 italic uppercase">Biometric Entry</h2>
+            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Character history required for clearance..."></textarea>
             <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-6 italic">Request Whitelist</button>
         </div>
     </section>
 
     <script>
-        // ... (Keep all your existing JS variables)
         const SERVER_IP = "26.32.72.204"; 
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
@@ -133,31 +143,18 @@
 
         let player = { name: "Citizen", id: "0000", avatar: "" };
         const examQuestions = [
-            { q: "What is Fear RP?", a: ["Running from police", "Valuing your life above all", "Fighting back"], c: 1 },
+            { q: "What is Fear RP?", a: ["Running from police", "Valuing life above all", "Fighting back"], c: 1 },
             { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing well", "Talking loud"], c: 0 },
-            { q: "What is NLR?", a: ["New car", "Forgetting events after death", "Moving house"], c: 1 },
-            { q: "What is RDM?", a: ["Killing with reason", "Killing without RP reason", "Dying in car"], c: 1 },
-            { q: "What is VDM?", a: ["Racing", "Using vehicle as weapon", "Fixing car"], c: 1 },
+            { q: "What is NLR?", a: ["New car", "Forgetting death events", "Moving house"], c: 1 },
+            { q: "What is RDM?", a: ["Killing with reason", "Killing without RP reason", "Car death"], c: 1 },
+            { q: "What is VDM?", a: ["Racing", "Using car as weapon", "Fixing car"], c: 1 },
             { q: "What is Powergaming?", a: ["Doing impossible things", "High FPS", "Gang leader"], c: 0 },
             { q: "Recognize masked people by voice?", a: ["Yes", "No (Forbidden)", "Only friends"], c: 1 },
             { q: "Gun pointed at you?", a: ["Shoot", "Comply (Fear RP)", "Run"], c: 1 },
-            { q: "What is OOC?", a: ["In character", "Out of character (Player)", "Radio"], c: 1 },
+            { q: "What is OOC?", a: ["In character", "Out of character", "Radio"], c: 1 },
             { q: "Robbing bank balances?", a: ["Yes", "No (Prohibited)", "Only staff"], c: 1 }
         ];
 
-        // Updated switchTab logic to handle 'media'
-        function switchTab(t) {
-            ['visa', 'tebex', 'media'].forEach(tab => {
-                const el = document.getElementById(`dash-content-${tab}`);
-                const btn = document.getElementById(`tab-${tab}`);
-                if(el) el.classList.toggle('hidden', tab !== t);
-                if(btn) btn.className = (tab === t) ? 
-                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
-                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
-            });
-        }
-
-        // ... (Keep the rest of your original logic for Login, Exam, and Submit)
         window.onload = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('key')) {
@@ -177,6 +174,17 @@
             }
         };
 
+        function switchTab(t) {
+            ['visa', 'tebex', 'media'].forEach(tab => {
+                const el = document.getElementById(`dash-content-${tab}`);
+                const btn = document.getElementById(`tab-${tab}`);
+                if(el) el.classList.toggle('hidden', tab !== t);
+                if(btn) btn.className = (tab === t) ? 
+                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
+                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
+            });
+        }
+
         function proceedToDashboard() {
             if(!localStorage.getItem('inwi_discord')) return;
             player = JSON.parse(localStorage.getItem('inwi_discord'));
@@ -195,21 +203,22 @@
             idStatus.className = status === 'approved' ? "text-green-500 italic" : status === 'pending' ? "text-blue-400 italic" : "text-red-500 italic";
 
             if (status === 'new') {
-                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-12 md:py-16 btn-font font-bold text-2xl md:text-4xl italic shadow-2xl">Begin Evaluation</button>`;
+                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-12 md:py-16 btn-font font-bold text-2xl md:text-4xl italic shadow-2xl uppercase">Begin Evaluation</button>`;
             } else if (status === 'pending') {
-                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm text-center">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6 focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
+                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in text-center"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6 focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
             } else if (status === 'approved') {
-                content.innerHTML = `
-                    <div class="space-y-6 animate-in">
-                        <div class="glass p-6 md:p-10 border-l-4 border-red-500 text-center">
-                            <h3 class="text-white font-bold text-xs md:text-base uppercase tracking-widest mb-2">⚠️ Connection Bridge</h3>
-                            <p class="text-gray-500 text-[9px] md:text-[11px] uppercase italic">Ensure Radmin VPN is linked to <span class="text-gold-text">INWI_ROLEPLAY_FREE</span>.</p>
-                        </div>
-                        <button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-12 md:py-20 btn-font font-bold text-3xl md:text-5xl italic shadow-2xl uppercase">
-                            Enter INWI City
-                        </button>
-                    </div>`;
+                content.innerHTML = `<button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-12 md:py-20 btn-font font-bold text-3xl md:text-5xl italic shadow-2xl uppercase">Enter INWI City</button>`;
             }
+        }
+
+        async function submitStreamer() {
+            const name = document.getElementById('streamer-name').value;
+            const url = document.getElementById('streamer-url').value;
+            if(!name || !url) return;
+            await sendToDiscord(STAFF_WEBHOOK, { content: `🎥 **NEW STREAMER APPLICATION**\nCitizen: ${name}\nYouTube Link: ${url}` });
+            document.getElementById('streamer-name').value = "";
+            document.getElementById('streamer-url').value = "";
+            document.getElementById('stream-msg').classList.remove('hidden');
         }
 
         async function evaluateExam() {
@@ -219,31 +228,25 @@
                 if(sel && parseInt(sel.value) === q.c) score++;
             });
             const passed = score >= PASS_THRESHOLD;
-            await sendToDiscord(RESULT_WEBHOOK, {
-                content: passed ? `✅ **PASS: <@${player.id}>**` : `❌ **FAIL: <@${player.id}>**`,
-                embeds: [{ title: "EVALUATION", color: passed ? 3066993 : 15158332, fields: [ { name: "PLAYER", value: `<@${player.id}>`, inline: true }, { name: "SCORE", value: `${score}/10`, inline: true } ] }]
-            });
+            await sendToDiscord(RESULT_WEBHOOK, { content: passed ? `✅ **PASS: <@${player.id}>**` : `❌ **FAIL: <@${player.id}>**` });
             if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); }
-            else { alert("Score insufficient."); location.reload(); }
+            else { alert("Score Insufficient. Re-evaluation Required."); location.reload(); }
         }
 
         async function finalSubmit() {
             const bio = document.getElementById('backstory').value;
             const key = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            await sendToDiscord(STAFF_WEBHOOK, {
-                content: `🎫 **NEW APP: <@${player.id}>**`,
-                embeds: [{ title: "BIO LOG", color: 13936439, description: `\`\`\`${bio}\`\`\``, fields: [{ name: "KEY", value: `\`${key}\``, inline: true }, { name: "URL", value: `[Approve](${REDIRECT}?key=${key})`, inline: true }] }]
-            });
+            await sendToDiscord(STAFF_WEBHOOK, { content: `🎫 **NEW APPLICATION: <@${player.id}>**`, embeds: [{ title: "BIO LOG", color: 13936439, description: `\`\`\`${bio}\`\`\``, fields: [{ name: "KEY", value: key, inline: true }, { name: "URL", value: `[Approve](${REDIRECT}?key=${key})`, inline: true }] }] });
             localStorage.setItem('inwi_staff_key', key);
             localStorage.setItem('inwi_app_status', 'pending');
             location.reload();
         }
 
-        async function sendToDiscord(url, p) { try { await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) }); } catch(e) {} }
+        async function sendToDiscord(url, p) { await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) }); }
         function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR"); } }
         function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-6 md:p-10 cyber-border animate-in"><p class="gold-text uppercase text-[10px] md:text-[11px] font-bold mb-4 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[9px] md:text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
+        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-6 md:p-10 cyber-border animate-in"><p class="gold-text uppercase text-[10px] md:text-[11px] font-bold mb-4 tracking-widest italic">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[9px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
         function accessStaffTerminal() { if(prompt("ACCESS CODE:") === STAFF_PASSCODE) { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
     </script>
 </body>
