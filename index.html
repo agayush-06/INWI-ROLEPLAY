@@ -6,7 +6,7 @@
     <title>INWI RP | Authority Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&family=JetBrains+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
         :root { --gold: #d4af37; --bg: #030303; }
         body { background-color: var(--bg); color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
@@ -15,106 +15,99 @@
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .cyber-border { border: 1px solid rgba(212, 175, 55, 0.15); position: relative; }
         .id-card { background: linear-gradient(165deg, #111 0%, #080808 100%); border: 1px solid rgba(212, 175, 55, 0.15); }
-        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 3px; }
+        h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
         
-        .animate-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.5s ease-out forwards; }
         
-        .scanner::after { 
-            content: ''; position: absolute; width: 100%; height: 2px; 
-            background: var(--gold); box-shadow: 0 0 15px var(--gold); 
-            animation: scan 3s linear infinite; opacity: 0.1; top: 0; left: 0;
+        /* Mobile Specific Tweaks */
+        @media (max-width: 768px) {
+            .text-huge { font-size: 4rem !important; }
+            .nav-hide { display: none; }
+            .mobile-full { width: 100% !important; margin-left: 0 !important; }
         }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
     </style>
 </head>
-<body class="pb-20">
+<body class="pb-10">
 
-    <nav class="fixed w-full z-50 glass px-10 py-5 border-b border-white/5 flex justify-between items-center">
+    <nav class="fixed w-full z-50 glass px-4 md:px-10 py-4 border-b border-white/5 flex justify-between items-center">
         <div class="flex flex-col">
-            <div class="text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
-            <div class="text-[8px] font-bold text-gray-500 uppercase tracking-[0.5em] mt-1 flex items-center">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-2 shadow-[0_0_8px_#22c55e]"></span> STATUS: OS_v67_STABLE
-            </div>
+            <div class="text-xl md:text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
+            <div class="text-[7px] md:text-[8px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-0.5">STATUS: OPTIMIZED_V68</div>
         </div>
-        <div class="flex gap-8 items-center">
+        <div class="flex gap-4 md:gap-8 items-center">
             <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1 transition-all">Registry</button>
             <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1 transition-all">Store</button>
-            <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-4 py-1 hover:bg-red-500/10 transition text-[8px] font-bold uppercase tracking-widest">Overseer</button>
+            <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-2 md:px-4 py-1 text-[8px] font-bold uppercase">Overseer</button>
         </div>
     </nav>
 
-    <section id="step-1" class="h-screen flex flex-col justify-center items-center relative overflow-hidden">
-        <div class="text-center z-10 animate-in">
-            <h1 class="text-8xl md:text-[10rem] font-bold mb-2 tracking-tighter italic opacity-80 uppercase">INWI</h1>
-            <p class="text-gray-500 uppercase tracking-[1em] text-[10px] mb-16 italic">Registry Managed by Kamal Kumar Agarwal</p>
-            <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-20 py-7 btn-font font-bold text-xl hover:scale-105 transition shadow-[0_0_40px_rgba(212,175,55,0.2)]">Verify Identity</button>
+    <section id="step-1" class="h-screen flex flex-col justify-center items-center px-6 text-center relative overflow-hidden">
+        <div class="z-10 animate-in">
+            <h1 class="text-huge text-6xl md:text-[10rem] font-bold mb-4 tracking-tighter italic opacity-80 uppercase">INWI</h1>
+            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic">Managed by Kamal Kumar Agarwal</p>
+            <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black w-full md:w-auto px-12 py-5 btn-font font-bold text-lg hover:scale-105 transition shadow-lg">Verify Identity</button>
             <div id="login-ready" class="hidden">
-                <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text px-20 py-7 btn-font hover:bg-gold-bg hover:text-black transition text-xl italic">Initiate Clearance</button>
+                <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text w-full md:w-auto px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition text-lg italic">Initiate Clearance</button>
             </div>
         </div>
     </section>
 
-    <section id="dashboard" class="hidden max-w-7xl mx-auto pt-44 px-8 animate-in">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div class="lg:col-span-4 space-y-8">
-                <div class="id-card p-10 cyber-border scanner overflow-hidden">
-                    <div class="flex flex-col items-center mb-10 text-center">
-                        <img id="user-avatar" src="" class="h-32 w-32 border-2 border-gold-bg/40 p-1 bg-black mb-6 grayscale brightness-125">
-                        <h2 id="user-display" class="text-3xl font-bold gold-text italic uppercase">---</h2>
-                        <div id="id-status-text" class="text-[10px] mt-2 font-bold uppercase tracking-[0.3em] text-red-500">Restricted</div>
+    <section id="dashboard" class="hidden max-w-7xl mx-auto pt-24 md:pt-44 px-4 md:px-8 animate-in">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12">
+            
+            <div class="lg:col-span-4 space-y-6">
+                <div class="id-card p-6 md:p-10 cyber-border">
+                    <div class="flex flex-row lg:flex-col items-center gap-6 lg:text-center">
+                        <img id="user-avatar" src="" class="h-20 w-20 md:h-32 md:w-32 border-2 border-gold-bg/40 p-1 bg-black grayscale">
+                        <div>
+                            <h2 id="user-display" class="text-xl md:text-3xl font-bold gold-text italic uppercase">---</h2>
+                            <div id="id-status-text" class="text-[9px] mt-1 font-bold uppercase tracking-[0.2em] text-red-500">Restricted</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="glass p-8 border-l-4 border-gold-bg">
-                    <h4 class="text-white font-bold text-[11px] uppercase tracking-widest mb-4 italic">Network Protocol</h4>
-                    <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[10px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold mb-4">Download Radmin VPN</a>
-                    <div class="bg-black/40 p-4 font-mono text-[10px] space-y-2 border border-white/5">
-                        <p class="text-gray-500">Network: <span class="text-white">INWI_ROLEPLAY_FREE</span></p>
-                        <p class="text-gray-500">Password: <span class="text-white">123456</span></p>
+                <div class="glass p-6 border-l-4 border-gold-bg">
+                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-3 italic">Network Protocol</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-2.5 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold">Get Radmin</a>
+                        <div class="bg-black/40 p-3 font-mono text-[9px] border border-white/5">
+                            <p class="text-gray-500">Net: <span class="text-white">INWI_ROLEPLAY_FREE</span></p>
+                            <p class="text-gray-500">Pass: <span class="text-white">123456</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-8 space-y-8">
-                <div id="dash-content-visa" class="min-h-[500px]"></div>
+            <div class="lg:col-span-8 space-y-6">
+                <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
 
                 <div id="dash-content-tebex" class="hidden animate-in">
-                    <div class="glass p-12 cyber-border text-center">
-                        <h3 class="gold-text text-4xl font-bold italic mb-4 uppercase">INWI OFFICIAL STORE</h3>
-                        <p class="text-gray-500 text-[10px] tracking-[0.4em] uppercase mb-12 italic">Powered by Tebex Engine</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mb-10">
-                            <div class="p-5 border border-white/5 bg-white/[0.01]">
-                                <h4 class="text-white font-bold text-[11px] uppercase mb-1">Priority Queue</h4>
-                                <p class="text-[10px] text-gray-500 italic">Bypass city limits instantly.</p>
-                            </div>
-                            <div class="p-5 border border-white/5 bg-white/[0.01]">
-                                <h4 class="text-white font-bold text-[11px] uppercase mb-1">Premium Assets</h4>
-                                <p class="text-[10px] text-gray-500 italic">Custom imports and housing packs.</p>
-                            </div>
-                        </div>
-                        <a href="https://your-store.tebex.io" target="_blank" class="inline-block gold-bg text-black px-12 py-4 btn-font font-bold text-lg hover:bg-white transition italic uppercase">Visit Storefront</a>
+                    <div class="glass p-8 md:p-12 cyber-border text-center">
+                        <h3 class="gold-text text-2xl md:text-4xl font-bold italic mb-4 uppercase">OFFICIAL STORE</h3>
+                        <p class="text-gray-500 text-[9px] tracking-[0.3em] uppercase mb-8 italic">Powered by Tebex</p>
+                        <a href="https://your-store.tebex.io" target="_blank" class="inline-block gold-bg text-black px-10 py-4 btn-font font-bold text-md hover:bg-white transition uppercase italic">Visit Storefront</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-44 px-8">
-        <div id="quiz-container" class="space-y-6"></div>
-        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-8 btn-font text-2xl mt-12 hover:bg-white transition italic uppercase tracking-tighter">Transmit Evaluation</button>
+    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-24 md:pt-44 px-4 md:px-8">
+        <div id="quiz-container" class="grid grid-cols-1 gap-4"></div>
+        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-8 hover:bg-white transition uppercase italic">Transmit Evaluation</button>
     </section>
 
-    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-44 px-8 pb-20">
-        <div class="glass p-12 cyber-border">
-            <h2 class="text-4xl font-bold gold-text mb-8 italic uppercase text-center">Biometric Entry</h2>
-            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-8 h-80 focus:border-gold-bg outline-none text-white italic" placeholder="Enter character history..."></textarea>
-            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-6 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-10 italic">Request Whitelist</button>
+    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-24 md:pt-44 px-4 md:px-8 pb-20">
+        <div class="glass p-6 md:p-12 cyber-border">
+            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-6 italic uppercase text-center">Biometric Entry</h2>
+            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Enter character history..."></textarea>
+            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-6 italic">Request Whitelist</button>
         </div>
     </section>
 
     <script>
-        // MASTER CONFIG
+        // CONFIG & CORE LOGIC (KEEP FROM v67)
         const SERVER_IP = "26.32.72.204"; 
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
@@ -185,17 +178,17 @@
             idStatus.className = status === 'approved' ? "text-green-500 italic" : status === 'pending' ? "text-blue-400 italic" : "text-red-500 italic";
 
             if (status === 'new') {
-                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-16 btn-font font-bold text-4xl italic shadow-2xl">Begin Evaluation</button>`;
+                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-12 md:py-16 btn-font font-bold text-2xl md:text-4xl italic shadow-2xl">Begin Evaluation</button>`;
             } else if (status === 'pending') {
-                content.innerHTML = `<div class="p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full outline-none font-mono text-2xl uppercase mb-6 focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-5 font-bold italic uppercase tracking-widest mb-10">Verify Identity</button></div>`;
+                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
             } else if (status === 'approved') {
                 content.innerHTML = `
                     <div class="space-y-6 animate-in">
-                        <div class="glass p-10 border-l-4 border-red-500 text-center">
-                            <h3 class="text-white font-bold text-base uppercase tracking-widest mb-3">⚠️ Critical Connection Alert</h3>
-                            <p class="text-gray-500 text-[11px] uppercase italic leading-relaxed">Ensure <span class="text-white">Radmin VPN</span> is running and you have joined the <span class="text-gold-text">INWI_ROLEPLAY_FREE</span> network. You cannot connect without the tunnel active.</p>
+                        <div class="glass p-6 md:p-10 border-l-4 border-red-500 text-center">
+                            <h3 class="text-white font-bold text-xs md:text-base uppercase tracking-widest mb-2">⚠️ Radmin Required</h3>
+                            <p class="text-gray-500 text-[9px] md:text-[11px] uppercase italic">Join <span class="text-gold-text">INWI_ROLEPLAY_FREE</span> before entering.</p>
                         </div>
-                        <button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-[0_0_80px_rgba(212,175,55,0.3)] uppercase hover:scale-[1.01] transition-transform">
+                        <button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-12 md:py-20 btn-font font-bold text-3xl md:text-5xl italic shadow-2xl uppercase">
                             Enter INWI City
                         </button>
                     </div>`;
@@ -220,7 +213,7 @@
             };
             await sendToDiscord(RESULT_WEBHOOK, embedData);
             if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); }
-            else { alert("Score insufficient. Please review city rules."); location.reload(); }
+            else { alert("Score insufficient."); location.reload(); }
         }
 
         async function finalSubmit() {
@@ -236,10 +229,10 @@
         }
 
         async function sendToDiscord(url, p) { try { await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) }); } catch(e) {} }
-        function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR: Invalid Key"); } }
+        function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR"); } }
         function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-10 cyber-border animate-in"><p class="gold-text uppercase text-[11px] font-bold mb-6 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-5 border border-white/5 mt-4 text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-4 accent-gold-bg"> ${ans}</label>`).join('')}</div>`; }); }
+        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-6 md:p-10 cyber-border animate-in"><p class="gold-text uppercase text-[10px] md:text-[11px] font-bold mb-4 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[9px] md:text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
         function accessStaffTerminal() { if(prompt("ACCESS CODE:") === STAFF_PASSCODE) { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
     </script>
 </body>
