@@ -9,135 +9,155 @@
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
         :root { --gold: #d4af37; --bg: #030303; }
         body { background-color: var(--bg); color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
         .gold-text { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
         .gold-bg { background: var(--gold); }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .cyber-border { border: 1px solid rgba(212, 175, 55, 0.15); position: relative; }
+        .id-card { background: linear-gradient(165deg, #111 0%, #080808 100%); border: 1px solid rgba(212, 175, 55, 0.15); }
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        .animate-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 2px; }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.5s ease-out forwards; }
+        
+        .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); }
+
+        @media (max-width: 768px) {
+            .text-huge { font-size: 4rem !important; }
+            .mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        }
     </style>
 </head>
 <body class="pb-10">
 
-    <nav class="fixed w-full z-50 glass px-6 md:px-12 py-5 border-b border-white/5 flex justify-between items-center">
+    <nav class="fixed w-full z-50 glass px-4 md:px-10 py-4 border-b border-white/5 flex justify-between items-center">
         <div class="flex flex-col">
-            <div class="text-2xl md:text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
-            <div class="text-[8px] font-bold text-gray-500 uppercase tracking-[0.4em] mt-1">FOUNDATION-TO-FINISH</div>
+            <div class="text-xl md:text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
+            <div class="text-[7px] md:text-[8px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-0.5">STATUS: DEPLOYED_V72</div>
         </div>
-        <div class="flex gap-4 md:gap-10 items-center">
-            <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase border-b-2 border-gold-bg pb-1">Registry</button>
-            <button onclick="switchTab('media')" id="tab-media" class="text-[9px] font-bold text-gray-500 uppercase pb-1 hover:text-white transition">Live Feed</button>
-            <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase pb-1 hover:text-white transition">Store</button>
-            <button onclick="accessStaffTerminal()" class="text-red-600 border border-red-900/30 px-3 py-1 text-[8px] font-bold uppercase hover:bg-red-600 hover:text-white transition">Overseer</button>
+        <div class="flex gap-4 md:gap-8 items-center">
+            <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1">Registry</button>
+            <button onclick="switchTab('media')" id="tab-media" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1">Live Feed</button>
+            <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1">Store</button>
+            <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-2 md:px-4 py-1 text-[8px] font-bold uppercase">Overseer</button>
         </div>
     </nav>
 
-    <section id="step-1" class="h-screen flex flex-col justify-center items-center px-6 text-center animate-in">
-        <h1 class="text-huge text-7xl md:text-[12rem] font-bold mb-4 gold-text italic uppercase opacity-90 tracking-tighter">INWI</h1>
-        <p class="text-gray-500 uppercase tracking-[0.6em] text-[10px] mb-12 italic font-bold">Authorized Partner: Aditya Birla Group</p>
-        <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black px-16 py-6 btn-font font-bold text-xl hover:scale-105 transition shadow-[0_0_30px_rgba(212,175,55,0.3)]">Verify Identity</button>
-        <div id="login-ready" class="hidden">
-            <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text px-16 py-6 btn-font hover:bg-gold-bg hover:text-black transition text-xl italic uppercase">Initiate Clearance</button>
+    <section id="step-1" class="h-screen flex flex-col justify-center items-center px-6 text-center relative overflow-hidden">
+        <div class="z-10 animate-in">
+            <h1 class="text-huge text-6xl md:text-[10rem] font-bold mb-4 tracking-tighter italic opacity-80 uppercase">INWI</h1>
+            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic">Managed by INWI ROLEPLAY</p>
+            <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black w-full md:w-auto px-12 py-5 btn-font font-bold text-lg hover:scale-105 transition shadow-lg">Verify Identity</button>
+            <div id="login-ready" class="hidden">
+                <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text w-full md:w-auto px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition text-lg italic">Initiate Clearance</button>
+            </div>
         </div>
     </section>
 
-    <section id="dashboard" class="hidden max-w-7xl mx-auto pt-44 px-6 md:px-12 animate-in">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <section id="dashboard" class="hidden max-w-7xl mx-auto pt-24 md:pt-44 px-4 md:px-8 animate-in">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12">
             
             <div class="lg:col-span-4 space-y-6">
-                <div class="glass p-10 cyber-border text-center">
-                    <img id="user-avatar" src="" class="h-32 w-32 mx-auto border-2 border-gold-bg/40 p-1 grayscale mb-6 bg-black shadow-xl">
-                    <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase tracking-widest">---</h2>
-                    <div id="id-status-text" class="text-[9px] mt-2 font-bold uppercase tracking-widest text-red-500 italic">Restricted Access</div>
+                <div class="id-card p-6 md:p-10 cyber-border">
+                    <div class="flex flex-row lg:flex-col items-center gap-6 lg:text-center">
+                        <img id="user-avatar" src="" class="h-20 w-20 md:h-32 md:w-32 border-2 border-gold-bg/40 p-1 bg-black grayscale">
+                        <div>
+                            <h2 id="user-display" class="text-xl md:text-3xl font-bold gold-text italic uppercase">---</h2>
+                            <div id="id-status-text" class="text-[9px] mt-1 font-bold uppercase tracking-[0.2em] text-red-500">Restricted</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="glass p-6 border-l-4 border-gold-bg">
-                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic opacity-60">Operations Center</h4>
-                    <div class="grid grid-cols-2 gap-3">
-                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="bg-[#5865F2] text-white py-3 text-center text-[9px] font-bold uppercase hover:opacity-80 transition">Discord</a>
-                        <a href="https://www.radmin-vpn.com/" target="_blank" class="border border-white/10 text-white py-3 text-center text-[9px] font-bold uppercase hover:bg-white/5 transition">VPN</a>
+                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic">Communication Hub</h4>
+                    <div class="mobile-grid space-y-3 md:space-y-3">
+                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">Join Discord</a>
+                        <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 border border-[#5865F2] text-[#5865F2] py-3 text-[9px] font-bold uppercase hover:bg-[#5865F2] hover:text-white transition rounded-sm">Open Ticket</a>
+                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Get Radmin VPN</a>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-8">
-                
-                <div id="dash-content-visa"></div>
+            <div class="lg:col-span-8 space-y-6">
+                <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
 
                 <div id="dash-content-media" class="hidden animate-in">
-                    <div class="glass p-8 md:p-12 cyber-border">
-                        <div class="flex justify-between items-center mb-10">
-                            <h3 class="gold-text text-3xl font-bold italic uppercase">Live Citations</h3>
-                            <button onclick="document.getElementById('reg-form').classList.toggle('hidden')" class="text-[9px] border border-gold-bg/40 px-4 py-2 gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold italic">Register Channel</button>
-                        </div>
-
-                        <div id="reg-form" class="hidden mb-12 p-8 bg-black/60 border border-gold-bg/20 animate-in">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <input id="reg-name" placeholder="Character Name" class="bg-black border border-white/10 text-white p-4 outline-none text-xs focus:border-gold-bg italic">
-                                <input id="reg-url" placeholder="YouTube URL (https://youtube.com/@...)" class="bg-black border border-white/10 text-white p-4 outline-none text-xs focus:border-gold-bg italic">
+                    <div class="glass p-6 md:p-10 cyber-border">
+                        <h3 class="gold-text text-xl md:text-2xl font-bold italic mb-6 uppercase">Live Citations</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="stream-card bg-black/40 p-2 border border-white/5">
+                                <iframe src="https://www.youtube.com/embed/LIVE_ID_1" frameborder="0" allowfullscreen></iframe>
+                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 1</p>
                             </div>
-                            <button onclick="autoSubmitStream()" class="w-full gold-bg text-black py-4 btn-font font-bold uppercase italic hover:bg-white transition">Request Synchronization</button>
-                            <p id="reg-msg" class="text-[9px] text-green-500 mt-4 hidden uppercase italic font-bold text-center tracking-widest">Signal Transmitted to Overseers.</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="live-stream-grid">
-                            <div class="stream-card bg-black/40 p-2 border border-white/5 animate-in">
-                                <iframe src="https://www.youtube.com/@ayushagarwalgaming" frameborder="0" allowfullscreen></iframe>
-                                <p class="text-[10px] mt-3 gold-text font-bold italic uppercase tracking-widest">🔴 LIVE: </p>
+                            <div class="stream-card bg-black/40 p-2 border border-white/5">
+                                <iframe src="https://www.youtube.com/embed/LIVE_ID_2" frameborder="0" allowfullscreen></iframe>
+                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 2</p>
                             </div>
                         </div>
+                        <p class="text-gray-500 text-[8px] mt-6 text-center uppercase tracking-widest italic">Submit your YouTube URL via ticket to be featured.</p>
                     </div>
                 </div>
 
                 <div id="dash-content-tebex" class="hidden animate-in">
-                    <div class="glass p-16 text-center cyber-border">
-                        <h3 class="gold-text text-5xl font-bold italic mb-8 uppercase">INWI STORE</h3>
-                        <a href="#" class="inline-block gold-bg text-black px-16 py-6 btn-font font-bold text-lg uppercase italic hover:scale-105 transition">Explore Catalog</a>
+                    <div class="glass p-8 md:p-12 cyber-border text-center">
+                        <h3 class="gold-text text-2xl md:text-4xl font-bold italic mb-4 uppercase">OFFICIAL STORE</h3>
+                        <a href="https://your-store.tebex.io" target="_blank" class="inline-block gold-bg text-black px-10 py-4 btn-font font-bold text-md hover:bg-white transition uppercase italic">Visit Storefront</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-44 px-8 pb-20">
-        <div id="quiz-container" class="space-y-6"></div>
-        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-2xl mt-12 italic uppercase hover:bg-white transition">Submit Evaluation</button>
+    <section id="exam-section" class="hidden max-w-4xl mx-auto pt-24 md:pt-44 px-4 md:px-8">
+        <div id="quiz-container" class="grid grid-cols-1 gap-4"></div>
+        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-8 hover:bg-white transition uppercase italic">Transmit Evaluation</button>
     </section>
 
-    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-44 px-8 pb-20">
-        <div class="glass p-12 cyber-border">
-            <h2 class="text-4xl font-bold gold-text mb-8 italic uppercase text-center">Biometric Entry</h2>
-            <textarea id="backstory" class="w-full bg-black/40 border border-white/10 p-8 h-80 focus:border-gold-bg outline-none text-white italic text-sm leading-relaxed" placeholder="Detailed character history required for Overseer review..."></textarea>
-            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-6 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-8 italic text-xl">Request Whitelist</button>
+    <section id="bio-section" class="hidden max-w-3xl mx-auto pt-24 md:pt-44 px-4 md:px-8 pb-20">
+        <div class="glass p-6 md:p-12 cyber-border">
+            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-6 italic uppercase text-center">Biometric Entry</h2>
+            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Character history required..."></textarea>
+            <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-6 italic">Request Whitelist</button>
         </div>
     </section>
 
     <script>
-        const CLIENT_ID = "1481267542780809328";
+        // ... (Keep all your existing JS variables)
+        const SERVER_IP = "26.32.72.204"; 
+        const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
-        const SERVER_IP = "26.32.72.204";
+        const CLIENT_ID = "1481267542780809328";
         const STAFF_WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const RESULT_WEBHOOK = "https://discordapp.com/api/webhooks/1487876312277450893/NRXkmL2__jCntdz5Q690aDNw_EBZAGMK_eFi189ePZXni6SmR7AvZ16f0mrDkaMu2jvu";
+        const RESULT_WEBHOOK = "https://discordapp.com/api/webhooks/1487876312277450893/NRXkmL2__jCntdz5Q690aDNw_EBZAGMK_eFi189ePZXni6SmR7AvZ16f0mrDkaMu2jvu"; 
         const REDIRECT = window.location.origin + window.location.pathname;
 
-        let player = { name: "Citizen", id: "0", avatar: "" };
-
+        let player = { name: "Citizen", id: "0000", avatar: "" };
         const examQuestions = [
-            { q: "What is Fear RP?", a: ["Running from cops", "Valuing your life above all", "Fighting back without fear"], c: 1 },
-            { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing the game well", "Talking on radio"], c: 0 },
-            { q: "What is NLR?", a: ["New Car", "Forgetting events after death", "Moving houses"], c: 1 },
-            { q: "What is RDM?", a: ["Roleplay Killing", "Killing without an RP reason", "Dying in a crash"], c: 1 },
-            { q: "What is VDM?", a: ["Driving fast", "Using your vehicle as a weapon", "Parking badly"], c: 1 },
-            { q: "What is Powergaming?", a: ["Doing impossible actions", "Strong PC", "Being the boss"], c: 0 },
-            { q: "Can you recognize masked people by voice?", a: ["Yes", "No (Prohibited)", "Only friends"], c: 1 },
-            { q: "What is OOC?", a: ["In-character", "Out-of-character", "Radio Chat"], c: 1 }
+            { q: "What is Fear RP?", a: ["Running from police", "Valuing your life above all", "Fighting back"], c: 1 },
+            { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing well", "Talking loud"], c: 0 },
+            { q: "What is NLR?", a: ["New car", "Forgetting events after death", "Moving house"], c: 1 },
+            { q: "What is RDM?", a: ["Killing with reason", "Killing without RP reason", "Dying in car"], c: 1 },
+            { q: "What is VDM?", a: ["Racing", "Using vehicle as weapon", "Fixing car"], c: 1 },
+            { q: "What is Powergaming?", a: ["Doing impossible things", "High FPS", "Gang leader"], c: 0 },
+            { q: "Recognize masked people by voice?", a: ["Yes", "No (Forbidden)", "Only friends"], c: 1 },
+            { q: "Gun pointed at you?", a: ["Shoot", "Comply (Fear RP)", "Run"], c: 1 },
+            { q: "What is OOC?", a: ["In character", "Out of character (Player)", "Radio"], c: 1 },
+            { q: "Robbing bank balances?", a: ["Yes", "No (Prohibited)", "Only staff"], c: 1 }
         ];
 
+        // Updated switchTab logic to handle 'media'
+        function switchTab(t) {
+            ['visa', 'tebex', 'media'].forEach(tab => {
+                const el = document.getElementById(`dash-content-${tab}`);
+                const btn = document.getElementById(`tab-${tab}`);
+                if(el) el.classList.toggle('hidden', tab !== t);
+                if(btn) btn.className = (tab === t) ? 
+                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
+                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
+            });
+        }
+
+        // ... (Keep the rest of your original logic for Login, Exam, and Submit)
         window.onload = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('key')) {
@@ -157,65 +177,73 @@
             }
         };
 
-        function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
-
         function proceedToDashboard() {
+            if(!localStorage.getItem('inwi_discord')) return;
             player = JSON.parse(localStorage.getItem('inwi_discord'));
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('dashboard').classList.remove('hidden');
             document.getElementById('user-display').innerText = player.name;
             document.getElementById('user-avatar').src = player.avatar;
-            updateStatusUI();
+            updateDashboardUI();
         }
 
-        function updateStatusUI() {
+        function updateDashboardUI() {
             const status = localStorage.getItem('inwi_app_status') || 'new';
-            const c = document.getElementById('dash-content-visa');
-            const st = document.getElementById('id-status-text');
-            
-            if(status === 'approved') {
-                st.innerText = "Clearance Verified"; st.className = "text-green-500 italic font-bold uppercase tracking-widest text-[9px]";
-                c.innerHTML = `<button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-24 btn-font font-bold text-5xl italic uppercase shadow-2xl">Enter INWI City</button>`;
-            } else if(status === 'pending') {
-                st.innerText = "Review in Progress"; st.className = "text-blue-400 italic font-bold uppercase tracking-widest text-[9px]";
-                c.innerHTML = `<div class="glass p-16 text-center cyber-border animate-in"><h3 class="gold-text text-3xl font-bold uppercase italic">Syncing Registry</h3><input id="key-in" placeholder="XXXX-XXXX" class="bg-black border border-white/10 text-gold-text text-center p-6 w-full mt-8 font-mono text-3xl uppercase outline-none focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-5 mt-6 font-bold uppercase italic">Authorize</button></div>`;
-            } else {
-                c.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic uppercase shadow-2xl">Start Assessment</button>`;
+            const content = document.getElementById('dash-content-visa');
+            const idStatus = document.getElementById('id-status-text');
+            idStatus.innerText = status === 'approved' ? "Clearance Verified" : status === 'pending' ? "Manual Review" : "Restricted";
+            idStatus.className = status === 'approved' ? "text-green-500 italic" : status === 'pending' ? "text-blue-400 italic" : "text-red-500 italic";
+
+            if (status === 'new') {
+                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-12 md:py-16 btn-font font-bold text-2xl md:text-4xl italic shadow-2xl">Begin Evaluation</button>`;
+            } else if (status === 'pending') {
+                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm text-center">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6 focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
+            } else if (status === 'approved') {
+                content.innerHTML = `
+                    <div class="space-y-6 animate-in">
+                        <div class="glass p-6 md:p-10 border-l-4 border-red-500 text-center">
+                            <h3 class="text-white font-bold text-xs md:text-base uppercase tracking-widest mb-2">⚠️ Connection Bridge</h3>
+                            <p class="text-gray-500 text-[9px] md:text-[11px] uppercase italic">Ensure Radmin VPN is linked to <span class="text-gold-text">INWI_ROLEPLAY_FREE</span>.</p>
+                        </div>
+                        <button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-12 md:py-20 btn-font font-bold text-3xl md:text-5xl italic shadow-2xl uppercase">
+                            Enter INWI City
+                        </button>
+                    </div>`;
             }
         }
 
-        async function autoSubmitStream() {
-            const name = document.getElementById('reg-name').value;
-            const url = document.getElementById('reg-url').value;
-            if(!name || !url) return;
-            await fetch(STAFF_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ content: `🎥 **REGISTRY REQUEST**\nCitizen: ${name}\nURL: ${url}` }) });
-            document.getElementById('reg-msg').classList.remove('hidden');
-            document.getElementById('reg-name').value = ""; document.getElementById('reg-url').value = "";
-        }
-
-        function switchTab(t) {
-            ['visa', 'tebex', 'media'].forEach(tab => {
-                document.getElementById(`dash-content-${tab}`).classList.toggle('hidden', tab !== t);
-                document.getElementById(`tab-${tab}`).className = (tab === t) ? "text-[9px] font-bold gold-text uppercase border-b-2 border-gold-bg pb-1" : "text-[9px] font-bold text-gray-500 uppercase pb-1";
-            });
-        }
-
-        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-10 cyber-border animate-in"><p class="gold-text uppercase text-[11px] font-bold mb-6 italic tracking-[0.2em]">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-5 border border-white/5 mt-4 text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-4"> ${ans}</label>`).join('')}</div>`; }); }
-        
         async function evaluateExam() {
-            let score = 0; examQuestions.forEach((q, i) => { const sel = document.querySelector(`input[name="q${i}"]:checked`); if(sel && parseInt(sel.value) === q.c) score++; });
-            if(score >= 6) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); }
-            else { alert("Evaluation Failed. Re-sync Required."); location.reload(); }
+            let score = 0;
+            examQuestions.forEach((q, i) => {
+                const sel = document.querySelector(`input[name="q${i}"]:checked`);
+                if(sel && parseInt(sel.value) === q.c) score++;
+            });
+            const passed = score >= PASS_THRESHOLD;
+            await sendToDiscord(RESULT_WEBHOOK, {
+                content: passed ? `✅ **PASS: <@${player.id}>**` : `❌ **FAIL: <@${player.id}>**`,
+                embeds: [{ title: "EVALUATION", color: passed ? 3066993 : 15158332, fields: [ { name: "PLAYER", value: `<@${player.id}>`, inline: true }, { name: "SCORE", value: `${score}/10`, inline: true } ] }]
+            });
+            if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); }
+            else { alert("Score insufficient."); location.reload(); }
         }
 
         async function finalSubmit() {
+            const bio = document.getElementById('backstory').value;
             const key = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            await fetch(STAFF_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ content: `🎫 **NEW APP: <@${player.id}>**\nKey: ${key}\nBio: ${document.getElementById('backstory').value.substring(0, 500)}...\n[APPROVE](${REDIRECT}?key=${key})` }) });
-            localStorage.setItem('inwi_staff_key', key); localStorage.setItem('inwi_app_status', 'pending'); location.reload();
+            await sendToDiscord(STAFF_WEBHOOK, {
+                content: `🎫 **NEW APP: <@${player.id}>**`,
+                embeds: [{ title: "BIO LOG", color: 13936439, description: `\`\`\`${bio}\`\`\``, fields: [{ name: "KEY", value: `\`${key}\``, inline: true }, { name: "URL", value: `[Approve](${REDIRECT}?key=${key})`, inline: true }] }]
+            });
+            localStorage.setItem('inwi_staff_key', key);
+            localStorage.setItem('inwi_app_status', 'pending');
+            location.reload();
         }
 
-        function verifyKey() { if(document.getElementById('key-in').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
+        async function sendToDiscord(url, p) { try { await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) }); } catch(e) {} }
+        function verifyKey() { if(document.getElementById('activation-input').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR"); } }
+        function discordLogin() { window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT)}&response_type=token&scope=identify`; }
+        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
+        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-6 md:p-10 cyber-border animate-in"><p class="gold-text uppercase text-[10px] md:text-[11px] font-bold mb-4 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[9px] md:text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
         function accessStaffTerminal() { if(prompt("ACCESS CODE:") === STAFF_PASSCODE) { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
     </script>
 </body>
