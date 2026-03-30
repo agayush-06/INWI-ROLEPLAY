@@ -20,11 +20,9 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.5s ease-out forwards; }
         
-        /* Mobile Specific Tweaks */
         @media (max-width: 768px) {
             .text-huge { font-size: 4rem !important; }
-            .nav-hide { display: none; }
-            .mobile-full { width: 100% !important; margin-left: 0 !important; }
+            .mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         }
     </style>
 </head>
@@ -33,11 +31,11 @@
     <nav class="fixed w-full z-50 glass px-4 md:px-10 py-4 border-b border-white/5 flex justify-between items-center">
         <div class="flex flex-col">
             <div class="text-xl md:text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
-            <div class="text-[7px] md:text-[8px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-0.5">STATUS: OPTIMIZED_V68</div>
+            <div class="text-[7px] md:text-[8px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-0.5">STATUS: DEPLOYED_V70</div>
         </div>
         <div class="flex gap-4 md:gap-8 items-center">
-            <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1 transition-all">Registry</button>
-            <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1 transition-all">Store</button>
+            <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1">Registry</button>
+            <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1">Store</button>
             <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-2 md:px-4 py-1 text-[8px] font-bold uppercase">Overseer</button>
         </div>
     </nav>
@@ -68,24 +66,27 @@
                 </div>
 
                 <div class="glass p-6 border-l-4 border-gold-bg">
-                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-3 italic">Network Protocol</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-2.5 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold">Get Radmin</a>
-                        <div class="bg-black/40 p-3 font-mono text-[9px] border border-white/5">
-                            <p class="text-gray-500">Net: <span class="text-white">INWI_ROLEPLAY_FREE</span></p>
-                            <p class="text-gray-500">Pass: <span class="text-white">123456</span></p>
-                        </div>
+                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic">Community Access</h4>
+                    <div class="mobile-grid space-y-3 md:space-y-3">
+                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">
+                            Join Discord
+                        </a>
+                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Get Radmin</a>
+                    </div>
+                    <div class="bg-black/40 p-3 font-mono text-[9px] border border-white/5 mt-4">
+                        <p class="text-gray-500 italic mb-1 uppercase tracking-tighter">Connection Bridge</p>
+                        <p class="text-white">Net: <span class="gold-text">INWI_ROLEPLAY_FREE</span></p>
+                        <p class="text-white">Pass: <span class="gold-text">123456</span></p>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-6">
                 <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
-
                 <div id="dash-content-tebex" class="hidden animate-in">
                     <div class="glass p-8 md:p-12 cyber-border text-center">
                         <h3 class="gold-text text-2xl md:text-4xl font-bold italic mb-4 uppercase">OFFICIAL STORE</h3>
-                        <p class="text-gray-500 text-[9px] tracking-[0.3em] uppercase mb-8 italic">Powered by Tebex</p>
+                        <p class="text-gray-500 text-[9px] tracking-[0.3em] uppercase mb-8 italic">Verified Monetization Gateway</p>
                         <a href="https://your-store.tebex.io" target="_blank" class="inline-block gold-bg text-black px-10 py-4 btn-font font-bold text-md hover:bg-white transition uppercase italic">Visit Storefront</a>
                     </div>
                 </div>
@@ -101,13 +102,12 @@
     <section id="bio-section" class="hidden max-w-3xl mx-auto pt-24 md:pt-44 px-4 md:px-8 pb-20">
         <div class="glass p-6 md:p-12 cyber-border">
             <h2 class="text-2xl md:text-4xl font-bold gold-text mb-6 italic uppercase text-center">Biometric Entry</h2>
-            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Enter character history..."></textarea>
+            <textarea id="backstory" class="w-full bg-black/50 border border-white/10 p-4 md:p-8 h-60 md:h-80 focus:border-gold-bg outline-none text-white italic text-sm" placeholder="Character history required..."></textarea>
             <button onclick="finalSubmit()" class="w-full border-2 border-gold-bg gold-text font-bold py-5 btn-font hover:bg-gold-bg hover:text-black transition uppercase mt-6 italic">Request Whitelist</button>
         </div>
     </section>
 
     <script>
-        // CONFIG & CORE LOGIC (KEEP FROM v67)
         const SERVER_IP = "26.32.72.204"; 
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
@@ -150,6 +150,7 @@
         };
 
         function proceedToDashboard() {
+            if(!localStorage.getItem('inwi_discord')) return;
             player = JSON.parse(localStorage.getItem('inwi_discord'));
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('dashboard').classList.remove('hidden');
@@ -164,8 +165,8 @@
                 const btn = document.getElementById(`tab-${tab}`);
                 if(el) el.classList.toggle('hidden', tab !== t);
                 if(btn) btn.className = (tab === t) ? 
-                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1 transition-all" : 
-                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1 transition-all";
+                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
+                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
             });
         }
 
@@ -173,20 +174,19 @@
             const status = localStorage.getItem('inwi_app_status') || 'new';
             const content = document.getElementById('dash-content-visa');
             const idStatus = document.getElementById('id-status-text');
-            
             idStatus.innerText = status === 'approved' ? "Clearance Verified" : status === 'pending' ? "Manual Review" : "Restricted";
             idStatus.className = status === 'approved' ? "text-green-500 italic" : status === 'pending' ? "text-blue-400 italic" : "text-red-500 italic";
 
             if (status === 'new') {
                 content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-12 md:py-16 btn-font font-bold text-2xl md:text-4xl italic shadow-2xl">Begin Evaluation</button>`;
             } else if (status === 'pending') {
-                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
+                content.innerHTML = `<div class="p-6 md:p-12 glass cyber-border animate-in"><h4 class="gold-text font-bold mb-4 italic uppercase text-sm text-center">Registry Sync</h4><input id="activation-input" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-4 md:p-6 w-full outline-none font-mono text-xl md:text-2xl uppercase mb-6 focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
             } else if (status === 'approved') {
                 content.innerHTML = `
                     <div class="space-y-6 animate-in">
                         <div class="glass p-6 md:p-10 border-l-4 border-red-500 text-center">
-                            <h3 class="text-white font-bold text-xs md:text-base uppercase tracking-widest mb-2">⚠️ Radmin Required</h3>
-                            <p class="text-gray-500 text-[9px] md:text-[11px] uppercase italic">Join <span class="text-gold-text">INWI_ROLEPLAY_FREE</span> before entering.</p>
+                            <h3 class="text-white font-bold text-xs md:text-base uppercase tracking-widest mb-2">⚠️ Connection Required</h3>
+                            <p class="text-gray-500 text-[9px] md:text-[11px] uppercase italic">Ensure Radmin is Active and connected to <span class="text-gold-text">INWI_ROLEPLAY_FREE</span>.</p>
                         </div>
                         <button onclick="window.location.href='fivem://connect/${SERVER_IP}'" class="gold-bg text-black w-full py-12 md:py-20 btn-font font-bold text-3xl md:text-5xl italic shadow-2xl uppercase">
                             Enter INWI City
@@ -202,16 +202,10 @@
                 if(sel && parseInt(sel.value) === q.c) score++;
             });
             const passed = score >= PASS_THRESHOLD;
-            const embedData = {
-                content: passed ? `✅ **EXAM PASSED: <@${player.id}>**` : `❌ **EXAM FAILED: <@${player.id}>**`,
-                embeds: [{
-                    title: passed ? "EVALUATION SUCCESS" : "EVALUATION FAILURE",
-                    color: passed ? 3066993 : 15158332,
-                    fields: [ { name: "👤 PLAYER", value: `<@${player.id}>`, inline: true }, { name: "📊 SCORE", value: `**${score}/10**`, inline: true } ],
-                    footer: { text: "INWI ROLEPLAY REGISTRY" }
-                }]
-            };
-            await sendToDiscord(RESULT_WEBHOOK, embedData);
+            await sendToDiscord(RESULT_WEBHOOK, {
+                content: passed ? `✅ **PASS: <@${player.id}>**` : `❌ **FAIL: <@${player.id}>**`,
+                embeds: [{ title: "EVALUATION", color: passed ? 3066993 : 15158332, fields: [ { name: "PLAYER", value: `<@${player.id}>`, inline: true }, { name: "SCORE", value: `${score}/10`, inline: true } ] }]
+            });
             if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); }
             else { alert("Score insufficient."); location.reload(); }
         }
@@ -221,7 +215,7 @@
             const key = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
             await sendToDiscord(STAFF_WEBHOOK, {
                 content: `🎫 **NEW APP: <@${player.id}>**`,
-                embeds: [{ title: "BIO LOG", color: 13936439, description: `\`\`\`${bio}\`\`\``, fields: [{ name: "🔑 KEY", value: `\`${key}\``, inline: true }, { name: "🔗 URL", value: `[Approve](${window.location.origin + window.location.pathname}?key=${key})`, inline: true }] }]
+                embeds: [{ title: "BIO LOG", color: 13936439, description: `\`\`\`${bio}\`\`\``, fields: [{ name: "KEY", value: `\`${key}\``, inline: true }, { name: "URL", value: `[Approve](${REDIRECT}?key=${key})`, inline: true }] }]
             });
             localStorage.setItem('inwi_staff_key', key);
             localStorage.setItem('inwi_app_status', 'pending');
