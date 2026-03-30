@@ -20,6 +20,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.5s ease-out forwards; }
         
+        .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); }
+
         @media (max-width: 768px) {
             .text-huge { font-size: 4rem !important; }
             .mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -35,6 +37,7 @@
         </div>
         <div class="flex gap-4 md:gap-8 items-center">
             <button onclick="switchTab('visa')" id="tab-visa" class="text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1">Registry</button>
+            <button onclick="switchTab('media')" id="tab-media" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1">Live Feed</button>
             <button onclick="switchTab('tebex')" id="tab-tebex" class="text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1">Store</button>
             <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-2 md:px-4 py-1 text-[8px] font-bold uppercase">Overseer</button>
         </div>
@@ -68,28 +71,36 @@
                 <div class="glass p-6 border-l-4 border-gold-bg">
                     <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic">Communication Hub</h4>
                     <div class="mobile-grid space-y-3 md:space-y-3">
-                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">
-                            Join Discord
-                        </a>
-                        <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 border border-[#5865F2] text-[#5865F2] py-3 text-[9px] font-bold uppercase hover:bg-[#5865F2] hover:text-white transition rounded-sm">
-                            Open Ticket
-                        </a>
+                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">Join Discord</a>
+                        <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 border border-[#5865F2] text-[#5865F2] py-3 text-[9px] font-bold uppercase hover:bg-[#5865F2] hover:text-white transition rounded-sm">Open Ticket</a>
                         <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Get Radmin VPN</a>
-                    </div>
-                    <div class="bg-black/40 p-3 font-mono text-[9px] border border-white/5 mt-4">
-                        <p class="text-gray-500 italic mb-1 uppercase tracking-tighter">Connection Bridge</p>
-                        <p class="text-white">Network: <span class="gold-text">INWI_ROLEPLAY_FREE</span></p>
-                        <p class="text-white">Password: <span class="gold-text">: ⁠『🎫』open-a-ticket </span></p>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-6">
                 <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
+
+                <div id="dash-content-media" class="hidden animate-in">
+                    <div class="glass p-6 md:p-10 cyber-border">
+                        <h3 class="gold-text text-xl md:text-2xl font-bold italic mb-6 uppercase">Live Citations</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="stream-card bg-black/40 p-2 border border-white/5">
+                                <iframe src="https://www.youtube.com/embed/LIVE_ID_1" frameborder="0" allowfullscreen></iframe>
+                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 1</p>
+                            </div>
+                            <div class="stream-card bg-black/40 p-2 border border-white/5">
+                                <iframe src="https://www.youtube.com/embed/LIVE_ID_2" frameborder="0" allowfullscreen></iframe>
+                                <p class="text-[10px] mt-2 gold-text font-bold italic uppercase tracking-widest">🔴 Channel Name 2</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-[8px] mt-6 text-center uppercase tracking-widest italic">Submit your YouTube URL via ticket to be featured.</p>
+                    </div>
+                </div>
+
                 <div id="dash-content-tebex" class="hidden animate-in">
                     <div class="glass p-8 md:p-12 cyber-border text-center">
                         <h3 class="gold-text text-2xl md:text-4xl font-bold italic mb-4 uppercase">OFFICIAL STORE</h3>
-                        <p class="text-gray-500 text-[9px] tracking-[0.3em] uppercase mb-8 italic">Verified Monetization</p>
                         <a href="https://your-store.tebex.io" target="_blank" class="inline-block gold-bg text-black px-10 py-4 btn-font font-bold text-md hover:bg-white transition uppercase italic">Visit Storefront</a>
                     </div>
                 </div>
@@ -111,6 +122,7 @@
     </section>
 
     <script>
+        // ... (Keep all your existing JS variables)
         const SERVER_IP = "26.32.72.204"; 
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
@@ -133,6 +145,19 @@
             { q: "Robbing bank balances?", a: ["Yes", "No (Prohibited)", "Only staff"], c: 1 }
         ];
 
+        // Updated switchTab logic to handle 'media'
+        function switchTab(t) {
+            ['visa', 'tebex', 'media'].forEach(tab => {
+                const el = document.getElementById(`dash-content-${tab}`);
+                const btn = document.getElementById(`tab-${tab}`);
+                if(el) el.classList.toggle('hidden', tab !== t);
+                if(btn) btn.className = (tab === t) ? 
+                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
+                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
+            });
+        }
+
+        // ... (Keep the rest of your original logic for Login, Exam, and Submit)
         window.onload = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('key')) {
@@ -160,17 +185,6 @@
             document.getElementById('user-display').innerText = player.name;
             document.getElementById('user-avatar').src = player.avatar;
             updateDashboardUI();
-        }
-
-        function switchTab(t) {
-            ['visa', 'tebex'].forEach(tab => {
-                const el = document.getElementById(`dash-content-${tab}`);
-                const btn = document.getElementById(`tab-${tab}`);
-                if(el) el.classList.toggle('hidden', tab !== t);
-                if(btn) btn.className = (tab === t) ? 
-                    "text-[9px] font-bold gold-text uppercase tracking-widest border-b-2 border-gold-bg pb-1" : 
-                    "text-[9px] font-bold text-gray-500 uppercase tracking-widest hover:text-white pb-1";
-            });
         }
 
         function updateDashboardUI() {
