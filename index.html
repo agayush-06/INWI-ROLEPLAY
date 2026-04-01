@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INWI RP | Authority Hub</title>
+    <title>INWI RP | Elite Authority Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
@@ -20,6 +20,7 @@
         input, textarea { transition: all 0.3s ease; }
         input:focus, textarea:focus { border-color: var(--gold) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
         .locked-field { background: rgba(255, 255, 255, 0.03) !important; color: #666 !important; cursor: not-allowed; border: 1px solid rgba(255,255,255,0.05) !important; }
+        .copy-btn:active { transform: scale(0.95); opacity: 0.7; }
     </style>
 </head>
 <body class="pb-10">
@@ -29,18 +30,16 @@
             <div class="text-xl md:text-3xl font-bold gold-text italic tracking-tighter uppercase">INWI <span class="text-white">CITY</span></div>
             <div class="text-[7px] md:text-[8px] font-bold text-gray-500 uppercase tracking-[0.3em] mt-0.5">EST. 2026 | INTERIO WINTERIO</div>
         </div>
-        <div class="flex gap-4">
-            <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-4 py-1 text-[8px] font-bold uppercase hover:bg-red-500/10 transition">Overseer Access</button>
-        </div>
+        <button onclick="accessStaffTerminal()" class="text-red-500 border border-red-500/20 px-4 py-1 text-[8px] font-bold uppercase hover:bg-red-500/10 transition">Overseer Access</button>
     </nav>
 
     <section id="step-1" class="h-screen flex flex-col justify-center items-center px-6 text-center">
         <div class="z-10 animate-in">
             <h1 class="text-6xl md:text-[10rem] font-bold mb-4 tracking-tighter italic opacity-80 uppercase">INWI</h1>
-            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic font-bold tracking-widest">Authority Identity Protocol</p>
+            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic font-bold">Identity Registry Protocol</p>
             <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black w-full md:w-auto px-12 py-5 btn-font font-bold text-lg hover:scale-105 transition shadow-lg">Verify via Discord</button>
             <div id="login-ready" class="hidden">
-                <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text w-full md:w-auto px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition text-lg italic uppercase">Access Registry</button>
+                <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text w-full md:w-auto px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition text-lg italic uppercase">Access Registry Hub</button>
             </div>
         </div>
     </section>
@@ -50,16 +49,34 @@
             <div class="lg:col-span-4 space-y-6">
                 <div class="id-card p-10 cyber-border">
                     <img id="user-avatar" src="" class="h-32 w-32 border-2 border-gold-bg/40 p-1 bg-black grayscale mx-auto mb-6">
-                    <h2 id="user-display" class="text-3xl font-bold gold-text italic uppercase text-center">---</h2>
-                    <div id="id-status-text" class="text-[9px] mt-1 font-bold uppercase text-red-500 italic text-center tracking-[0.2em]">Status: Unauthorized</div>
+                    <h2 id="user-display" class="text-2xl font-bold gold-text italic uppercase text-center break-all">---</h2>
+                    <div id="id-status-text" class="text-[9px] mt-2 font-bold uppercase text-red-500 italic text-center tracking-[0.2em]">Status: Unauthorized</div>
                 </div>
-                
+
+                <div id="radmin-panel" class="hidden glass p-6 border-l-4 border-blue-500 bg-blue-500/5 space-y-3 animate-in">
+                    <h3 class="text-[10px] text-blue-400 font-bold uppercase italic tracking-[0.2em]">Network Synchronization</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between border-b border-white/5 pb-1 cursor-pointer hover:bg-white/5" onclick="copyText('INWI_OFFICIAL_1')">
+                            <span class="text-[8px] text-gray-500 uppercase font-bold">Network:</span>
+                            <span class="text-[9px] text-white font-mono uppercase italic">INWI_OFFICIAL_1</span>
+                        </div>
+                        <div class="flex justify-between border-b border-white/5 pb-1 cursor-pointer hover:bg-white/5" onclick="copyText('inwi2026')">
+                            <span class="text-[8px] text-gray-500 uppercase font-bold">Password:</span>
+                            <span class="text-[9px] text-white font-mono italic">inwi2026</span>
+                        </div>
+                        <div class="flex justify-between border-b border-white/5 pb-1 cursor-pointer hover:bg-white/5" onclick="copyText('26.12.34.56')">
+                            <span class="text-[8px] text-gray-500 uppercase font-bold">Server IP:</span>
+                            <span class="text-[9px] gold-text font-mono italic font-bold">26.12.34.56</span>
+                        </div>
+                    </div>
+                    <p class="text-[7px] text-gray-400 italic leading-tight uppercase mt-2">Click rows to copy details.</p>
+                </div>
+
                 <div class="glass p-6 border-l-4 border-gold-bg space-y-4">
                     <h3 class="text-[10px] gold-text font-bold uppercase italic tracking-widest">Citizen Support</h3>
-                    <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-4 text-[10px] font-bold uppercase hover:bg-[#4752c4] transition">
+                    <a href="https://discord.com/channels/908254117120593960/1484788825640140830" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-4 text-[10px] font-bold uppercase hover:bg-[#4752c4] transition shadow-lg">
                         📩 Open Support Ticket
                     </a>
-                    <p class="text-[8px] text-gray-500 italic leading-relaxed uppercase">Use tickets for Tebex issues or failed evaluation appeals.</p>
                 </div>
             </div>
 
@@ -70,9 +87,9 @@
     </section>
 
     <section id="exam-section" class="hidden max-w-4xl mx-auto pt-44 px-8 pb-20">
-        <h2 class="text-3xl font-bold gold-text italic uppercase mb-8 text-center tracking-widest">Rule Proficiency (7/10 Required)</h2>
+        <h2 class="text-3xl font-bold gold-text italic uppercase mb-8 text-center tracking-widest">Rule Proficiency (7/10 Pass)</h2>
         <div id="quiz-container" class="space-y-6"></div>
-        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-12 italic uppercase">Transmit Results</button>
+        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-12 italic uppercase">Transmit Evaluation</button>
     </section>
 
     <section id="bio-section" class="hidden max-w-4xl mx-auto pt-44 px-8 pb-20">
@@ -80,21 +97,12 @@
             <h2 class="text-4xl font-bold gold-text italic uppercase text-center mb-10">Citizen Registry Log</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div class="space-y-6">
-                    <div class="space-y-2">
-                        <label class="text-[9px] gold-text uppercase font-bold italic tracking-widest">Tebex Transaction ID</label>
-                        <input id="form-tebex" placeholder="tbx-xxxxxxx-xxxxxx" class="w-full bg-black/60 border border-white/5 p-4 focus:border-gold-bg outline-none text-white italic text-xs">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[9px] text-gray-500 uppercase font-bold italic tracking-widest">Identity (Verified)</label>
-                        <input id="form-discord-locked" readonly class="w-full locked-field p-4 outline-none italic text-xs">
-                    </div>
+                    <input id="form-tebex" placeholder="Tebex Transaction ID" class="w-full bg-black/60 border border-white/5 p-4 focus:border-gold-bg outline-none text-white italic text-xs">
+                    <input id="form-discord-locked" readonly class="w-full locked-field p-4 outline-none italic text-xs">
                 </div>
-                <div class="space-y-2">
-                    <label class="text-[9px] gold-text uppercase font-bold italic tracking-widest">Character Backstory</label>
-                    <textarea id="form-backstory" class="w-full bg-black/60 border border-white/5 p-4 h-[142px] focus:border-gold-bg outline-none text-white italic text-xs leading-relaxed" placeholder="Tell us who you are in INWI City..."></textarea>
-                </div>
+                <textarea id="form-backstory" class="w-full bg-black/60 border border-white/5 p-4 h-[142px] focus:border-gold-bg outline-none text-white italic text-xs leading-relaxed" placeholder="Character Backstory (Min. 50 words)"></textarea>
             </div>
-            <button onclick="finalManualSubmit()" class="w-full gold-bg text-black font-bold py-6 btn-font hover:bg-white transition uppercase italic text-xl">Submit to Overseers</button>
+            <button onclick="finalManualSubmit()" class="w-full gold-bg text-black font-bold py-6 btn-font hover:bg-white transition uppercase italic text-xl">Transmit to Overseer</button>
         </div>
     </section>
 
@@ -107,7 +115,7 @@
         let player = { name: "Citizen", id: "0", avatar: "" };
 
         const examQuestions = [
-            { q: "Kidnapped and asked for your bank password at gunpoint. Action?", a: ["Give it to save life (Fail)", "Refuse (Powergaming)", "Tell them you forgot"], c: 1 },
+            { q: "Kidnapped and asked for your bank password at gunpoint. Action?", a: ["Give it to save life (Fail)", "Refuse (Powergaming)", "Comply but call police later"], c: 1 },
             { q: "A police officer makes a rule mistake during arrest. Action?", a: ["Argue OOC in-game", "Continue RP and report later", "Refuse to play"], c: 1 },
             { q: "Recognize a masked rival gang member by voice. Action?", a: ["Call them by name", "Treat as stranger (Voice recognition is Meta)", "Ignore them"], c: 1 },
             { q: "Robber gets distracted, you have a gun in your bag. Action?", a: ["Shoot him", "Keep hands up (Fear RP)", "Run away"], c: 1 },
@@ -150,43 +158,24 @@
             updateDashboardUI(); 
         }
 
-   function updateDashboardUI() {
-    const status = localStorage.getItem('inwi_app_status') || 'new';
-    const content = document.getElementById('dash-content-visa');
-    const statusLabel = document.getElementById('id-status-text'); // The status element
+        function updateDashboardUI() {
+            const status = localStorage.getItem('inwi_app_status') || 'new';
+            const content = document.getElementById('dash-content-visa');
+            const statusLabel = document.getElementById('id-status-text');
+            const radmin = document.getElementById('radmin-panel');
 
-    if (status === 'approved') {
-        // 1. Update the Status Label to Green and change text
-        if (statusLabel) {
-            statusLabel.innerText = "Status: Authorized";
-            statusLabel.classList.remove('text-red-500');
-            statusLabel.classList.add('text-green-500');
+            if (status === 'approved') {
+                statusLabel.innerText = "Status: Authorized";
+                statusLabel.classList.replace('text-red-500', 'text-green-500');
+                radmin.classList.remove('hidden');
+
+                content.innerHTML = `<div class="glass p-10 border-2 border-gold-bg/40 text-center animate-in"><h3 class="gold-text text-3xl font-bold uppercase italic">Clearance Verified</h3><p class="text-gray-500 text-[10px] mb-8 uppercase tracking-[0.3em]">Identity Synchronized | Network Access Granted</p><a href="https://inwi.tebex.io/" target="_blank" class="block gold-bg text-black py-5 btn-font font-bold uppercase italic mt-6 hover:bg-white transition shadow-2xl">Visit Tebex Store</a></div>`;
+            } else if (status === 'pending') {
+                content.innerHTML = `<div class="p-12 glass cyber-border text-center animate-in"><input id="key-in" placeholder="ENTER APPROVAL KEY" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none font-mono focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase hover:bg-white transition">Synchronize Identity</button></div>`;
+            } else {
+                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-24 btn-font font-bold text-5xl italic shadow-2xl uppercase hover:scale-[1.01] transition">Initiate Evaluation</button>`;
+            }
         }
-
-        // 2. Update the Main Content area
-        content.innerHTML = `
-            <div class="glass p-10 border-2 border-gold-bg/40 text-center animate-in">
-                <h3 class="gold-text text-4xl font-bold uppercase italic mb-2">Clearance Verified</h3>
-                <p class="text-gray-500 text-[10px] mb-8 uppercase tracking-[0.3em]">Identity Synchronized with INWI Registry</p>
-                <a href="https://your-store.tebex.io" target="_blank" class="block gold-bg text-black py-6 btn-font font-bold uppercase italic text-xl hover:bg-white transition shadow-2xl">
-                    Visit Tebex Store
-                </a>
-            </div>`;
-            
-    } else if (status === 'pending') {
-        content.innerHTML = `
-            <div class="p-12 glass cyber-border text-center animate-in">
-                <p class="text-gold-text text-[10px] mb-4 uppercase font-bold tracking-widest italic text-center">Awaiting Overseer Approval</p>
-                <input id="key-in" placeholder="ENTER APPROVAL KEY" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none font-mono focus:border-gold-bg">
-                <button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase hover:bg-white transition">Synchronize Identity</button>
-            </div>`;
-    } else {
-        content.innerHTML = `
-            <button onclick="startExam()" class="gold-bg text-black w-full py-24 btn-font font-bold text-5xl italic shadow-2xl uppercase hover:scale-[1.01] transition">
-                Initiate Evaluation
-            </button>`;
-    }
-}
 
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
         function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-8 cyber-border animate-in"><p class="gold-text text-[10px] font-bold mb-4 italic uppercase tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[10px] uppercase cursor-pointer hover:bg-gold-bg/10 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
@@ -199,46 +188,47 @@
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
-                    content: passed ? `🏆 **PASS: <@${player.id}>**` : `💀 **FAIL: <@${player.id}>**`,
-                    embeds: [{ title: "EXAM LOG", color: passed ? 3066993 : 15158332, fields: [{name:"Score", value:`**${score}/10**`}] }]
+                    content: passed ? `✅ **PASS: <@${player.id}>**` : `💀 **FAIL: <@${player.id}>**`,
+                    embeds: [{ title: "EXAM RESULTS", color: passed ? 3066993 : 15158332, fields: [{name:"Score", value:`**${score}/10**`}] }]
                 })
             });
 
             if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); } 
-            else { alert(`Evaluation failed. Score: ${score}/10. (Min. 7/10 required)`); location.reload(); }
+            else { alert(`Failed. Score: ${score}/10 (Min 7/10).`); location.reload(); }
         }
 
         async function finalManualSubmit() {
             const tebex = document.getElementById('form-tebex').value.trim();
             const bio = document.getElementById('form-backstory').value.trim();
-            if(!tebex || !bio) { alert("Missing credentials."); return; }
+            if(!tebex || bio.length < 50) { alert("Please provide Tebex ID and a detailed backstory."); return; }
 
             const key = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
             await fetch(STAFF_WEBHOOK, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    content: `🚨 **REGISTRY PING: <@${player.id}>**`,
+                    content: `🚨 **NEW APPLICATION: <@${player.id}>**`,
                     embeds: [{
-                        title: "INWI AUTHORITY HUB | MANUAL REVIEW",
+                        title: "INWI REGISTRY REVIEW",
                         color: 13936439,
                         fields: [
                             { name: "👤 DISCORD", value: `<@${player.id}>\nID: \`${player.id}\``, inline: true },
                             { name: "💳 TEBEX ID", value: `\`${tebex}\``, inline: true },
                             { name: "🔑 ASSIGNED KEY", value: `\`${key}\``, inline: true },
                             { name: "📖 BACKSTORY", value: `\`\`\`${bio}\`\`\`` },
-                            { name: "⚡ AUTHORIZE", value: `[✅ APPROVE CITIZEN](${REDIRECT}?key=${key})` }
+                            { name: "⚡ AUTHORIZE", value: `[✅ APPROVE](${REDIRECT}?key=${key})` }
                         ]
                     }]
                 })
             });
             localStorage.setItem('inwi_staff_key', key);
             localStorage.setItem('inwi_app_status', 'pending');
-            alert("Application transmitted to the Overseers."); location.reload();
+            alert("Transmission complete. Awaiting Overseer Review."); location.reload();
         }
 
-        function verifyKey() { if(document.getElementById('key-in').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("SYNC ERROR: Invalid Key."); } }
+        function verifyKey() { if(document.getElementById('key-in').value.trim().toUpperCase() === localStorage.getItem('inwi_staff_key')) { localStorage.setItem('inwi_app_status', 'approved'); updateDashboardUI(); } else { alert("INVALID KEY."); } }
         function accessStaffTerminal() { if(prompt("OVERSEER CODE:") === "INWI2026") { localStorage.setItem('inwi_app_status', 'approved'); location.reload(); } }
+        function copyText(t) { navigator.clipboard.writeText(t); alert("Copied: " + t); }
     </script>
 </body>
 </html>
