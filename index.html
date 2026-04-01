@@ -9,25 +9,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;700&display=swap');
         :root { --gold: #d4af37; --bg: #030303; }
         body { background-color: var(--bg); color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
         .gold-text { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
         .gold-bg { background: var(--gold); }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .cyber-border { border: 1px solid rgba(212, 175, 55, 0.15); position: relative; }
         .id-card { background: linear-gradient(165deg, #111 0%, #080808 100%); border: 1px solid rgba(212, 175, 55, 0.15); }
         h1, h2, h3, .btn-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.5s ease-out forwards; }
-        
         .stream-card iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(212, 175, 55, 0.2); }
         input, textarea { transition: all 0.3s ease; }
         input:focus, textarea:focus { border-color: var(--gold) !important; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
-
-        @media (max-width: 768px) {
-            .text-huge { font-size: 4rem !important; }
-            .mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        }
+        @media (max-width: 768px) { .text-huge { font-size: 4rem !important; } .mobile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; } }
     </style>
 </head>
 <body class="pb-10">
@@ -48,7 +41,7 @@
     <section id="step-1" class="h-screen flex flex-col justify-center items-center px-6 text-center relative overflow-hidden">
         <div class="z-10 animate-in">
             <h1 class="text-huge text-6xl md:text-[10rem] font-bold mb-4 tracking-tighter italic opacity-80 uppercase">INWI</h1>
-            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic font-bold">Authorized Partner: Aditya Birla Products</p>
+            <p class="text-gray-500 uppercase tracking-[0.5em] text-[8px] md:text-[10px] mb-12 italic font-bold">Authorized Partner:INWI RP</p>
             <button id="btn-discord" onclick="discordLogin()" class="gold-bg text-black w-full md:w-auto px-12 py-5 btn-font font-bold text-lg hover:scale-105 transition shadow-lg">Verify Identity</button>
             <div id="login-ready" class="hidden">
                 <button onclick="proceedToDashboard()" class="border-2 border-gold-bg gold-text w-full md:w-auto px-12 py-5 btn-font hover:bg-gold-bg hover:text-black transition text-lg italic">Initiate Clearance</button>
@@ -58,7 +51,6 @@
 
     <section id="dashboard" class="hidden max-w-7xl mx-auto pt-24 md:pt-44 px-4 md:px-8 animate-in">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12">
-            
             <div class="lg:col-span-4 space-y-6">
                 <div class="id-card p-6 md:p-10 cyber-border">
                     <div class="flex flex-row lg:flex-col items-center gap-6 lg:text-center">
@@ -69,22 +61,19 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="glass p-6 border-l-4 border-gold-bg">
-                    <h4 class="text-white font-bold text-[10px] uppercase tracking-widest mb-4 italic text-center">Communications</h4>
                     <div class="mobile-grid space-y-3">
-                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase hover:opacity-90 transition rounded-sm">Join Discord</a>
-                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text hover:bg-gold-bg hover:text-black transition uppercase font-bold rounded-sm">Radmin VPN</a>
+                        <a href="https://discord.gg/Fa6Mb5W9x5" target="_blank" class="flex items-center justify-center gap-2 bg-[#5865F2] text-white py-3 text-[9px] font-bold uppercase rounded-sm">Join Discord</a>
+                        <a href="https://www.radmin-vpn.com/" target="_blank" class="block text-center border border-white/10 py-3 text-[9px] gold-text uppercase font-bold rounded-sm">Radmin VPN</a>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-6">
                 <div id="dash-content-visa" class="min-h-[300px] md:min-h-[500px]"></div>
-
                 <div id="dash-content-media" class="hidden animate-in">
-                    <div class="glass p-6 md:p-10 cyber-border">
-                        <h3 class="gold-text text-xl md:text-2xl font-bold italic mb-6 uppercase">Live Feed Registry</h3>
+                    <div class="glass p-10 cyber-border">
+                        <h3 class="gold-text text-xl font-bold italic mb-6 uppercase">Live Feed Registry</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="live-grid">
                             <div class="stream-card bg-black/40 p-2 border border-white/5">
                                 <iframe src="https://www.youtube.com/embed/live_stream?channel=UC8" frameborder="0" allowfullscreen></iframe>
@@ -93,11 +82,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="dash-content-tebex" class="hidden animate-in">
                     <div class="glass p-12 cyber-border text-center">
-                        <h3 class="gold-text text-4xl font-bold italic mb-6">OFFICIAL STORE</h3>
-                        <a href="https://inwi.tebex.io/" target="_blank" class="inline-block gold-bg text-black px-12 py-5 btn-font font-bold text-lg hover:bg-white transition italic">Browse Catalog</a>
+                        <h3 class="gold-text text-4xl font-bold italic mb-6 uppercase">OFFICIAL STORE</h3>
+                        <a href="https://inwi.tebex.io/" target="_blank" class="inline-block gold-bg text-black px-12 py-5 btn-font font-bold text-lg italic">Visit Storefront</a>
                     </div>
                 </div>
             </div>
@@ -106,14 +94,13 @@
 
     <section id="exam-section" class="hidden max-w-4xl mx-auto pt-44 px-8 pb-20">
         <div id="quiz-container" class="grid grid-cols-1 gap-4"></div>
-        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-8 hover:bg-white transition uppercase italic">Transmit Evaluation</button>
+        <button onclick="evaluateExam()" class="w-full gold-bg text-black font-bold py-6 btn-font text-xl mt-8 italic uppercase">Transmit Evaluation</button>
     </section>
 
     <section id="bio-section" class="hidden max-w-4xl mx-auto pt-44 px-8 pb-20">
         <div class="glass p-8 md:p-12 cyber-border">
-            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-2 italic uppercase text-center tracking-tighter">Manual Clearance Form</h2>
-            <p class="text-[9px] text-gray-500 uppercase text-center mb-10 tracking-[0.4em] italic font-bold">Registry Verification: Level 2</p>
-            
+            <h2 class="text-2xl md:text-4xl font-bold gold-text mb-2 italic uppercase text-center tracking-tighter">Citizen Registry Form</h2>
+            <p class="text-[9px] text-gray-500 uppercase text-center mb-10 tracking-[0.4em] italic font-bold">Manual Verification Required</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <div class="space-y-6">
                     <div class="space-y-2">
@@ -121,37 +108,44 @@
                         <input id="form-tebex" placeholder="tbx-xxxxxxx-xxxxxx" class="w-full bg-black/60 border border-white/5 p-4 focus:border-gold-bg outline-none text-white italic text-xs">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] gold-text uppercase font-bold italic tracking-widest">Discord Username & ID</label>
+                        <label class="text-[10px] gold-text uppercase font-bold italic tracking-widest">Discord Username</label>
                         <input id="form-discord" placeholder="Username#0000" class="w-full bg-black/60 border border-white/5 p-4 focus:border-gold-bg outline-none text-white italic text-xs">
                     </div>
                 </div>
-
                 <div class="space-y-2">
                     <label class="text-[10px] gold-text uppercase font-bold italic tracking-widest">Character Backstory</label>
-                    <textarea id="form-backstory" class="w-full bg-black/60 border border-white/5 p-4 h-[168px] focus:border-gold-bg outline-none text-white italic text-xs leading-relaxed" 
-                    placeholder="Provide a detailed history of your character..."></textarea>
+                    <textarea id="form-backstory" class="w-full bg-black/60 border border-white/5 p-4 h-[168px] focus:border-gold-bg outline-none text-white italic text-xs leading-relaxed" placeholder="Detailed character history..."></textarea>
                 </div>
             </div>
-
-            <button onclick="finalManualSubmit()" class="w-full gold-bg text-black font-bold py-6 btn-font hover:bg-white transition uppercase italic text-xl shadow-2xl">
-                Submit for Overseer Review
-            </button>
+            <button onclick="finalManualSubmit()" class="w-full gold-bg text-black font-bold py-6 btn-font hover:bg-white transition uppercase italic text-xl">Submit to Overseer</button>
         </div>
     </section>
 
     <script>
-        // --- CONFIGURATION ---
+        // CONFIG
+        const CLIENT_ID = "1481267542780809328";
         const OVERSEER_IDS = ["1481267542780809328"]; 
         const PASS_THRESHOLD = 7;
         const STAFF_PASSCODE = "INWI2026";
-        const CLIENT_ID = "1481267542780809328";
         const STAFF_WEBHOOK = "https://discord.com/api/webhooks/1487348185692242000/IpZxAEDeXST-PgPs1F6_R-1KPa3prIcBOOw-uMzL61hevvWaAA4M0tX8sM1ac3wCDhOq";
-        const RESULT_WEBHOOK = "https://discordapp.com/api/webhooks/1487876312277450893/NRXkmL2__jCntdz5Q690aDNw_EBZAGMK_eFi189ePZXni6SmR7AvZ16f0mrDkaMu2jvu";
+        const RESULT_WEBHOOK = "https://discordapp.com/api/webhooks/1487876312277450893/NRXkmL2__jCntdz5Q690aDNw_EBZAGMK_eFi189ePZXni6SmR7AvZ16f0mrDkaMu2jvu"; 
         const REDIRECT = window.location.origin + window.location.pathname;
 
         let player = { name: "Citizen", id: "0", avatar: "" };
 
-        // --- AUTH SYSTEM ---
+        const examQuestions = [ 
+            { q: "What is Fear RP?", a: ["Running from police", "Valuing your life above all", "Fighting back"], c: 1 },
+            { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing well", "Talking loud"], c: 0 },
+            { q: "What is NLR?", a: ["New car", "Forgetting events after death", "Moving house"], c: 1 },
+            { q: "What is RDM?", a: ["Killing with reason", "Killing without RP reason", "Dying in car"], c: 1 },
+            { q: "What is VDM?", a: ["Racing", "Using vehicle as weapon", "Fixing car"], c: 1 },
+            { q: "What is Powergaming?", a: ["Doing impossible things", "High FPS", "Gang leader"], c: 0 },
+            { q: "Recognize masked people by voice?", a: ["Yes", "No (Forbidden)", "Only friends"], c: 1 },
+            { q: "Gun pointed at you?", a: ["Shoot", "Comply (Fear RP)", "Run"], c: 1 },
+            { q: "What is OOC?", a: ["In character", "Out of character", "Radio"], c: 1 },
+            { q: "Robbing bank balances?", a: ["Yes", "No (Prohibited)", "Only staff"], c: 1 } 
+        ];
+
         window.onload = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('key')) { 
@@ -181,87 +175,69 @@
             updateDashboardUI(); 
         }
 
-        // --- DASHBOARD UI LOGIC ---
         function updateDashboardUI() {
             const status = localStorage.getItem('inwi_app_status') || 'new';
             const content = document.getElementById('dash-content-visa');
             const idStatus = document.getElementById('id-status-text');
 
-            // STAFF OVERRIDE
             if (OVERSEER_IDS.includes(player.id)) {
-                idStatus.innerText = "OVERSEER CLEARANCE";
-                idStatus.className = "text-gold-text font-bold italic animate-pulse uppercase tracking-widest";
-                content.innerHTML = `<button onclick="window.location.href='fivem://connect/26.32.72.204'" class="gold-bg text-black w-full py-24 btn-font font-bold text-6xl italic shadow-2xl">Enter City</button>`;
+                idStatus.innerText = "OVERSEER CLEARANCE"; idStatus.className = "text-gold-text font-bold italic animate-pulse";
+                content.innerHTML = `<button onclick="window.location.href='fivem://connect/26.32.72.204'" class="gold-bg text-black w-full py-24 btn-font font-bold text-6xl italic">Enter City</button>`;
                 return;
             }
 
             if (status === 'approved') {
-                idStatus.innerText = "Clearance Verified"; idStatus.className = "text-green-500 italic font-bold uppercase";
-                content.innerHTML = `
-                    <div class="space-y-6 animate-in">
-                        <div class="relative opacity-30 grayscale cursor-not-allowed">
-                            <button disabled class="bg-white/5 text-white w-full py-16 btn-font font-bold text-4xl italic uppercase border border-white/10">Entry Locked</button>
-                        </div>
-                        <div class="glass p-10 border-2 border-gold-bg/40 text-center">
-                            <h3 class="gold-text text-2xl font-bold uppercase italic mb-2">Verified Citizen ID Required</h3>
-                            <p class="text-white/50 text-[10px] mb-8 italic uppercase tracking-widest">Entry button unlocks after Tebex verification sync.</p>
-                            <a href="https://inwi.tebex.io/" target="_blank" class="block gold-bg text-black py-5 btn-font font-bold uppercase italic hover:bg-white transition tracking-widest">Secure Credentials via Tebex</a>
-                        </div>
-                    </div>`;
+                idStatus.innerText = "Clearance Verified"; idStatus.className = "text-green-500 font-bold italic uppercase";
+                content.innerHTML = `<div class="glass p-10 border-2 border-gold-bg/40 text-center"><h3 class="gold-text text-2xl font-bold uppercase italic mb-2">Tebex Verification</h3><p class="text-white/50 text-[10px] mb-8 italic uppercase tracking-widest">Entry button unlocks after manual verification sync.</p><a href="https://inwi.tebex.io/" target="_blank" class="block gold-bg text-black py-5 btn-font font-bold uppercase italic">Secure Credentials via Tebex</a></div>`;
             } else if (status === 'pending') {
                 idStatus.innerText = "Manual Review"; idStatus.className = "text-blue-400 italic uppercase font-bold";
-                content.innerHTML = `<div class="p-12 glass cyber-border text-center"><h4 class="gold-text font-bold mb-4 uppercase text-sm tracking-widest">Registry Sync</h4><input id="key-in" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none font-mono focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase tracking-widest">Verify Identity</button></div>`;
+                content.innerHTML = `<div class="p-12 glass cyber-border text-center"><input id="key-in" placeholder="XXXX-XXXX" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase">Verify Identity</button></div>`;
             } else {
-                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-2xl uppercase">Begin Evaluation</button>`;
+                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-20 btn-font font-bold text-5xl italic shadow-2xl">Begin Evaluation</button>`;
             }
         }
 
-        // --- EXAM & FORM SUBMISSION ---
-        const examQuestions = [ 
-            { q: "What is Fear RP?", a: ["Running from police", "Valuing your life above all", "Fighting back"], c: 1 },
-            { q: "What is Metagaming?", a: ["Using Discord info in-game", "Playing well", "Talking loud"], c: 0 },
-            { q: "What is NLR?", a: ["New car", "Forgetting events after death", "Moving house"], c: 1 },
-            { q: "What is RDM?", a: ["Killing with reason", "Killing without RP reason", "Dying in car"], c: 1 },
-            { q: "What is VDM?", a: ["Racing", "Using vehicle as weapon", "Fixing car"], c: 1 },
-            { q: "What is Powergaming?", a: ["Doing impossible things", "High FPS", "Gang leader"], c: 0 },
-            { q: "Recognize masked people by voice?", a: ["Yes", "No (Forbidden)", "Only friends"], c: 1 },
-            { q: "Gun pointed at you?", a: ["Shoot", "Comply (Fear RP)", "Run"], c: 1 },
-            { q: "What is OOC?", a: ["In character", "Out of character", "Radio"], c: 1 },
-            { q: "Robbing bank balances?", a: ["Yes", "No (Prohibited)", "Only staff"], c: 1 } 
-        ];
-
-        function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
-        function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-10 cyber-border animate-in"><p class="gold-text uppercase text-[11px] font-bold mb-4 italic tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-5 border border-white/5 mt-3 text-[10px] uppercase cursor-pointer hover:bg-white/5 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
-        
         async function evaluateExam() { 
-            let score = 0; 
-            examQuestions.forEach((q, i) => { const sel = document.querySelector(`input[name="q${i}"]:checked`); if(sel && parseInt(sel.value) === q.c) score++; });
-            if(score >= PASS_THRESHOLD) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); } 
-            else { alert("Score Insufficient: " + score + "/10"); location.reload(); }
+            let score = 0; examQuestions.forEach((q, i) => { const sel = document.querySelector(`input[name="q${i}"]:checked`); if(sel && parseInt(sel.value) === q.c) score++; });
+            const passed = score >= PASS_THRESHOLD;
+            
+            // RESULTS WEBHOOK LOG
+            await fetch(RESULT_WEBHOOK, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    content: passed ? `✅ **PASS: <@${player.id}>**` : `❌ **FAIL: <@${player.id}>**`,
+                    embeds: [{ title: "EXAM RESULTS", color: passed ? 3066993 : 15158332, fields: [{name:"Score", value:`${score}/10`}] }]
+                })
+            });
+
+            if(passed) { document.getElementById('exam-section').classList.add('hidden'); document.getElementById('bio-section').classList.remove('hidden'); } 
+            else { alert("Score Insufficient."); location.reload(); }
         }
 
         async function finalManualSubmit() {
             const tebexId = document.getElementById('form-tebex').value.trim();
             const discordUser = document.getElementById('form-discord').value.trim();
             const backstory = document.getElementById('form-backstory').value.trim();
-
             if(!tebexId || !discordUser || !backstory) { alert("Documentation Incomplete."); return; }
 
             const key = "INWI-" + Math.random().toString(36).substring(2, 8).toUpperCase();
             
+            // STAFF WEBHOOK LOG
             await fetch(STAFF_WEBHOOK, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    content: `🚨 **NEW MANUAL CLEARANCE REQUEST**`,
+                    content: `🚨 **NEW REGISTRY SIGNAL: <@${player.id}>**`,
                     embeds: [{
-                        title: "CITIZEN REGISTRY LOG",
+                        title: "INWI AUTHORITY HUB | MANUAL REVIEW",
                         color: 13936439,
                         fields: [
-                            { name: "👤 DISCORD", value: `\`${discordUser}\``, inline: true },
+                            { name: "👤 DISCORD", value: `<@${player.id}> (${discordUser})`, inline: true },
                             { name: "💳 TEBEX ID", value: `\`${tebexId}\``, inline: true },
-                            { name: "🔑 KEY", value: `\`${key}\``, inline: true },
-                            { name: "📖 BACKSTORY", value: `\`\`\`${backstory}\`\`\`` }
+                            { name: "🔑 ASSIGNED KEY", value: `\`${key}\``, inline: true },
+                            { name: "📖 BACKSTORY", value: `\`\`\`${backstory}\`\`\`` },
+                            { name: "⚡ ACTION", value: `[AUTHORIZE CITIZENSHIP](${REDIRECT}?key=${key})` }
                         ]
                     }]
                 })
@@ -269,11 +245,9 @@
             
             localStorage.setItem('inwi_staff_key', key);
             localStorage.setItem('inwi_app_status', 'pending');
-            alert("Transmitted to Overseer Registry.");
-            location.reload();
+            alert("Application transmitted."); location.reload();
         }
 
-        // --- UTILS ---
         function switchTab(t) {
             ['visa', 'tebex', 'media'].forEach(tab => {
                 const el = document.getElementById(`dash-content-${tab}`);
