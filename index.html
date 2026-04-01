@@ -150,17 +150,43 @@
             updateDashboardUI(); 
         }
 
-        function updateDashboardUI() {
-            const status = localStorage.getItem('inwi_app_status') || 'new';
-            const content = document.getElementById('dash-content-visa');
-            if (status === 'approved') {
-                content.innerHTML = `<div class="glass p-10 border-2 border-gold-bg/40 text-center"><h3 class="gold-text text-2xl font-bold uppercase italic">Clearance Verified</h3><a href="https://inwi.tebex.io/" target="_blank" class="block gold-bg text-black py-5 btn-font font-bold uppercase italic mt-6 hover:bg-white transition">Visit Tebex Store</a></div>`;
-            } else if (status === 'pending') {
-                content.innerHTML = `<div class="p-12 glass cyber-border text-center"><input id="key-in" placeholder="ENTER APPROVAL KEY" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none font-mono focus:border-gold-bg"><button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase hover:bg-white transition">Synchronize Identity</button></div>`;
-            } else {
-                content.innerHTML = `<button onclick="startExam()" class="gold-bg text-black w-full py-24 btn-font font-bold text-5xl italic shadow-2xl uppercase hover:scale-[1.01] transition">Initiate Evaluation</button>`;
-            }
+   function updateDashboardUI() {
+    const status = localStorage.getItem('inwi_app_status') || 'new';
+    const content = document.getElementById('dash-content-visa');
+    const statusLabel = document.getElementById('id-status-text'); // The status element
+
+    if (status === 'approved') {
+        // 1. Update the Status Label to Green and change text
+        if (statusLabel) {
+            statusLabel.innerText = "Status: Authorized";
+            statusLabel.classList.remove('text-red-500');
+            statusLabel.classList.add('text-green-500');
         }
+
+        // 2. Update the Main Content area
+        content.innerHTML = `
+            <div class="glass p-10 border-2 border-gold-bg/40 text-center animate-in">
+                <h3 class="gold-text text-4xl font-bold uppercase italic mb-2">Clearance Verified</h3>
+                <p class="text-gray-500 text-[10px] mb-8 uppercase tracking-[0.3em]">Identity Synchronized with INWI Registry</p>
+                <a href="https://your-store.tebex.io" target="_blank" class="block gold-bg text-black py-6 btn-font font-bold uppercase italic text-xl hover:bg-white transition shadow-2xl">
+                    Visit Tebex Store
+                </a>
+            </div>`;
+            
+    } else if (status === 'pending') {
+        content.innerHTML = `
+            <div class="p-12 glass cyber-border text-center animate-in">
+                <p class="text-gold-text text-[10px] mb-4 uppercase font-bold tracking-widest italic text-center">Awaiting Overseer Approval</p>
+                <input id="key-in" placeholder="ENTER APPROVAL KEY" class="bg-black/50 border border-white/10 text-gold-text text-center p-6 w-full text-2xl uppercase mb-6 outline-none font-mono focus:border-gold-bg">
+                <button onclick="verifyKey()" class="w-full gold-bg text-black py-4 font-bold italic uppercase hover:bg-white transition">Synchronize Identity</button>
+            </div>`;
+    } else {
+        content.innerHTML = `
+            <button onclick="startExam()" class="gold-bg text-black w-full py-24 btn-font font-bold text-5xl italic shadow-2xl uppercase hover:scale-[1.01] transition">
+                Initiate Evaluation
+            </button>`;
+    }
+}
 
         function startExam() { document.getElementById('dashboard').classList.add('hidden'); document.getElementById('exam-section').classList.remove('hidden'); loadQuiz(); }
         function loadQuiz() { const c = document.getElementById('quiz-container'); c.innerHTML = ""; examQuestions.forEach((q, i) => { c.innerHTML += `<div class="glass p-8 cyber-border animate-in"><p class="gold-text text-[10px] font-bold mb-4 italic uppercase tracking-widest">PROTOCOL ${i+1}: ${q.q}</p>${q.a.map((ans, j) => `<label class="block p-4 border border-white/5 mt-3 text-[10px] uppercase cursor-pointer hover:bg-gold-bg/10 transition italic"><input type="radio" name="q${i}" value="${j}" class="mr-3"> ${ans}</label>`).join('')}</div>`; }); }
